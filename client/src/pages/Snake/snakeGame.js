@@ -29,7 +29,9 @@ export default function SnakeGame() {
     setGameOver(true);
   };
 
-  const keyDown = ({ keyCode }) => {
+  const keyDown = (e) => {
+    let keyCode = e.keyCode
+    e.preventDefault();
     if (keyCode >= 37 && keyCode <= 40) {
       setDir(DIRECTIONS[keyCode]);
     } else if (gameOver && keyCode === 32) {
@@ -111,7 +113,7 @@ export default function SnakeGame() {
     <div>
       <div style={{ outline: "none", display: "flex", justifyContent: "center" }} role="button" tabIndex="0" onKeyDown={e => keyDown(e)}>
         <canvas
-          style={{ border: "1px dashed black" }}
+          style={{border: "1px dashed black", backgroundColor: "#fefefe"}}
           ref={canvasRef}
           width={`${CANVAS_SIZE[0]}px`}
           height={`${CANVAS_SIZE[1]}px`}

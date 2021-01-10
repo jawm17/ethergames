@@ -5,16 +5,24 @@ import "./containerStyle.css";
 export default function Container() {
 
     return (
-        <div>   
+        <div>
             <div id="screen">
                 <SnakeGame />
             </div>
             <div id="info">
-                <div id="title">
-                    SNAKE
+                <div id="top">
+                    <div id="title">
+                        SNAKE
+                    </div>
+                    <div id="playBtn">
+                        play
+                    </div>
                 </div>
-                <div id="playBtn">
-                    play
+                <div id="leaderBoardArea">
+                    High Scores
+                    <div id="leaderBoard">
+
+                    </div>
                 </div>
             </div>
         </div>
