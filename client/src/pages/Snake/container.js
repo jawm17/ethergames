@@ -14,6 +14,12 @@ export default function Container() {
                     <div id="title">
                         SNAKE
                     </div>
+                    <div id="dot">
+
+                    </div>
+                    <div id="jackpot">
+                        Jackpot: 1.20433 ETH
+                    </div>
                     <div id="playBtn">
                         play
                     </div>

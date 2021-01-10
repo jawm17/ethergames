@@ -113,7 +113,7 @@ export default function SnakeGame() {
     <div>
       <div style={{ outline: "none", display: "flex", justifyContent: "center" }} role="button" tabIndex="0" onKeyDown={e => keyDown(e)}>
         <canvas
-          style={{border: "1px dashed black", backgroundColor: "#fefefe"}}
+          // style={{border: "1px dashed black", backgroundColor: "#fefefe"}}
           ref={canvasRef}
           width={`${CANVAS_SIZE[0]}px`}
           height={`${CANVAS_SIZE[1]}px`}
