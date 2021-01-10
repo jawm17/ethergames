@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useInterval } from "../useInterval";
+import { useInterval } from "./useInterval";
 import {
   CANVAS_SIZE,
   SNAKE_START,
@@ -7,7 +7,7 @@ import {
   SCALE,
   SPEED,
   DIRECTIONS
-} from "../constants";
+} from "./constants";
 
 export default function SnakeGame() {
   const canvasRef = useRef();

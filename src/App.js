@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router, Route, Switch } from "react-router-dom";
 import history from './history';
-import SnakeGame from "./pages/snakeGame";
+import SnakeGame from "./pages/Snake/snakeGame";
 import NoMatchPage from "./pages/noMatchPage";
 
 function App() {
