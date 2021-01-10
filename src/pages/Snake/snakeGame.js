@@ -15,7 +15,8 @@ export default function SnakeGame() {
   const [apple, setApple] = useState(APPLE_START);
   const [dir, setDir] = useState([0, -1]);
   const [speed, setSpeed] = useState(null);
-  const [gameOver, setGameOver] = useState(false);
+  const [gameOver, setGameOver] = useState(true);
+  const [score, setScore] = useState(0);
 
   useInterval(() => gameLoop(), speed);
 
@@ -24,8 +25,13 @@ export default function SnakeGame() {
     setGameOver(true);
   };
 
-  const moveSnake = ({ keyCode }) =>
-    keyCode >= 37 && keyCode <= 40 && setDir(DIRECTIONS[keyCode]);
+  const keyDown = ({ keyCode }) => {
+    if (keyCode >= 37 && keyCode <= 40) {
+      setDir(DIRECTIONS[keyCode]);
+    } else if (gameOver && keyCode === 32){
+      startGame();
+    }
+  }
 
   const createApple = () =>
     apple.map((_a, i) => Math.floor(Math.random() * (CANVAS_SIZE[i] / SCALE)));
@@ -48,6 +54,7 @@ export default function SnakeGame() {
   const checkAppleCollision = newSnake => {
     if (newSnake[0][0] === apple[0] && newSnake[0][1] === apple[1]) {
       let newApple = createApple();
+      setScore(score + 1);
       while (checkCollision(newApple, newSnake)) {
         newApple = createApple();
       }
@@ -72,6 +79,7 @@ export default function SnakeGame() {
     setDir([0, -1]);
     setSpeed(SPEED);
     setGameOver(false);
+    setScore(0);
   };
 
   useEffect(() => {
@@ -85,7 +93,7 @@ export default function SnakeGame() {
   }, [snake, apple, gameOver]);
 
   return (
-    <div role="button" tabIndex="0" onKeyDown={e => moveSnake(e)}>
+    <div role="button" tabIndex="0" onKeyDown={e => keyDown(e)}>
       <canvas
         style={{ border: "1px solid black" }}
         ref={canvasRef}
@@ -93,7 +101,9 @@ export default function SnakeGame() {
         height={`${CANVAS_SIZE[1]}px`}
       />
       {gameOver && <div>GAME OVER!</div>}
-      <button onClick={startGame}>Start Game</button>
+      <div>
+        score: {score}
+      </div>
     </div>
   );
 };
