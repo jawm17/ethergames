@@ -19,7 +19,9 @@ export default function Container() {
                     </div>
                 </div>
                 <div id="leaderBoardArea">
-                    High Scores
+                    <div id="leaderBoardTitle">
+                        High Scores
+                    </div>
                     <div id="leaderBoard">
 
                     </div>
