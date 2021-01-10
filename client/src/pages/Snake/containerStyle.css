@@ -1,0 +1,40 @@
+body{
+    padding: 0;
+    margin: 0;
+}
+
+#screen {
+    width: 100vw;
+    height: 680px;
+    background-color: #e9e9e9;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+#playBtn {
+    float: right;
+    margin-right: 40px;
+    margin-top: 30px;
+    height: 40px;
+    width: 80px;
+    border-style: solid;
+    border-radius: 6px;
+    border-color: #5DE900;
+    border-width: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: green;
+}
+
+#playBtn:hover {
+    cursor: pointer;
+}
+
+#title {
+    float: left;
+    margin-top: 30px;
+    margin-left: 40px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 20px;
+}

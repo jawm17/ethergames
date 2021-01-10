@@ -18,8 +18,6 @@ export default function SnakeGame() {
   const [gameOver, setGameOver] = useState(true);
   const [score, setScore] = useState(0);
 
-  var rectX = snake;
-  var rectY = snake;
   var rectWidth = 1;
   var rectHeight = 1;
   var cornerRadius = 0.2;
@@ -121,8 +119,8 @@ export default function SnakeGame() {
         <div>
         </div>
       </div>
-      {gameOver && <div>GAME OVER!</div>}
-          score: {score}
+      {/* {gameOver && <div>GAME OVER!</div>}
+      score: {score} */}
     </div>
   );
 };
