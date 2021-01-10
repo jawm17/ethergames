@@ -86,14 +86,14 @@ export default function SnakeGame() {
     const context = canvasRef.current.getContext("2d");
     context.setTransform(SCALE, 0, 0, SCALE, 0, 0);
     context.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    context.fillStyle = "pink";
+    context.fillStyle = "lightgreen";
     snake.forEach(([x, y]) => context.fillRect(x, y, 1, 1));
     context.fillStyle = "lightblue";
     context.fillRect(apple[0], apple[1], 1, 1);
   }, [snake, apple, gameOver]);
 
   return (
-    <div role="button" tabIndex="0" onKeyDown={e => keyDown(e)}>
+    <div style={{outline:"none", display: "flex", justifyContent: "center"}} role="button" tabIndex="0" onKeyDown={e => keyDown(e)}>
       <canvas
         style={{ border: "1px solid black" }}
         ref={canvasRef}
