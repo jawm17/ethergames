@@ -18,6 +18,12 @@ export default function SnakeGame() {
   const [gameOver, setGameOver] = useState(true);
   const [score, setScore] = useState(0);
 
+  var rectX = snake;
+  var rectY = snake;
+  var rectWidth = 1;
+  var rectHeight = 1;
+  var cornerRadius = 0.2;
+
   useInterval(() => gameLoop(), speed);
 
   const endGame = () => {
@@ -28,7 +34,7 @@ export default function SnakeGame() {
   const keyDown = ({ keyCode }) => {
     if (keyCode >= 37 && keyCode <= 40) {
       setDir(DIRECTIONS[keyCode]);
-    } else if (gameOver && keyCode === 32){
+    } else if (gameOver && keyCode === 32) {
       startGame();
     }
   }
@@ -87,23 +93,36 @@ export default function SnakeGame() {
     context.setTransform(SCALE, 0, 0, SCALE, 0, 0);
     context.clearRect(0, 0, window.innerWidth, window.innerHeight);
     context.fillStyle = "lightgreen";
-    snake.forEach(([x, y]) => context.fillRect(x, y, 1, 1));
-    context.fillStyle = "lightblue";
+    snake.forEach(([x, y]) => {
+
+      // Set faux rounded corners
+      context.lineJoin = "round";
+      context.lineWidth = cornerRadius;
+
+      // Change origin and dimensions to match true size (a stroke makes the shape a bit larger)
+      context.strokeStyle = "black";
+      context.strokeRect(x + (cornerRadius / 2), y + (cornerRadius / 2), rectWidth - cornerRadius, rectHeight - cornerRadius);
+      context.fillRect(x + (cornerRadius / 2), y + (cornerRadius / 2), rectWidth - cornerRadius, rectHeight - cornerRadius);
+
+    });
+    context.fillStyle = "red";
     context.fillRect(apple[0], apple[1], 1, 1);
   }, [snake, apple, gameOver]);
 
   return (
-    <div style={{outline:"none", display: "flex", justifyContent: "center"}} role="button" tabIndex="0" onKeyDown={e => keyDown(e)}>
-      <canvas
-        style={{ border: "1px solid black" }}
-        ref={canvasRef}
-        width={`${CANVAS_SIZE[0]}px`}
-        height={`${CANVAS_SIZE[1]}px`}
-      />
-      {gameOver && <div>GAME OVER!</div>}
-      <div>
-        score: {score}
+    <div>
+      <div style={{ outline: "none", display: "flex", justifyContent: "center" }} role="button" tabIndex="0" onKeyDown={e => keyDown(e)}>
+        <canvas
+          style={{ border: "1px dashed black" }}
+          ref={canvasRef}
+          width={`${CANVAS_SIZE[0]}px`}
+          height={`${CANVAS_SIZE[1]}px`}
+        />
+        <div>
+        </div>
       </div>
+      {gameOver && <div>GAME OVER!</div>}
+          score: {score}
     </div>
   );
 };
