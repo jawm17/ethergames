@@ -11,9 +11,27 @@ body{
     border-bottom-left-radius: 20px;
 }
 
+#container {
+    background-color: black;
+}
+
+#info {
+    background-color: black;
+    height: 100vh;
+    color: white;
+}
+
 #top {
     width: 100vw;
     float: left;
+}
+
+#score {
+    float: right;
+    margin-top: 40px;
+    margin-right: 40px;
+    font-family: 'Mina', sans-serif;
+    font-size: 20px;
 }
 
 #playBtn {
@@ -29,7 +47,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    color: green;
+    color: #69ff05;
     font-family: 'Mina', sans-serif;
 }
 
@@ -50,12 +68,21 @@ body{
     border-radius: 50%;
     width: 10px;
     height: 10px;
-    background-color: black;
+    background-color: white;
     margin-top: 43px;
     margin-left: 20px;
 }
 
 #jackpot {
+    float: left;
+    margin-top: 33px;
+    margin-left: 20px;
+    font-size: 20px;
+    font-family: 'Mina', sans-serif;
+    font-weight: 700px;
+}
+
+#highScore {
     float: left;
     margin-top: 33px;
     margin-left: 20px;
@@ -83,6 +110,7 @@ body{
     width: 90vw;
     height: 400px;
     border-style: solid;
-    border-color: black;
+    border-color: white;
+    background-color: white;
     border-radius: 12px;
 }
