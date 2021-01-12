@@ -15,7 +15,7 @@ function App() {
       <Navbar/>
       <UnPrivateRoute path="/login" component={Login}/>
       <UnPrivateRoute path="/register" component={Register}/>
-      <Route path="/snake" component={Container} />
+      <PrivateRoute path="/snake" component={Container} />
     </Router>
   );
 }
