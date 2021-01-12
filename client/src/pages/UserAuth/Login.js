@@ -34,7 +34,7 @@ const Login = props => {
 
     return (
         <div>
-            <h1 id="logo"><a href="index.html">Crypto Arcade</a></h1>
+            <h1 id="logo"><a href="/">Crypto Arcade</a></h1>
             <form autoComplete="off" className="form" name="login-form" onSubmit={onSubmit}>
                 <div className="control">
                     <h1>Log In</h1>
@@ -76,7 +76,7 @@ const Login = props => {
                     <div className="text">LOG IN</div>
                 </button>
                 <div className="dont-have">
-                    <p><a href="sign-up.html">Don't have an account? Sign Up</a></p>
+                    <p><a href="/register">Don't have an account? Sign Up</a></p>
                 </div>
             </form>
         </div>
