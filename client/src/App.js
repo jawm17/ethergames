@@ -1,24 +1,21 @@
 import React from 'react';
-import { Router, Route, Switch } from "react-router-dom";
-import history from './history';
-import NoMatchPage from "./pages/noMatchPage";
-import Container from "./pages/Snake/container";
-import Home from "./pages/Home/home";
-import SignIn from "./pages/Login/login";
-import Register from "./pages/Login/register";
+import Navbar from './Components/Navbar';
+import Login from './Components/Login';
+import Register from './Components/Register';
+import NoMatchPage from "./Pages/noMatchPage";
+import Container from "./Pages/Snake/container";
+import PrivateRoute from './hocs/PrivateRoute';
+import UnPrivateRoute from './hocs/UnPrivateRoute';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+
 
 function App() {
   return (
-    <Router history={history}>
-      <Switch>
-        <Route path="/snake" component={Container} />
-        <Route exact path="/" component={Home} />
-        <Route path="/login" component={SignIn} />
-        <Route path ="/register" component={Register} />
-        <Route path="/">
-          <NoMatchPage />
-        </Route>
-      </Switch>
+    <Router>
+      <Navbar/>
+      <UnPrivateRoute path="/login" component={Login}/>
+      <UnPrivateRoute path="/register" component={Register}/>
+      <Route path="/snake" component={Container} />
     </Router>
   );
 }
