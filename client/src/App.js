@@ -12,7 +12,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 function App() {
   return (
     <Router>
-      <Navbar/>
+      {/* <Navbar/> */}
       <UnPrivateRoute path="/login" component={Login}/>
       <UnPrivateRoute path="/register" component={Register}/>
       <PrivateRoute path="/snake" component={Container} />

@@ -10,6 +10,10 @@ import {
 } from "./constants";
 import "./containerStyle.css";
 
+var rectWidth = 1;
+var rectHeight = 1;
+var cornerRadius = 0.2;
+
 export default function Container() {
     const canvasRef = useRef();
     const [snake, setSnake] = useState(SNAKE_START);
@@ -18,10 +22,6 @@ export default function Container() {
     const [speed, setSpeed] = useState(null);
     const [gameOver, setGameOver] = useState(true);
     const [score, setScore] = useState(0);
-  
-    var rectWidth = 1;
-    var rectHeight = 1;
-    var cornerRadius = 0.2;
   
     useInterval(() => gameLoop(), speed);
   
