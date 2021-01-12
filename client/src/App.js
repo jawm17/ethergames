@@ -1,9 +1,10 @@
 import React from 'react';
 import Navbar from './Components/Navbar';
-import Login from './Components/Login';
-import Register from './Components/Register';
 import NoMatchPage from "./Pages/noMatchPage";
 import Container from "./Pages/Snake/container";
+import Login from "./Pages/UserAuth/Login";
+import Register from "./Pages/UserAuth/Register";
+
 import PrivateRoute from './hocs/PrivateRoute';
 import UnPrivateRoute from './hocs/UnPrivateRoute';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
