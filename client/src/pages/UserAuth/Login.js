@@ -14,7 +14,6 @@ const Login = props => {
     }
 
     const onSubmit = e => {
-        console.log("submitted");
         e.preventDefault();
         AuthService.login(user).then(data => {
             console.log(data);
@@ -26,7 +25,6 @@ const Login = props => {
             }
             else
                 setMessage(message);
-                console.log("unauth");
         });
     }
 
@@ -63,7 +61,7 @@ const Login = props => {
                         <div className="bg-inner" />
                     </div>
                 </div>
-                <button className="btn block-cube block-cube-hover" type="button" type="submit">
+                <button className="btn block-cube block-cube-hover" type="submit">
                     <div className="bg-top">
                         <div className="bg-inner" />
                     </div>

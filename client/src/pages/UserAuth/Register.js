@@ -1,67 +1,115 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from 'react';
+import AuthService from '../../Services/AuthService';
+import Message from '../../Components/Message';
 import "./AuthStyle.css";
 
-export default function Login() {
+const Register = props => {
+    const [user, setUser] = useState({ username: "", password: "", password2: "" });
+    const [message, setMessage] = useState(null);
+    let timerID = useRef(null);
+
+    useEffect(() => {
+        return () => {
+            clearTimeout(timerID);
+        }
+    }, []);
+
+    const onChange = e => {
+        setUser({ ...user, [e.target.name]: e.target.value });
+    }
+
+    const resetForm = () => {
+        setUser({ username: "", password: "", password2: "" });
+    }
+
+    const onSubmit = e => {
+        e.preventDefault();
+        // check if fields are filled
+        if (user.username && user.password && user.password2) {
+            // check if passwords match
+            if (user.password === user.password2) {
+                AuthService.register(user).then(data => {
+                    const { message } = data;
+                    setMessage(message);
+                    resetForm();
+                    if (!message.msgError) {
+                        timerID = setTimeout(() => {
+                            props.history.push('/login');
+                        }, 2000)
+                    }
+                });
+            } else {
+                setMessage({ msgBody: "Passwords don't match", msgError: true });
+            }
+        } else {
+            setMessage({ msgBody: "Please fill out all fields", msgError: true });
+        }
+    }
+
+
 
     return (
         <div>
-            <h1 id="logo"><a href="index.html">Crypto Arcade</a></h1>
-            <form autocomplete="off" class="form">
-                <div class="control">
+            <h1 id="logo"><a href="/">Crypto Arcade</a></h1>
+            <form autoComplete="off" className="form" onSubmit={onSubmit}>
+                <div className="control">
                     <h1>Sign up</h1>
                 </div>
-                <div class="control block-cube block-input">
-                    <input name="username" placeholder="Username" type="text" />
-                    <div class="bg-top">
-                        <div class="bg-inner"></div>
+                <div className="control block-cube block-input">
+                    <input name="username" placeholder="Username" type="text" onChange={onChange} />
+                    <div className="bg-top">
+                        <div className="bg-inner" />
                     </div>
-                    <div class="bg-right">
-                        <div class="bg-inner"></div>
+                    <div className="bg-right">
+                        <div className="bg-inner" />
                     </div>
-                    <div class="bg">
-                        <div class="bg-inner"></div>
-                    </div>
-                </div>
-                <div class="control block-cube block-input">
-                    <input name="password" placeholder="Password" type="password" />
-                    <div class="bg-top">
-                        <div class="bg-inner"></div>
-                    </div>
-                    <div class="bg-right">
-                        <div class="bg-inner"></div>
-                    </div>
-                    <div class="bg">
-                        <div class="bg-inner"></div>
+                    <div className="bg">
+                        <div className="bg-inner" />
                     </div>
                 </div>
-                <div class="control block-cube block-input">
-                    <input name="password" placeholder="Repeat Password" type="password" />
-                    <div class="bg-top">
-                        <div class="bg-inner"></div>
+                <div className="control block-cube block-input">
+                    <input name="password" placeholder="Password" type="password" onChange={onChange} />
+                    <div className="bg-top">
+                        <div className="bg-inner" />
                     </div>
-                    <div class="bg-right">
-                        <div class="bg-inner"></div>
+                    <div className="bg-right">
+                        <div className="bg-inner" />
                     </div>
-                    <div class="bg">
-                        <div class="bg-inner"></div>
+                    <div className="bg">
+                        <div className="bg-inner" />
                     </div>
                 </div>
-                <button class="btn block-cube block-cube-hover" type="button">
-                    <div class="bg-top">
-                        <div class="bg-inner"></div>
+                <div className="control block-cube block-input">
+                    <input name="password2" placeholder="Repeat Password" type="password" onChange={onChange} />
+                    <div className="bg-top">
+                        <div className="bg-inner" />
                     </div>
-                    <div class="bg-right">
-                        <div class="bg-inner"></div>
+                    <div className="bg-right">
+                        <div className="bg-inner" />
                     </div>
-                    <div class="bg">
-                        <div class="bg-inner"></div>
+                    <div className="bg">
+                        <div className="bg-inner" />
                     </div>
-                    <div class="text">SIGN UP</div>
+                </div>
+                <button className="btn block-cube block-cube-hover" type="submit">
+                    <div className="bg-top">
+                        <div className="bg-inner" />
+                    </div>
+                    <div className="bg-right">
+                        <div className="bg-inner" />
+                    </div>
+                    <div className="bg">
+                        <div className="bg-inner" />
+                    </div>
+                    <div className="text">SIGN UP</div>
                 </button>
-                <div class="already-have">
-                    <p><a href="log-in.html">Already have an account? Sign in</a></p>
+                <div className="already-have">
+                    {message ? <Message message={message} /> : null}
+                    <p><a href="/login">Already have an account? Sign in</a></p>
                 </div>
             </form>
         </div>
-    );
+    )
 }
+
+export default Register;

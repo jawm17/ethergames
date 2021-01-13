@@ -16,7 +16,6 @@ export default {
         })
     },
     register : user =>{
-        console.log(user);
         return fetch('/user/register',{
             method : "post",
             body : JSON.stringify(user),
