@@ -1,0 +1,189 @@
+:root {
+    --green: rgb(72, 254, 12);
+    --neon-text-color: rgb(0, 0, 0);
+}
+body {
+    background-color: #000000;
+    color: var(--green);
+    font-family: 'Mina', sans-serif;
+}
+/* Nav Bar */
+#navAccount {
+    background: black;
+    display: grid;
+    grid-template-columns: 10% 1fr 1fr 10%;
+    min-height: 8vh;
+    align-items: center;
+    width: 100vw;
+    border-bottom: solid white 2px;
+}
+a:-webkit-any-link {
+    color: var(--green);
+    cursor: pointer;
+    text-decoration: none;
+}
+#logo {
+    font-size: 1.5rem;
+    padding: 1rem;
+    text-transform: uppercase;
+    animation: flicker 1.5s infinite alternate;
+    width: 300px;
+    text-align: center;
+    margin: 5px;
+}
+
+#logo::-moz-selection {
+    color: var(--neon-text-color);
+}
+
+#logo::selection {
+    color: var(--neon-text-color);
+}
+
+#logo:focus {
+    outline: none;
+}
+
+/* Animate neon flicker */
+@keyframes flicker {
+    0%,
+    19%,
+    21%,
+    23%,
+    25%,
+    54%,
+    56%,
+    100% {
+        text-shadow: -0.2rem -0.2rem 1rem #fff, 0.2rem 0.2rem 1rem #fff,
+            0 0 2rem var(--neon-text-color), 0 0 4rem var(--neon-text-color),
+            0 0 6rem var(--neon-text-color), 0 0 8rem var(--neon-text-color),
+            0 0 10rem var(--neon-text-color);
+    }
+
+    20%,
+    24%,
+    55% {
+        text-shadow: none;
+    }
+}
+
+.nav-links {
+    scroll-behavior: smooth;
+    padding-left: 1500px;
+}
+
+.nav-links li {
+    list-style: none;
+}
+.nav-links a {
+    text-decoration: none;
+    letter-spacing: 3px;
+    font-size: 1rem;
+    padding: 10px;
+}
+/* both containers */
+.containerAccount {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+/* left container */
+.left-container {
+    height: 50vh;
+    width: 20%;
+    background: rgb(0, 0, 0);
+    border: solid white 2px;
+}
+.QR-code img {
+    width: 200px;
+    height: 200px;
+    padding: 20px 0px 0px 0px;
+    /* top right bottom left */
+}
+.username,
+.QR-code,
+.btn {
+    text-align: center;
+}
+.username {
+    font-size: 1.5rem;
+    padding-top: 15px;
+    text-decoration: underline;
+
+}
+.btn button{
+    font-family: 'Mina', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 99px;
+
+}
+/* right container */
+.right-container {
+    height: 50vh;
+    margin-left: 5px;
+    width: 60%;
+    background: rgb(0, 0, 0);
+    border: solid white 2px;
+}
+/* Style the tab */
+.tab-container {
+    margin: 10px;
+overflow: auto;    
+max-height: 47vh;
+    -ms-overflow-style: none !important;
+
+}
+.tab-container::-webkit-scrollbar {
+    display: none;
+}
+.tab {
+    position:sticky;
+	top:0;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #000000;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-family: 'Mina', sans-serif;
+    color: var(--green);
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    color: black;
+    background-color: white;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    color: black;
+    background-color: white;
+}
+
+/* Style the tab content */
+
+.tabcontent1 {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+.table{
+    text-align: center;
+}
+.tabcontent2 {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
