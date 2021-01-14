@@ -1,37 +1,40 @@
 /* Nav Bar */
-nav {
-    background: black;
-    display: grid;
-    grid-template-columns: 10% 1fr 1fr 10%;
-    min-height: 8vh;
+#nav {
+    background-color: black;
+    height: 90px;
+    display: flex;
     align-items: center;
     width: 100vw;
 }
+
 a:-webkit-any-link {
-    color: var(--green);
     cursor: pointer;
     text-decoration: none;
 }
-#logo {
+
+#logoMain {
+    color: var(--green);
     font-size: 1.5rem;
-    padding: 1rem;
+    float: left;
+    margin-left: 40px;
+    /* animation: flicker 1.5s infinite alternate; */
     text-transform: uppercase;
-    animation: flicker 1.5s infinite alternate;
-    width: 300px;
-    text-align: center;
-    margin: 5px;
 }
 
-#logo::-moz-selection {
+#logoMain::-moz-selection {
     color: var(--neon-text-color);
 }
 
-#logo::selection {
+#logoMain::selection {
     color: var(--neon-text-color);
 }
 
-#logo:focus {
+#logoMain:focus {
     outline: none;
+}
+
+#logoMain:hover {
+    cursor: pointer;
 }
 
 /* Animate neon flicker */
@@ -58,20 +61,18 @@ a:-webkit-any-link {
 }
 
 .nav-links {
+    width: 200px;
     display: flex;
-    justify-content: space-around;
-    width: 45%;
-    justify-self: end;
-    scroll-behavior: smooth;
-    padding-left: 1200px;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 0;
 }
 
-.nav-links li {
-    list-style: none;
+.nav-links div{
+    margin-right: 20px;
 }
-.nav-links a {
-    text-decoration: none;
-    letter-spacing: 3px;
-    font-size: 1rem;
-    padding: 10px;
+
+.nav-links div:hover{
+    cursor: pointer;
 }

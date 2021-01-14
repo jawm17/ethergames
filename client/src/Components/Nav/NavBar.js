@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import history from "../../history";
 import AuthService from '../../Services/AuthService';
 import { AuthContext } from '../../Context/AuthContext';
+import "./navBarStyle.css";
 
 
 const NavBar = props => {
@@ -19,12 +20,12 @@ const NavBar = props => {
     const unauthenticatedNavBar = () => {
         return (
             <>
-                <nav>
-                    <h1 id="logo"><a href="/">Crypto Arcade</a></h1>
-                    <ul className="nav-links">
-                        <li><a href="/">Arcade</a></li>
-                        <li><a href="/register">Sign Up</a></li>
-                    </ul>
+                <nav id="nav">
+                    <h1 id="logoMain" onClick={() => history.push("/")}>Crypto Arcade</h1>
+                    <div className="nav-links">
+                        <div onClick={() => history.push("/")}>Arcade</div>
+                        <div onClick={() => history.push("/register")}>Sign Up</div>
+                    </div>
                 </nav>
             </>
         )
@@ -33,12 +34,12 @@ const NavBar = props => {
     const authenticatedNavBar = () => {
         return (
             <>
-                <nav>
-                    <h1 id="logo"><a href="/">Crypto Arcade</a></h1>
-                    <ul className="nav-links">
-                        <li><a href="/">Arcade</a></li>
-                        <li><a href="/account">Wallet</a></li>
-                    </ul>
+                <nav id="nav">
+                    <h1 id="logoMain" onClick={() => history.push("/")}>Crypto Arcade</h1>
+                    <div className="nav-links">
+                        <div onClick={() => history.push("/")}>Arcade</div>
+                        <div onClick={() => history.push("/account")}>Wallet</div>
+                    </div>
                 </nav>
             </>
         )
