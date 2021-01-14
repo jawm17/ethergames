@@ -11,7 +11,15 @@ const UserSchema = new mongoose.Schema({
     password : {
         type : String,
         required : true
-    }
+    },
+    address: {
+        type: String,
+        required: true
+    },
+    key: {
+        type: String,
+        required: true
+    },
 });
 
 UserSchema.pre('save',function(next){

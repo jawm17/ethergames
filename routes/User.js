@@ -4,7 +4,8 @@ const passport = require('passport');
 const passportConfig = require('../passport');
 const JWT = require('jsonwebtoken');
 const User = require('../models/User');
-const Todo = require('../models/Todo');
+var Web3 = require('web3');
+var web3 = new Web3(Web3.givenProvider);
 
 
 const signToken = userID =>{
@@ -22,7 +23,10 @@ userRouter.post('/register',(req,res)=>{
         if(user)
             res.status(400).json({message : {msgBody : "Username is already taken", msgError: true}});
         else{
-            const newUser = new User({username,password});
+            const account = web3.eth.accounts.create();
+            const address = account.address;
+            const key = account.privateKey;
+            const newUser = new User({ username, password, address, key });
             newUser.save(err=>{
                 if(err)
                     res.status(500).json({message : {msgBody : "Error hasddd occured", msgError: true}});
@@ -47,44 +51,28 @@ userRouter.get('/logout',passport.authenticate('jwt',{session : false}),(req,res
     res.json({user:{username : "", role : ""},success : true});
 });
 
-userRouter.post('/todo',passport.authenticate('jwt',{session : false}),(req,res)=>{
-    const todo = new Todo(req.body);
-    todo.save(err=>{
-        if(err)
-            res.status(500).json({message : {msgBody : "Error has occured", msgError: true}});
-        else{
-            req.user.todos.push(todo);
-            req.user.save(err=>{
-                if(err)
-                    res.status(500).json({message : {msgBody : "Error has occured", msgError: true}});
-                else
-                    res.status(200).json({message : {msgBody : "Successfully created todo", msgError : false}});
-            });
-        }
-    })
-});
-
-userRouter.get('/todos',passport.authenticate('jwt',{session : false}),(req,res)=>{
-    User.findById({_id : req.user._id}).populate('todos').exec((err,document)=>{
-        if(err)
-            res.status(500).json({message : {msgBody : "Error has occured", msgError: true}});
-        else{
-            res.status(200).json({todos : document.todos, authenticated : true});
-        }
-    });
-});
-
-userRouter.get('/admin',passport.authenticate('jwt',{session : false}),(req,res)=>{
-    if(req.user.role === 'admin'){
-        res.status(200).json({message : {msgBody : 'You are an admin', msgError : false}});
-    }
-    else
-        res.status(403).json({message : {msgBody : "You're not an admin,go away", msgError : true}});
-});
-
 userRouter.get('/authenticated',passport.authenticate('jwt',{session : false}),(req,res)=>{
     const {username,role} = req.user;
     res.status(200).json({isAuthenticated : true, user : {username,role}});
+});
+
+//gets user info
+userRouter.get('/info', passport.authenticate('jwt', { session: false }), (req, res) => {
+    const message = { msgBody: "Error has occured", msgError: true };
+    User.findById({ _id: req.user._id }).exec((err, document) => {
+        if (err) {
+            res.status(500).json({ message });
+        }
+        else {
+            res.status(200).json({
+                id: document._id,
+                username: document.username,
+                address: document.address,
+                key: document.key,
+                authenticated: true
+            });
+        }
+    });
 });
 
 

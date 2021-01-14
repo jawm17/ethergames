@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import history from "../../history";
-import AuthService from '../../Services/AuthService';
-import { AuthContext } from '../../Context/AuthContext';
+import AuthService from '../../services/AuthService';
+import { AuthContext } from '../../context/AuthContext';
 import "./navBarStyle.css";
 
 

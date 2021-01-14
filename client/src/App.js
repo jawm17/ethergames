@@ -1,10 +1,10 @@
 import React from 'react';
-import NoMatchPage from "./Pages/noMatchPage";
-import Container from "./Pages/Snake/container";
-import Login from "./Pages/UserAuth/Login";
-import Register from "./Pages/UserAuth/Register";
-import Home from "./Pages/Home/home";
-import Account from "./Pages/Account/account";
+import NoMatchPage from "./pages/noMatchPage";
+import Container from "./pages/Snake/container";
+import Login from "./pages/UserAuth/Login";
+import Register from "./pages/UserAuth/Register";
+import Home from "./pages/Home/home";
+import Account from "./pages/Account/account";
 
 import history from './history';
 import PrivateRoute from './hocs/PrivateRoute';

@@ -1,8 +1,34 @@
-import React from "react";
+import React, {useState, useEffect, useContext} from "react";
+import UserService from '../../services/UserService';
+import { AuthContext } from '../../context/AuthContext';
 import history from "../../history";
 import "./accountStyle.css";
+const QRCode = require('qrcode');
 
 export default function Account() {
+    const [qrCode, setQrCode] = useState("");
+    const authContext = useContext(AuthContext);
+
+    useEffect(() => {
+        getWalletInfo();
+    });
+
+    function getWalletInfo() {
+        UserService.getUserInfo().then(data => {
+            const { message } = data;
+            if (!message) {
+                // generate qr code based on address
+                QRCode.toDataURL(data.address, function (err, url) {
+                    setQrCode(url);
+                })
+            }
+            else if (message.msgBody === "Unauthorized") {
+                //Replace with middleware 
+                authContext.setUser({ username: "" });
+                authContext.setIsAuthenticated(false);
+            }
+        });
+    }
 
     function openCity(evt, tab) {
         // Declare all variables
@@ -43,7 +69,7 @@ export default function Account() {
                         <h1>Username</h1>
                     </div>
                     <div className="QR-code">
-                        <img src="https://www.kaspersky.com/content/en-global/images/repository/isc/2020/9910/a-guide-to-qr-codes-and-how-to-scan-qr-codes-2.png" alt="" />
+                        <img src={qrCode} alt="" />
                     </div>
                     <div className="btn">
                         <button>Send</button>

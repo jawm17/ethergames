@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import AuthService from '../../Services/AuthService';
+import AuthService from '../../services/AuthService';
 import history from "../../history";
-import Message from '../../Components/Message';
+import Message from '../../components/Message';
 import "./AuthStyle.css";
 
 const Register = props => {
