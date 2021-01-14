@@ -15,20 +15,17 @@ body {
     letter-spacing: 0.05em;
 }
 /* logo */
-a:-webkit-any-link {
-    color: var(--green);
-    cursor: pointer;
-    text-decoration: none;
-}
+
 #logo {
     color: var(--green);
     font-size: 1.5rem;
     padding: 1rem;
     text-transform: uppercase;
     animation: flicker 1.5s infinite alternate;
-    width: 300px;
+    width: 230px;
     text-align: center;
     margin: 5px;
+    margin-left: 10px;
 }
 
 #logo::-moz-selection {
@@ -43,6 +40,10 @@ a:-webkit-any-link {
     outline: none;
 }
 
+#logo:hover {
+    cursor: pointer;
+}
+
 /* Animate neon flicker */
 @keyframes flicker {
     0%,
@@ -53,7 +54,7 @@ a:-webkit-any-link {
     54%,
     56%,
     100% {
-        text-shadow: -0.2rem -0.2rem 1rem #fff, 0.2rem 0.2rem 1rem #fff,
+        text-shadow: -0.2rem -0.2rem 1rem rgb(11, 255, 23), 0.2rem 0.2rem 1rem #fff,
             0 0 2rem var(--neon-text-color), 0 0 4rem var(--neon-text-color),
             0 0 6rem var(--neon-text-color), 0 0 8rem var(--neon-text-color),
             0 0 10rem var(--neon-text-color);

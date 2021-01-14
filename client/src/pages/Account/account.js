@@ -1,5 +1,5 @@
 import React from "react";
-import "./accountStyle.css"
+
 
 export default function Account() {
 

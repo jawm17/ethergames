@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
-import AuthService from '../../Services/AuthService';
 import Message from '../../Components/Message';
+import history from "../../history";
+import AuthService from '../../Services/AuthService';
 import { AuthContext } from '../../Context/AuthContext';
 import "./AuthStyle.css";
 
@@ -16,7 +17,6 @@ const Login = props => {
     const onSubmit = e => {
         e.preventDefault();
         AuthService.login(user).then(data => {
-            console.log(data);
             const { isAuthenticated, user, message } = data;
             if (isAuthenticated) {
                 authContext.setUser(user);
@@ -32,7 +32,7 @@ const Login = props => {
 
     return (
         <div>
-            <h1 id="logo"><a href="/">Crypto Arcade</a></h1>
+            <h1 id="logo" onClick={() => history.push("/")}>Crypto Arcade</h1>
             <form autoComplete="off" className="form" name="login-form" onSubmit={onSubmit}>
                 <div className="control">
                     <h1>Log In</h1>

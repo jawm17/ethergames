@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import AuthService from '../../Services/AuthService';
+import history from "../../history";
 import Message from '../../Components/Message';
 import "./AuthStyle.css";
 
@@ -50,7 +51,7 @@ const Register = props => {
 
     return (
         <div>
-            <h1 id="logo"><a href="/">Crypto Arcade</a></h1>
+            <h1 id="logo" onClick={() => history.push("/")}>Crypto Arcade</h1>
             <form autoComplete="off" className="form" onSubmit={onSubmit}>
                 <div className="control">
                     <h1>Sign up</h1>
