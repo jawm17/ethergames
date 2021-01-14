@@ -76,7 +76,7 @@ const Login = props => {
                     <div className="text">LOG IN</div>
                 </button>
                 <div className="dont-have">
-                    <p><a href="/register">Don't have an account? Sign Up</a></p>
+                    <a href="/register">Don't have an account? Sign Up</a>
                 </div>
             </form>
         </div>

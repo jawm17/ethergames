@@ -18,7 +18,8 @@ body {
     width: 100vw;
     background-color: #000000;
     color: var(--green);
-    font-family: 'Mina', sans-serif;
+    font-family: 'Orbitron', sans-serif;
+    /* font-family: 'Mina', sans-serif; */
     letter-spacing: 0.05em;
 }
 /* logo */
@@ -31,8 +32,11 @@ body {
 #logoAuth {
     color: var(--green);
     font-size: 1.5rem;
-    margin-left: 10px;
+    float: left;
+    margin-left: 40px;
+    margin-top: 25px;
     /* animation: flicker 1.5s infinite alternate; */
+    /* text-transform: uppercase; */
 }
 
 #logoAuth::-moz-selection {
@@ -113,6 +117,7 @@ body {
     font-weight: bold;
     font-family: monospace;
     font-size: 16px;
+    margin-bottom: 10px;
 }
 .block-cube {
     position: relative;
@@ -223,4 +228,3 @@ body {
     font-size: 12px;
     padding-left: 10px;
 }
-

@@ -51,7 +51,9 @@ const Register = props => {
 
     return (
         <div className="authBg">
-            <h1 id="logoAuth" onClick={() => history.push("/")}>Ether Games</h1>
+            <div id="authHeader">
+                <h1 id="logoAuth" onClick={() => history.push("/")}>Ether Games</h1>
+            </div>
             <form autoComplete="off" className="form" onSubmit={onSubmit}>
                 <div className="control">
                     <h1 className="title">Sign up</h1>
@@ -104,9 +106,9 @@ const Register = props => {
                     </div>
                     <div className="text">SIGN UP</div>
                 </button>
+                {message ? <Message message={message} /> : null}
                 <div className="already-have">
-                    {message ? <Message message={message} /> : null}
-                    <p><a href="/login">Already have an account? Sign in</a></p>
+                   <a href="/login">Already have an account? Sign in</a>
                 </div>
             </form>
         </div>
