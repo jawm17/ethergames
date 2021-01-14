@@ -2,8 +2,17 @@
     --green: rgb(72, 254, 12);
     --neon-text-color: rgb(0, 0, 0);
 }
+
+.homeArea {
+    background-color: #000000;
+    color: var(--green);
+    /* font-family: 'Orbitron', sans-serif; */
+    font-family: 'Mina', sans-serif;
+    letter-spacing: 0.05em;
+}
+
 /* Hero */
-section {
+.heroSection {
     height: 65vh;
     width: 100vw;
     background: url("https://wallpapercave.com/wp/wp6856178.jpg") no-repeat center center fixed;
@@ -13,7 +22,7 @@ section {
     background-size: cover;
 }
 
-section img {
+.heroSection img {
     height: 400px;
     width: 600px;
 }
@@ -21,50 +30,58 @@ section img {
 .hero {
     text-align: center;
 }
+
 #header {
     padding-top: 3rem;
     font-size: 2.2rem;
 }
 
-#slogen {
+#slogan {
     padding-top: 1rem;
     font-size: 1.2rem;
 }
+
 #search-bar {
     position: relative;
     top: 200px;
 }
+
 /* Game Section */
 .game-container {
-    background: black;
+    background-color: black;
     height: 200vh;
     width: 100vw;
 }
+
 .games {
     display: block;
     margin: auto;
     text-align: center;
 }
+
 .games li {
     border-radius: 15%;
-    background: rgb(8, 8, 8);
+    background-color: gray;
     width: 20%;
     display: inline-block;
     text-align: center;
     vertical-align: top;
     margin: 20px;
 }
+
 .icon {
     padding: 20px;
 }
+
 .icon img {
     width: 100%;
     height: auto;
     border-radius: 20%;
 }
+
 /* Footer */
-footer {
-    background: cyan;
+#footerHome {
+    background-color: cyan;
     height: 30vh;
     width: 100vw;
 }

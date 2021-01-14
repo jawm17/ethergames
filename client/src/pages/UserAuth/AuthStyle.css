@@ -3,6 +3,7 @@
 ::before {
     box-sizing: border-box;
 }
+
 :root {
     --green: rgb(72, 254, 12);
     --neon-text-color: rgb(0, 0, 0);
@@ -22,8 +23,8 @@ body {
     /* font-family: 'Mina', sans-serif; */
     letter-spacing: 0.05em;
 }
-/* logo */
 
+/* header */
 #authHeader {
     width: 100vw;
     height: 80px;

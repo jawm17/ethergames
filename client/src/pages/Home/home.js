@@ -1,20 +1,21 @@
 import React from "react";
 import NavBar from "../../Components/Nav/NavBar";
+import "./homeStyle.css";
 
 export default function Home() {
 
     return (
-        <div>
+        <div className="homeArea">
             {/* Nav Bar */}
             <header>
-                <NavBar/>
+                <NavBar />
                 {/* Hero */}
-                <section>
+                <section className="heroSection">
                     <div className="hero">
                         <div id="header">
                             <h1>Crypto Arcade</h1>
                         </div>
-                        <div id="slogen">
+                        <div id="slogan">
                             <h4>Play and win with the old games you know and love.</h4>
                         </div>
                         {/* <div id="search-bar">
@@ -117,7 +118,7 @@ export default function Home() {
                 </ul>
             </div>
             {/* Footer */}
-            <footer />
+            <footer id="footerHome" />
         </div>
     );
 }
