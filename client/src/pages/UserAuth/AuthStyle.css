@@ -10,37 +10,44 @@
 
 body {
     background-color: #000000;
+}
+
+.authBg {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-color: #000000;
     color: var(--green);
     font-family: 'Mina', sans-serif;
     letter-spacing: 0.05em;
 }
 /* logo */
 
-#logo {
+#authHeader {
+    width: 100vw;
+    height: 80px;
+}
+
+#logoAuth {
     color: var(--green);
     font-size: 1.5rem;
-    padding: 1rem;
-    text-transform: uppercase;
-    animation: flicker 1.5s infinite alternate;
-    width: 230px;
-    text-align: center;
-    margin: 5px;
     margin-left: 10px;
+    /* animation: flicker 1.5s infinite alternate; */
 }
 
-#logo::-moz-selection {
+#logoAuth::-moz-selection {
     color: var(--neon-text-color);
 }
 
-#logo::selection {
+#logoAuth::selection {
     color: var(--neon-text-color);
 }
 
-#logo:focus {
+#logoAuth:focus {
     outline: none;
 }
 
-#logo:hover {
+#logoAuth:hover {
     cursor: pointer;
 }
 
@@ -68,7 +75,7 @@ body {
 }
 
 /* form */
-h1 {
+.title {
     font-size: 23px;
 }
 .form {

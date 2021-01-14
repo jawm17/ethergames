@@ -50,11 +50,11 @@ const Register = props => {
 
 
     return (
-        <div>
-            <h1 id="logo" onClick={() => history.push("/")}>Crypto Arcade</h1>
+        <div className="authBg">
+            <h1 id="logoAuth" onClick={() => history.push("/")}>Ether Games</h1>
             <form autoComplete="off" className="form" onSubmit={onSubmit}>
                 <div className="control">
-                    <h1>Sign up</h1>
+                    <h1 className="title">Sign up</h1>
                 </div>
                 <div className="control block-cube block-input">
                     <input name="username" placeholder="Username" type="text" onChange={onChange} />

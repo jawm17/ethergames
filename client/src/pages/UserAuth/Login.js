@@ -31,11 +31,13 @@ const Login = props => {
 
 
     return (
-        <div>
-            <h1 id="logo" onClick={() => history.push("/")}>Crypto Arcade</h1>
+        <div className="authBg">
+            <div id="authHeader">
+                <h1 id="logoAuth" onClick={() => history.push("/")}>Ether Games</h1>
+            </div>
             <form autoComplete="off" className="form" name="login-form" onSubmit={onSubmit}>
                 <div className="control">
-                    <h1>Log In</h1>
+                    <h1 className="title">Log In</h1>
                 </div>
                 <div className="control block-cube block-input">
                     <input name="username" placeholder="Username" type="text" onChange={onChange} />
