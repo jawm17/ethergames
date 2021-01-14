@@ -2,7 +2,7 @@
     --green: rgb(72, 254, 12);
     --neon-text-color: rgb(0, 0, 0);
 }
-body {
+#accountArea {
     background-color: #000000;
     color: var(--green);
     font-family: 'Mina', sans-serif;
@@ -18,32 +18,34 @@ body {
     border-bottom: solid white 2px;
 }
 a:-webkit-any-link {
-    color: var(--green);
     cursor: pointer;
     text-decoration: none;
 }
-#logo {
+#settings {
+        color: var(--green);
+}
+#accountLogo {
     font-size: 1.5rem;
     padding: 1rem;
     text-transform: uppercase;
-    animation: flicker 1.5s infinite alternate;
+    /* animation: flicker 1.5s infinite alternate; */
     width: 300px;
     text-align: center;
     margin: 5px;
+    color: var(--green);
 }
-
-#logo::-moz-selection {
+#accountLogo::-moz-selection {
     color: var(--neon-text-color);
 }
-
-#logo::selection {
+#accountLogo::selection {
     color: var(--neon-text-color);
 }
-
-#logo:focus {
+#accountLogo:focus {
     outline: none;
 }
-
+#accountLogo:hover {
+    cursor: pointer;
+}
 /* Animate neon flicker */
 @keyframes flicker {
     0%,
@@ -65,21 +67,6 @@ a:-webkit-any-link {
     55% {
         text-shadow: none;
     }
-}
-
-.nav-links {
-    scroll-behavior: smooth;
-    padding-left: 1500px;
-}
-
-.nav-links li {
-    list-style: none;
-}
-.nav-links a {
-    text-decoration: none;
-    letter-spacing: 3px;
-    font-size: 1rem;
-    padding: 10px;
 }
 /* both containers */
 .containerAccount {
