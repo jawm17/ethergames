@@ -145,7 +145,7 @@ export default function Container() {
                         Score to beat: 1,205
                     </div>
                     <div id="playBtn">
-                        play
+                        play 0.15
                     </div>
                     <div id="score">
                         Score: {score}
