@@ -81,6 +81,7 @@ a:-webkit-any-link {
     width: 20%;
     background: rgb(0, 0, 0);
     border: solid white 2px;
+    text-align: center;
 }
 .QR-code img {
     width: 200px;
@@ -173,4 +174,7 @@ max-height: 47vh;
     padding: 6px 12px;
     border: 1px solid #ccc;
     border-top: none;
+}
+.balance {
+    margin-top: 20px;
 }

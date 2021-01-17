@@ -20,6 +20,22 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    balance: {
+        type: Number,
+        default: 0
+    },
+    numTx: {
+        type: Number,
+        default: 0
+    },
+    sentTx: {
+        type: Array,
+        default: []
+    },
+    recievedTx: {
+        type: Array,
+        default: []
+    }
 });
 
 UserSchema.pre('save',function(next){
