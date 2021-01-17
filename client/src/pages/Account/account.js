@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import WalletTx from "../../components/walletTx";
+import SendEthModal from "../../components/sendEthModal";
 import UserService from '../../services/UserService';
 import TxHistoryService from '../../services/TxHistoryService';
 import { AuthContext } from '../../context/AuthContext';
@@ -15,6 +16,7 @@ export default function Account() {
     const [address, setAddress] = useState("");
     const [qrCode, setQrCode] = useState("");
     const [username, setUsername] = useState("username");
+    const [sendingEth, setSendingEth] = useState(false);
     const authContext = useContext(AuthContext);
 
     useEffect(() => {
@@ -93,9 +95,14 @@ export default function Account() {
         });
     }
 
+    function openSendModal() {
+        setSendingEth(true);
+        console.log("tr")
+    }
 
-
-
+    function closeSendModal() {
+        setSendingEth(false);
+    }
 
 
 
@@ -127,6 +134,7 @@ export default function Account() {
 
     return (
         <div id="accountArea">
+            {sendingEth ? <SendEthModal close={() => closeSendModal()}/> : null}
             <header>
                 <nav id="navAccount">
                     <h1 id="accountLogo" onClick={() => history.push("/")}>Crypto Arcade</h1>
@@ -141,7 +149,7 @@ export default function Account() {
                         <img src={qrCode} alt="" />
                     </div>
                     <div className="btn">
-                        <button>Withdraw</button>
+                        <button onClick={() => openSendModal()}>Withdraw</button>
                         <button>Receive</button>
                     </div>
                     <div className="balance">
