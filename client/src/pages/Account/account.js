@@ -22,7 +22,6 @@ export default function Account() {
     useEffect(() => {
         initWalletData();
         getWalletInfo();
-        console.log(txs);
     }, []);
 
     function initWalletData() {
@@ -79,7 +78,6 @@ export default function Account() {
                 // sort eth blockchain txs and data from db
                 TxHistoryService.getBlockTx(data.address).then(data2 => {
                     if (data2) {
-                        console.log(data.recievedTx.concat(data.sentTx.concat(data2.result)).sort((a, b) => (a.timeStamp.toString().substring(0, 9)) - (b.timeStamp.toString().substring(0, 9))).reverse())
                         setTxs(data.recievedTx.concat(data.sentTx.concat(data2.result)).sort((a, b) => (a.timeStamp.toString().substring(0, 9)) - (b.timeStamp.toString().substring(0, 9))).reverse());
                     }
                 });
@@ -97,7 +95,6 @@ export default function Account() {
 
     function openSendModal() {
         setSendingEth(true);
-        console.log("tr")
     }
 
     function closeSendModal() {
@@ -134,7 +131,7 @@ export default function Account() {
 
     return (
         <div id="accountArea">
-            {sendingEth ? <SendEthModal close={() => closeSendModal()}/> : null}
+            {sendingEth ? <SendEthModal balance={balance} close={() => closeSendModal()}/> : null}
             <header>
                 <nav id="navAccount">
                     <h1 id="accountLogo" onClick={() => history.push("/")}>Crypto Arcade</h1>

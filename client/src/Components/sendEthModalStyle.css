@@ -7,6 +7,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    color: white;
 }
 
 #modalBody {
@@ -22,6 +23,22 @@
     position: relative;
 }
 
+#withdrawTitle {
+    font-size: 20px;
+    margin-left: 20px;
+    margin-top: 15px;
+}
+
+#funds {
+    margin-left: 20px;
+}
+
+#inputArea {
+    position: absolute;
+    margin-left: 10%;
+    margin-top: 10%;
+}
+
 #closeButton {
     position: absolute;
     right: 20px;
@@ -29,6 +46,14 @@
     font-size: 25px;
 }
 
-#closeButton:hover {
+#sendButton {
+    position: absolute;
+    right: 80px;
+    bottom: 6px;
+    font-size: 22px;
+    color: rgb(72, 254, 12);
+}
+
+#closeButton, #sendButton:hover {
     cursor: pointer;
 }
