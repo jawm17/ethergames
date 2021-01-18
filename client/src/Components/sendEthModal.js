@@ -94,7 +94,7 @@ export default function SendEthModal(props) {
                     send
                 </div>
                 <div id="closeButton" onClick={() => props.close()}>
-                    exit
+                    close
                 </div>
             </div>
         </div>

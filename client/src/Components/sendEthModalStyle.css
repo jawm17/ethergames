@@ -48,9 +48,9 @@
 
 #sendButton {
     position: absolute;
-    right: 80px;
-    bottom: 6px;
-    font-size: 22px;
+    right: 100px;
+    bottom: 5px;
+    font-size: 25px;
     color: rgb(72, 254, 12);
 }
 

@@ -112,9 +112,9 @@ export default function Container() {
   
 
     return (
-        <div id="container">
+        <div id="container"  tabIndex="0" onKeyDown={e => keyDown(e)}>
             <div id="screen">
-                <div style={{ outline: "none", display: "flex", justifyContent: "center" }} role="button" tabIndex="0" onKeyDown={e => keyDown(e)}>
+                <div style={{ outline: "none", display: "flex", justifyContent: "center" }} role="button" tabIndex="0">
                     <canvas
                         style={{border: "1px dashed black"}}
                         ref={canvasRef}
@@ -144,8 +144,8 @@ export default function Container() {
                     <div id="highScore">
                         Score to beat: 1,205
                     </div>
-                    <div id="playBtn">
-                        play 0.15
+                    <div id="playBtn" onClick={() => startGame()}>
+                        play
                     </div>
                     <div id="score">
                         Score: {score}

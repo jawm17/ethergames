@@ -16,7 +16,7 @@ a:-webkit-any-link {
     color: var(--green);
     font-size: 1.5rem;
     float: left;
-    margin-left: 40px;
+    margin-left: 100px;
     /* animation: flicker 1.5s infinite alternate; */
     text-transform: uppercase;
 }
@@ -66,7 +66,7 @@ a:-webkit-any-link {
     justify-content: center;
     align-items: center;
     position: absolute;
-    right: 0;
+    right: 3vw;
 }
 
 .nav-links div{

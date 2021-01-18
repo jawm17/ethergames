@@ -15,7 +15,7 @@
 .heroSection {
     height: 65vh;
     width: 100vw;
-    background: url("https://wallpapercave.com/wp/wp6856178.jpg") no-repeat center center fixed;
+    background: url("https://cdn.lowgif.com/small/f49f1a509c4c976b-.gif") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -32,7 +32,7 @@
 }
 
 #header {
-    padding-top: 3rem;
+    padding-top: 200px;
     font-size: 2.2rem;
 }
 

@@ -1,5 +1,6 @@
 import React from "react";
 import NavBar from "../../components/Nav/NavBar";
+import history from "../../history";
 import "./homeStyle.css";
 
 export default function Home() {
@@ -13,10 +14,10 @@ export default function Home() {
                 <section className="heroSection">
                     <div className="hero">
                         <div id="header">
-                            <h1>Crypto Arcade</h1>
+                            <h1>Ether Games</h1>
                         </div>
                         <div id="slogan">
-                            <h4>Play and win with the old games you know and love.</h4>
+                            <h4>play games, win prizes</h4>
                         </div>
                         {/* <div id="search-bar">
                         <h5>seach bar</h5>
@@ -27,8 +28,8 @@ export default function Home() {
             {/* Games */}
             <div className="game-container">
                 <ul className="games">
-                    <li>
-                        <a href>game 1
+                    <li onClick={() => history.push("/snake")}>
+                        <a href>SNAKE
                 <div className="icon">
                                 <img src="https://neave.com/assets/images/home/zoom-earth.jpg" alt="" />
                             </div>

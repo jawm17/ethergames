@@ -145,7 +145,7 @@ export default function Account() {
             {recievingEth ? <RecieveEthModal close={() => closeRecieveModal()} address={address} qr={qrCode}/> : null}
             <header>
                 <nav id="navAccount">
-                    <h1 id="accountLogo" onClick={() => history.push("/")}>Crypto Arcade</h1>
+                    <h1 id="accountLogo" onClick={() => history.push("/")}>Ether Games</h1>
                 </nav>
             </header>
             <section className="containerAccount">

@@ -16,7 +16,7 @@ export default function RecieveEthModal(props) {
                     {props.address}
                 </div>
                 <div id="closeButton" onClick={() => props.close()}>
-                    exit
+                    close
                 </div>
             </div>
         </div>
