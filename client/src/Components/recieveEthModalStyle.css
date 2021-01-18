@@ -1,0 +1,17 @@
+#modalBodyRecieving {
+    margin-top: -40px;
+    width: 600px;
+    max-width: 95vw;
+    height: 400px;
+    max-height: 95vh;
+    background-color: black;
+    border-color: rgb(72, 254, 12);
+    border-width: 2px;
+    border-style: solid;
+    position: relative;
+    text-align: center;
+}
+
+#recieveTitle {
+    margin-top: 20px;
+}

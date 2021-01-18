@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import WalletTx from "../../components/walletTx";
 import SendEthModal from "../../components/sendEthModal";
+import RecieveEthModal from '../../components/recieveEthModal';
 import UserService from '../../services/UserService';
 import TxHistoryService from '../../services/TxHistoryService';
 import { AuthContext } from '../../context/AuthContext';
@@ -17,6 +18,7 @@ export default function Account() {
     const [qrCode, setQrCode] = useState("");
     const [username, setUsername] = useState("username");
     const [sendingEth, setSendingEth] = useState(false);
+    const [recievingEth, setRecievingEth] = useState(false);
     const authContext = useContext(AuthContext);
 
     useEffect(() => {
@@ -101,6 +103,14 @@ export default function Account() {
         setSendingEth(false);
     }
 
+    function openRecieveModal() {
+        setRecievingEth(true);
+    }
+
+    function closeRecieveModal() {
+        setRecievingEth(false);
+    }
+
 
 
     function openCity(evt, tab) {
@@ -132,6 +142,7 @@ export default function Account() {
     return (
         <div id="accountArea">
             {sendingEth ? <SendEthModal balance={balance} close={() => closeSendModal()} update={() => getWalletInfo()} username={username}/> : null}
+            {recievingEth ? <RecieveEthModal close={() => closeRecieveModal()} address={address} qr={qrCode}/> : null}
             <header>
                 <nav id="navAccount">
                     <h1 id="accountLogo" onClick={() => history.push("/")}>Crypto Arcade</h1>
@@ -147,7 +158,7 @@ export default function Account() {
                     </div>
                     <div className="btn">
                         <button onClick={() => openSendModal()}>Withdraw</button>
-                        <button>Receive</button>
+                        <button onClick={() => openRecieveModal()}>Receive</button>
                     </div>
                     <div className="balance">
                         Balance: {parseFloat(balance)} ETH
