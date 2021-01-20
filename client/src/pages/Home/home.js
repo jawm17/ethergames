@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
 import NavBar from "../../components/Nav/NavBar";
-import Bubbles from "../../components/Bubbles";
 import history from "../../history";
 import "./homeStyle.css";
 
@@ -105,8 +104,8 @@ export default function Home() {
                                 <img src="https://neave.com/assets/images/home/zoom-earth.jpg" alt="" />
                             </div>
                             <div>
-                                <h1>text</h1>
-                                <p>fadsfdfa</p>
+                                <h1>Jackpot: 1.2 ETH</h1>
+                                <p>High Score: 1200</p>
                             </div>
                         </a>
                     </li>

@@ -1,0 +1,32 @@
+#homeTwo {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fefefe;
+    overflow-y: scroll;
+}
+
+#headerTwo {
+    position: fixed;
+    width: 100vw;
+    height: 100px;
+    background-color: white;
+    border-bottom-right-radius: 18px;
+    border-bottom-left-radius: 18px;
+}
+
+#heroTwo {
+    margin-top: 80px;
+    background-color:  rgb(72, 254, 12);
+    width: 100vw;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fefefe;
+}
+
+#gamesArea {
+    height: 1000px;
+    width: 10px;
+}
