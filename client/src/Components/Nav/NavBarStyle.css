@@ -16,8 +16,8 @@ a:-webkit-any-link {
     color: var(--green);
     font-size: 1.5rem;
     float: left;
-    margin-left: 100px;
-    /* animation: flicker 1.5s infinite alternate; */
+    margin-left: 5vw;
+    /* animation: flicker 4s infinite alternate; */
     text-transform: uppercase;
 }
 
@@ -47,7 +47,7 @@ a:-webkit-any-link {
     54%,
     56%,
     100% {
-        text-shadow: -0.2rem -0.2rem 1rem #fff, 0.2rem 0.2rem 1rem #fff,
+        text-shadow: -0.2rem -0.2rem 1rem rgb(32, 255, 3), 0.2rem 0.2rem 1rem rgb(7, 253, 27),
             0 0 2rem var(--neon-text-color), 0 0 4rem var(--neon-text-color),
             0 0 6rem var(--neon-text-color), 0 0 8rem var(--neon-text-color),
             0 0 10rem var(--neon-text-color);
