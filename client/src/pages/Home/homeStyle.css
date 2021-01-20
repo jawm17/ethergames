@@ -91,7 +91,7 @@
 
 /* Footer */
 #footerHome {
-    background-color: cyan;
+    background-color: var(--green);
     height: 30vh;
     width: 100vw;
 }

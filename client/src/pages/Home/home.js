@@ -85,7 +85,7 @@ export default function Home() {
                 <section id="heroSection">
                     <div className="hero">
                         <div id="header">
-                            <h1>Ether Games</h1>
+                            <h1>ETHER GAMES</h1>
                         </div>
                         <div id="slogan">
                             <h4>play games, win prizes</h4>
