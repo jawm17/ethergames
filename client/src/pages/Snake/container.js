@@ -10,25 +10,30 @@ export default function Container() {
   const [pot, setPot] = useState(0);
 
   useEffect(() => {
-      GameInfoService.getInfo("snake").then(data => {
-        if(!data.message) {
-          setPot(data.pot);
-        } else {
-          console.log("error");
-        }
-      })
+    getInfo();
   }, []);
+
+  function getInfo() {
+    GameInfoService.getInfo("snake").then(data => {
+      if(!data.message) {
+        setPot(data.pot);
+      } else {
+        console.log("error");
+      }
+    })
+  }
 
   function incrementScore() {
     setScore(score + 5);
   }
 
   function gameStart() {
+    console.log("start")
     TxService.potPayment(2, "snake").then(data => {
       console.log(data);
     })
     setScore(0);
-    setPot(pot + 2);
+    getInfo();
   }
 
 

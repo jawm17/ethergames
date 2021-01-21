@@ -49,8 +49,6 @@ export default function SnakeGame(props) {
     e.preventDefault();
     if (keyCode >= 37 && keyCode <= 40) {
       setDir(DIRECTIONS[keyCode]);
-    } else if (gameOver && keyCode === 32) {
-      startGame();
     }
   }
 
@@ -95,13 +93,15 @@ export default function SnakeGame(props) {
   };
 
   const startGame = () => {
-    setSnake(SNAKE_START);
-    setApple(APPLE_START);
-    setDir([0, -1]);
-    setSpeed(SPEED);
-    setGameOver(false);
-    setStartDisplay("none");
-    props.start();
+    if(gameOver) {
+      setSnake(SNAKE_START);
+      setApple(APPLE_START);
+      setDir([0, -1]);
+      setSpeed(SPEED);
+      setStartDisplay("none");
+      props.start();
+      setGameOver(false);
+    }
   };
 
   useEffect(() => {
@@ -122,11 +122,10 @@ export default function SnakeGame(props) {
     });
     context.fillStyle = "black";
     context.fillRect(apple[0], apple[1], 1, 1);
-    window.addEventListener("keydown", (e) => keyDown(e));
   }, [snake, apple, gameOver]);
 
   return (
-    <div id="snakeTrigger" onKeyDown={e => keyDown(e)}>
+    <div id="snakeTrigger" tabIndex="0" onKeyDown={e => keyDown(e)}>
       <div id="screen">
         <div id="startScreen" style={style.startScreen}>
           <div id="startInfo">
@@ -134,7 +133,7 @@ export default function SnakeGame(props) {
               SNAKE
             </div>
             <div id="snakeStartSub">
-              Press the space bar to start
+              Press play to start
             </div>
           </div>
         </div>
