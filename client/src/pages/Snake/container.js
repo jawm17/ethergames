@@ -87,7 +87,7 @@ export default function Container() {
 
           </div>
           <div id="jackpot">
-            Jackpot: {pot} ETH
+            Jackpot: {parseFloat(pot.toFixed(6))} ETH
           </div>
           <div id="dot">
 
