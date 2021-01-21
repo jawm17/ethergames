@@ -6,19 +6,37 @@ body{
 #screen {
     width: 100vw;
     height: 680px;
-    background-color: #e9e9e9;
+    background-color: #63C603;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
+    position: relative;
 }
 
 #container {
     background-color: black;
 }
 
+#snakeStartTitle {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 30px;
+    color: black;
+    margin-top: -50px;
+
+}
+
+#snakeStartSub {
+    margin-top: 10px;
+    font-family: 'Mina', sans-serif;
+}
+
 #info {
     background-color: black;
     height: 100vh;
     color: white;
+}
+
+#startInfo {
+    text-align: center;
 }
 
 #top {

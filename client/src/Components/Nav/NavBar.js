@@ -24,7 +24,7 @@ const NavBar = props => {
                     <h1 id="logoMain" onClick={() => history.push("/")}>Ether Games</h1>
                     <div className="nav-links">
                         <div onClick={() => history.push("/")}>Arcade</div>
-                        <div onClick={() => history.push("/register")}>Sign Up</div>
+                        <div onClick={() => history.push("/login")}>Log In</div>
                     </div>
                 </nav>
             </>
