@@ -14,6 +14,7 @@ export default function Container() {
   const [score, setScore] = useState(0);
   const [pot, setPot] = useState(0);
   const [scores, setScores] = useState([]);
+  const [scoreToBeat, setScoreToBeat] = useState(1000);
   const [balance, setBalance] = useState(0);
   const [user, setUser] = useState(authContext.user.username);
 
@@ -38,9 +39,10 @@ export default function Container() {
   function getInfo() {
     GameService.getInfo("snake").then(data => {
       if (!data.message) {
+        let scoresArray = (data.scores.sort((a,b)=> (b.score - a.score))).slice(0,10);
         setPot(data.pot);
-        console.log(data.scores.sort((a,b)=> (b.score - a.score)))
-        setScores(data.scores.sort((a,b)=> (b.score - a.score)));
+        setScores(scoresArray);
+        setScoreToBeat(scoresArray[0].score);
       } else {
         console.log("error");
       }
@@ -52,19 +54,22 @@ export default function Container() {
   }
 
   function gameStart() {
-    TxService.potPayment(2, "snake").then(data => {
-      console.log(data);
+    TxService.potPayment(0.001, "snake").then(data => {
+      getInfo();
     })
     setScore(0);
-    getInfo();
   }
 
   function gameOver() {
     if (scores.length >= 10) {
-      console.log(scores);
+      if(score > scores[9].score) {
+        GameService.newScore("snake", user, score).then(data => {
+          getInfo();
+        })
+      }
     } else {
       GameService.newScore("snake", user, score).then(data => {
-        console.log(data);
+        getInfo();
       })
     }
   }
@@ -88,7 +93,7 @@ export default function Container() {
 
           </div>
           <div id="highScore">
-            Score to beat: 1,205
+            Score to beat: {scoreToBeat}
           </div>
           <div id="score">
             Score: {score}

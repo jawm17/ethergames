@@ -126,7 +126,7 @@ export default function SnakeGame(props) {
   }, [snake, apple, gameOver]);
 
   return (
-    <div id="snakeTrigger" tabIndex="0" onKeyDown={e => keyDown(e)}>
+    <div id="snakeTrigger"  style={{ outline: "none"}} tabIndex="0" onKeyDown={e => keyDown(e)}>
       <div id="screen">
         <div id="startScreen" style={style.startScreen}>
           <div id="startInfo">
