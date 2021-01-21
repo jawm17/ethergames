@@ -1,0 +1,16 @@
+#leaderBoardScore {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: black;
+    font-family: 'Mina', sans-serif;
+    font-size: 20px;
+}
+
+.leftEl {
+    margin-left: 30px;
+}
+
+.rightEl {
+    margin-right: 30px;
+}

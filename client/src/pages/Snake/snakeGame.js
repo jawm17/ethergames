@@ -42,6 +42,7 @@ export default function SnakeGame(props) {
   const endGame = () => {
     setSpeed(null);
     setGameOver(true);
+    props.gameOver();
   };
 
   const keyDown = (e) => {

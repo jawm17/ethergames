@@ -2,6 +2,7 @@ const express = require('express');
 const gameRouter = express.Router();
 const passport = require('passport');
 const Game = require('../models/Game');
+const User = require('../models/User');
 const message = { msgBody: "Error has occured", msgError: true };
 
 
@@ -20,13 +21,31 @@ gameRouter.post('/newgame', (req, res) => {
 // update pot for game: game
 gameRouter.post('/payment', passport.authenticate('jwt', { session: false }), (req, res) => {
     const { amount, game } = req.body;
-    Game.findOneAndUpdate({ name: game }, { $inc: { pot: amount } }).exec((err, document) => {
+    User.findOneAndUpdate({ _id: req.user._id }, { $inc: { balance: -amount }, $push: {sentTx: { to: game, "amount": amount, "type": "payment", "timeStamp": Date.now() } } }).exec((err, document) => {
         if (err) {
             res.status(500).json({ message: message });
         }
         else {
-            res.status(200).json({ message: { msgBody: "Successfully increased pot", msgError: false } });
+            Game.findOneAndUpdate({ name: game }, { $inc: { pot: amount } }).exec((err, document) => {
+                if (err) {
+                    res.status(500).json({ message: message });
+                }
+                else {
+                    res.status(200).json({ message: { msgBody: "Successfully increased pot", msgError: false } });
+                }
+            });
         }
+    });
+});
+
+// update score
+gameRouter.post('/score', passport.authenticate('jwt', { session: false }), (req, res) => {
+    const { game, score, user } = req.body;
+    Game.findOneAndUpdate({ name: game }, {$push: {scores: { "score": score, "user": user, "timeStamp": Date.now() }} }).exec((err, document) => {
+        if (err)
+            res.status(500).json({ message: message });
+        else
+            res.status(201).json({ message: { msgBody: "Successfully updated score", msgError: false } });
     });
 });
 

@@ -1,22 +1,46 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import SnakeGame from "./snakeGame";
 import TxService from "../../services/TxService";
-import GameInfoService from "../../services/GameInfoService";
+import GameService from "../../services/GameService";
+import UserService from '../../services/UserService';
+import Score from "../../components/score";
+import { AuthContext } from '../../context/AuthContext';
 import "./snakeStyle.css";
 
 
 export default function Container() {
+  const authContext = useContext(AuthContext);
+
   const [score, setScore] = useState(0);
   const [pot, setPot] = useState(0);
+  const [scores, setScores] = useState([]);
+  const [balance, setBalance] = useState(0);
+  const [user, setUser] = useState(authContext.user.username);
 
   useEffect(() => {
     getInfo();
   }, []);
 
+  function getBalance() {
+    UserService.getUserInfo().then(data => {
+      const { message, balance } = data;
+      if (!message) {
+        setBalance(balance);
+      }
+      else if (message.msgBody === "Unauthorized") {
+        //Replace with middleware 
+        authContext.setUser({ username: "" });
+        authContext.setIsAuthenticated(false);
+      }
+    });
+  }
+
   function getInfo() {
-    GameInfoService.getInfo("snake").then(data => {
-      if(!data.message) {
+    GameService.getInfo("snake").then(data => {
+      if (!data.message) {
         setPot(data.pot);
+        console.log(data.scores.sort((a,b)=> (b.score - a.score)))
+        setScores(data.scores.sort((a,b)=> (b.score - a.score)));
       } else {
         console.log("error");
       }
@@ -28,7 +52,6 @@ export default function Container() {
   }
 
   function gameStart() {
-    console.log("start")
     TxService.potPayment(2, "snake").then(data => {
       console.log(data);
     })
@@ -36,10 +59,20 @@ export default function Container() {
     getInfo();
   }
 
+  function gameOver() {
+    if (scores.length >= 10) {
+      console.log(scores);
+    } else {
+      GameService.newScore("snake", user, score).then(data => {
+        console.log(data);
+      })
+    }
+  }
+
 
   return (
     <div id="container" tabIndex="0">
-      <SnakeGame inc={() => incrementScore()} start={() => gameStart()}/>
+      <SnakeGame inc={() => incrementScore()} start={() => gameStart()} gameOver={() => gameOver()} />
       <div id="info">
         <div id="top">
           <div id="title">
@@ -66,7 +99,13 @@ export default function Container() {
             High Scores
           </div>
           <div id="leaderBoard">
-
+            {scores.map(score => {
+              return <Score
+                user={score.user}
+                score={score.score}
+                key={score.timeStamp}
+              />
+            })}
           </div>
         </div>
       </div>

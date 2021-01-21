@@ -13,6 +13,8 @@ export default function WalletTx(props) {
         if(props.type) {
             if(props.type === "withdraw") {
                 setTxText(`Withdrew ETH to ${props.to}`)
+            } else if (props.type === "payment") {
+                setTxText(`Payment for ${props.to} game`)
             }
         } else {
             if (props.address.toUpperCase() === props.to.toUpperCase()) {
