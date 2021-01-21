@@ -42,20 +42,22 @@ body{
 #top {
     width: 100vw;
     float: left;
+    position: relative;
 }
 
 #score {
-    float: right;
-    margin-top: 40px;
-    margin-right: 160px;
+    position: absolute;
+    top: 35px;
+    right: 185px;
     font-family: 'Mina', sans-serif;
     font-size: 20px;
 }
 
 #playBtn {
     position: absolute;
-    bottom: -70px;
-    right: 30px;
+    z-index: 100;
+    bottom: -65px;
+    right: 60px;
     height: 40px;
     width: 80px;
     border-style: solid;
