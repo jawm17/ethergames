@@ -47,15 +47,15 @@ body{
 #score {
     float: right;
     margin-top: 40px;
-    margin-right: 40px;
+    margin-right: 160px;
     font-family: 'Mina', sans-serif;
     font-size: 20px;
 }
 
 #playBtn {
-    float: right;
-    margin-right: 40px;
-    margin-top: 30px;
+    position: absolute;
+    bottom: -70px;
+    right: 30px;
     height: 40px;
     width: 80px;
     border-style: solid;

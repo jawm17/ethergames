@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import TxService from "../../services/TxService";
 import "./snakeStyle.css";
 import { useInterval } from "./useInterval";
 import {
@@ -18,7 +17,6 @@ export default function SnakeGame(props) {
   const [dir, setDir] = useState([0, -1]);
   const [speed, setSpeed] = useState(null);
   const [gameOver, setGameOver] = useState(true);
-  const [score, setScore] = useState(0);
   const [startDisplay, setStartDisplay] = useState("flex");
 
   const style = {
@@ -102,11 +100,8 @@ export default function SnakeGame(props) {
     setDir([0, -1]);
     setSpeed(SPEED);
     setGameOver(false);
-    setScore(0);
-    TxService.potPayment(2, "snake").then(data => {
-      console.log(data)
-    })
     setStartDisplay("none");
+    props.start();
   };
 
   useEffect(() => {
@@ -131,7 +126,7 @@ export default function SnakeGame(props) {
   }, [snake, apple, gameOver]);
 
   return (
-    <div tabIndex="0" onKeyDown={e => keyDown(e)}>
+    <div id="snakeTrigger" onKeyDown={e => keyDown(e)}>
       <div id="screen">
         <div id="startScreen" style={style.startScreen}>
           <div id="startInfo">
@@ -153,6 +148,9 @@ export default function SnakeGame(props) {
         </div>
         <div>
         </div>
+        <div id="playBtn" onClick={() => startGame()}>
+          play
+      </div>
       </div>
     </div>
 
