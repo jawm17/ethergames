@@ -6,7 +6,7 @@ body{
 #screen {
     width: 100vw;
     height: 680px;
-    background-color: #63C603;
+    background-color: #c9c9c9;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
     position: relative;
@@ -79,6 +79,7 @@ body{
     margin-left: 40px;
     font-family: 'Press Start 2P', cursive;
     font-size: 20px;
+    color: #69ff05;
 }
 
 #dot {
@@ -86,7 +87,7 @@ body{
     border-radius: 50%;
     width: 10px;
     height: 10px;
-    background-color: white;
+    background-color: #69ff05;
     margin-top: 43px;
     margin-left: 20px;
 }

@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
+import TxService from "../../services/TxService";
+import "./snakeStyle.css";
 import { useInterval } from "./useInterval";
 import {
   CANVAS_SIZE,
@@ -9,7 +11,7 @@ import {
   DIRECTIONS
 } from "./constants";
 
-export default function SnakeGame() {
+export default function SnakeGame(props) {
   const canvasRef = useRef();
   const [snake, setSnake] = useState(SNAKE_START);
   const [apple, setApple] = useState(APPLE_START);
@@ -17,6 +19,21 @@ export default function SnakeGame() {
   const [speed, setSpeed] = useState(null);
   const [gameOver, setGameOver] = useState(true);
   const [score, setScore] = useState(0);
+  const [startDisplay, setStartDisplay] = useState("flex");
+
+  const style = {
+    startScreen: {
+      display: startDisplay,
+      position: "absolute",
+      width: "100%",
+      height: "100%",
+      backgroundColor: "#63C603",
+      borderBottomRightRadius: 20,
+      borderBottomLeftRadius: 20,
+      justifyContent: "center",
+      alignItems: "center"
+    }
+  }
 
   var rectWidth = 1;
   var rectHeight = 1;
@@ -60,7 +77,7 @@ export default function SnakeGame() {
   const checkAppleCollision = newSnake => {
     if (newSnake[0][0] === apple[0] && newSnake[0][1] === apple[1]) {
       let newApple = createApple();
-      setScore(score + 1);
+      props.inc();
       while (checkCollision(newApple, newSnake)) {
         newApple = createApple();
       }
@@ -86,13 +103,17 @@ export default function SnakeGame() {
     setSpeed(SPEED);
     setGameOver(false);
     setScore(0);
+    TxService.potPayment(2, "snake").then(data => {
+      console.log(data)
+    })
+    setStartDisplay("none");
   };
 
   useEffect(() => {
     const context = canvasRef.current.getContext("2d");
     context.setTransform(SCALE, 0, 0, SCALE, 0, 0);
     context.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    context.fillStyle = "lightgreen";
+    context.fillStyle = "#63C603";
     snake.forEach(([x, y]) => {
 
       // Set faux rounded corners
@@ -103,26 +124,38 @@ export default function SnakeGame() {
       context.strokeStyle = "black";
       context.strokeRect(x + (cornerRadius / 2), y + (cornerRadius / 2), rectWidth - cornerRadius, rectHeight - cornerRadius);
       context.fillRect(x + (cornerRadius / 2), y + (cornerRadius / 2), rectWidth - cornerRadius, rectHeight - cornerRadius);
-
     });
-    context.fillStyle = "red";
+    context.fillStyle = "black";
     context.fillRect(apple[0], apple[1], 1, 1);
+    window.addEventListener("keydown", (e) => keyDown(e));
   }, [snake, apple, gameOver]);
 
   return (
-    <div>
-      <div style={{ outline: "none", display: "flex", justifyContent: "center" }} role="button" tabIndex="0" onKeyDown={e => keyDown(e)}>
-        <canvas
-          // style={{border: "1px dashed black", backgroundColor: "#fefefe"}}
-          ref={canvasRef}
-          width={`${CANVAS_SIZE[0]}px`}
-          height={`${CANVAS_SIZE[1]}px`}
-        />
+    <div tabIndex="0" onKeyDown={e => keyDown(e)}>
+      <div id="screen">
+        <div id="startScreen" style={style.startScreen}>
+          <div id="startInfo">
+            <div id="snakeStartTitle">
+              SNAKE
+            </div>
+            <div id="snakeStartSub">
+              Press the space bar to start
+            </div>
+          </div>
+        </div>
+        <div style={{ outline: "none", display: "flex", justifyContent: "center" }}>
+          <canvas
+            style={{ border: "1px dashed black" }}
+            ref={canvasRef}
+            width={`${CANVAS_SIZE[0]}px`}
+            height={`${CANVAS_SIZE[1]}px`}
+          />
+        </div>
         <div>
         </div>
       </div>
-      {/* {gameOver && <div>GAME OVER!</div>}
-      score: {score} */}
     </div>
+
+
   );
 };
