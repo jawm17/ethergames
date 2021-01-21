@@ -1,11 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SnakeGame from "./snakeGame";
 import TxService from "../../services/TxService";
+import GameInfoService from "../../services/GameInfoService";
 import "./snakeStyle.css";
 
 
 export default function Container() {
   const [score, setScore] = useState(0);
+  const [pot, setPot] = useState(0);
+
+  useEffect(() => {
+      GameInfoService.getInfo("snake").then(data => {
+        if(!data.message) {
+          setPot(data.pot);
+        } else {
+          console.log("error");
+        }
+      })
+  }, []);
 
   function incrementScore() {
     setScore(score + 5);
@@ -16,6 +28,7 @@ export default function Container() {
       console.log(data);
     })
     setScore(0);
+    setPot(pot + 2);
   }
 
 
@@ -31,7 +44,7 @@ export default function Container() {
 
           </div>
           <div id="jackpot">
-            Jackpot: 1.20433 ETH
+            Jackpot: {pot} ETH
           </div>
           <div id="dot">
 

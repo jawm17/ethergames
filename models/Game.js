@@ -10,8 +10,8 @@ const GameSchema = new mongoose.Schema({
         default: ""
     },
     scores: {
-        type: Object,
-        default: {}
+        type: Array,
+        default: []
     },
     pot: {
         type: Number,
