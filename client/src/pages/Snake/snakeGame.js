@@ -31,7 +31,7 @@ export default function SnakeGame(props) {
   const [balance, setBalance] = useState(0);
   const [startDisplay, setStartDisplay] = useState("flex");
   const [endDisplay, setEndDisplay] = useState("none");
-  const [width, setWidth] = useState(window.innerWidth);
+  const [width, setWidth] = useState(1250);
 
   const style = {
     startScreen: {
@@ -68,7 +68,11 @@ export default function SnakeGame(props) {
   useInterval(() => gameLoop(), speed);
 
   const windowResize = () => {
-    setWidth(window.innerWidth);
+    if(window.innerWidth >= 1250) {
+      setWidth(1250);
+    } else {
+      setWidth(window.innerWidth);
+    }
   }
 
   const endGame = () => {
