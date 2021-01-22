@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import SnakeGame from "./snakeGame";
 import TxService from "../../services/TxService";
 import GameService from "../../services/GameService";
-import UserService from '../../services/UserService';
 import Score from "../../components/score";
 import { AuthContext } from '../../context/AuthContext';
 import "./snakeStyle.css";
@@ -15,31 +14,16 @@ export default function Container() {
   const [pot, setPot] = useState(0);
   const [scores, setScores] = useState([]);
   const [scoreToBeat, setScoreToBeat] = useState(1000);
-  const [balance, setBalance] = useState(0);
   const [user, setUser] = useState(authContext.user.username);
 
   useEffect(() => {
     getInfo();
   }, []);
 
-  function getBalance() {
-    UserService.getUserInfo().then(data => {
-      const { message, balance } = data;
-      if (!message) {
-        setBalance(balance);
-      }
-      else if (message.msgBody === "Unauthorized") {
-        //Replace with middleware 
-        authContext.setUser({ username: "" });
-        authContext.setIsAuthenticated(false);
-      }
-    });
-  }
-
   function getInfo() {
     GameService.getInfo("snake").then(data => {
       if (!data.message) {
-        let scoresArray = (data.scores.sort((a,b)=> (b.score - a.score))).slice(0,10);
+        let scoresArray = (data.scores.sort((a, b) => (b.score - a.score))).slice(0, 10);
         setPot(data.pot);
         setScores(scoresArray);
         setScoreToBeat(scoresArray[0].score);
@@ -60,23 +44,35 @@ export default function Container() {
     setScore(0);
   }
 
+  function newScore() {
+    GameService.newScore("snake", user, score).then(data => {
+      getInfo();
+    });
+  }
+
   function gameOver() {
-    if (scores.length >= 10) {
-      if(score > scores[9].score) {
-        GameService.newScore("snake", user, score).then(data => {
-          getInfo();
-        })
+    if (scores.length >= 1) {
+      // multiple scores
+      if (score > scores[0].score) {
+        // top score
+        GameService.potPayout("snake").then(data => {
+          newScore();
+        });
+      } else {
+        newScore();
       }
     } else {
-      GameService.newScore("snake", user, score).then(data => {
-        getInfo();
-      })
+      // no scores set
+      newScore();
     }
   }
 
 
   return (
     <div id="container" tabIndex="0">
+      {/* <div id="headerSnake">
+
+      </div> */}
       <SnakeGame inc={() => incrementScore()} start={() => gameStart()} gameOver={() => gameOver()} />
       <div id="info">
         <div id="top">

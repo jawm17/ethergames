@@ -38,6 +38,26 @@ gameRouter.post('/payment', passport.authenticate('jwt', { session: false }), (r
     });
 });
 
+// pot payout
+gameRouter.post('/potPayment', passport.authenticate('jwt', { session: false }), (req, res) => {
+    const { game } = req.body;
+    Game.findOneAndUpdate({ "name": game }, {"pot": 0}).exec((err, document) => {
+        if (err) {
+            res.status(500).json({ message: message });
+        }
+        else {
+            User.findOneAndUpdate({ _id: req.user._id }, { $inc: { balance: document.pot }, $push: {recievedTx: { from: "snake", "amount": document.pot, "type": "jackpot", "timeStamp": Date.now() } } }).exec((err, document) => {
+                if (err) {
+                    res.status(500).json({ message });
+                }
+                else {
+                    res.status(200).json({ message: { msgBody: "Successfully updated balance", msgError: false } });
+                }
+            });
+        }
+    });
+});
+
 // update score
 gameRouter.post('/score', passport.authenticate('jwt', { session: false }), (req, res) => {
     const { game, score, user } = req.body;
