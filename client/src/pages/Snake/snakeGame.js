@@ -31,7 +31,7 @@ export default function SnakeGame(props) {
   const [balance, setBalance] = useState(0);
   const [startDisplay, setStartDisplay] = useState("flex");
   const [endDisplay, setEndDisplay] = useState("none");
-  const [width, setWidth] = useState(1250);
+  const [width, setWidth] = useState(window.innerWidth >= 1250 ? 1250 : window.innerWidth);
 
   const style = {
     startScreen: {

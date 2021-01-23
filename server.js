@@ -5,7 +5,6 @@ const router = require("./routes/index");
 const app = express();
 const PORT = process.env.PORT || 5000;
 const cookieParser = require("cookie-parser");
-const config = require('./config/config');
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -23,9 +22,9 @@ app.use(router);
 
 // Connect to the Mongo DB
 if (process.env.NODE_ENV === "production") {
-  mongoose.connect(config.db, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
+  mongoose.connect("mongodb+srv://koikoi5:koikoi5@cluster0.4ywri.mongodb.net/Cluster0?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 } else {
-  mongoose.connect(config.db_dev, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
+  mongoose.connect("mongodb+srv://koikoi5:koikoi5@cluster0.4ywri.mongodb.net/Cluster0?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 }
 
 // Start the API server
