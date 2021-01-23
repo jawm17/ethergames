@@ -10,6 +10,17 @@ body{
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
     position: relative;
+    z-index: 2;
+}
+
+#headerSnake {
+    position: fixed;
+    z-index: 10;
+    width: 100vw;
+    height: 80px;
+    background-color: black;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
 }
 
 #container {
@@ -22,6 +33,13 @@ body{
     color: black;
     margin-top: -50px;
 
+}
+
+#snakeEndTitle {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 30px;
+    color: black;
+    margin-top: -50px;
 }
 
 #snakeStartSub {
