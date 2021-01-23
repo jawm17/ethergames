@@ -141,11 +141,31 @@ export default function Account() {
 
     return (
         <div id="accountArea">
-            {sendingEth ? <SendEthModal balance={balance} close={() => closeSendModal()} update={() => getWalletInfo()} username={username}/> : null}
-            {recievingEth ? <RecieveEthModal close={() => closeRecieveModal()} address={address} qr={qrCode}/> : null}
+            {sendingEth ? (
+                <SendEthModal
+                    balance={balance}
+                    close={() => closeSendModal()}
+                    update={() => getWalletInfo()}
+                    username={username}
+                />
+            ) : null}
+            {recievingEth ? (
+                <RecieveEthModal
+                    close={() => closeRecieveModal()}
+                    address={address}
+                    qr={qrCode}
+                />
+            ) : null}
             <header>
                 <nav id="navAccount">
-                    <h1 id="accountLogo" onClick={() => history.push("/")}>Ether Games</h1>
+                    <h1 id="accountLogo" onClick={() => history.push('/')}>
+                        Ether Games
+                    </h1>
+                    <ul class="nav-links">
+                        <li>
+                            <a href="settings.html">Settings</a>
+                        </li>
+                    </ul>
                 </nav>
             </header>
             <section className="containerAccount">
@@ -157,8 +177,12 @@ export default function Account() {
                         <img src={qrCode} alt="" />
                     </div>
                     <div className="btn">
-                        <button onClick={() => openSendModal()}>Withdraw</button>
-                        <button onClick={() => openRecieveModal()}>Receive</button>
+                        <button onClick={() => openSendModal()}>
+                            Withdraw
+                        </button>
+                        <button onClick={() => openRecieveModal()}>
+                            Receive
+                        </button>
                     </div>
                     <div className="balance">
                         Balance: {parseFloat(balance)} ETH
@@ -168,60 +192,60 @@ export default function Account() {
                     {/* Tab links */}
                     <div className="tab-container">
                         <div className="tab">
-                            <button className="tablinks" onClick={(e) => openCity(e, 'Scores')}>
+                            <button
+                                className="tablinks"
+                                onClick={(e) => openCity(e, 'Scores')}
+                            >
                                 Scores
                             </button>
-                            <button className="tablinks" onClick={(e) => openCity(e, 'Transactions')}>
+                            <button
+                                className="tablinks"
+                                onClick={(e) => openCity(e, 'Transactions')}
+                            >
                                 Transactions
                             </button>
                         </div>
                         {/* Tab content */}
                         <div id="Scores" className="tabcontent1">
                             <table className="table" style={{ width: '100%' }}>
-                                <tbody>
+                                <tbody className="scoreContent">
                                     <tr>
-                                        <th>Date</th>
-                                        <th>Score</th>
-                                        <th>Pot</th>
-                                        <th>Time Left</th>
+                                            <th>Date</th>
+                                            <th>Score</th>
+                                            <th>Pot</th>
                                     </tr>
                                     <tr>
                                         <td>01/01/2021</td>
                                         <td>10000000</td>
                                         <td>100</td>
-                                        <td>1hour</td>
                                     </tr>
                                     <tr>
                                         <td>01/01/2021</td>
                                         <td>10000000</td>
                                         <td>100</td>
-                                        <td>1hour</td>
                                     </tr>
                                     <tr>
                                         <td>01/01/2021</td>
                                         <td>10000000</td>
                                         <td>1000</td>
-                                        <td>1hour</td>
                                     </tr>
                                     <tr>
                                         <td>01/01/2021</td>
                                         <td>10000000</td>
                                         <td>100</td>
-                                        <td>1hour</td>
                                     </tr>
-                                    <tr>
+                                    <tr id="scoreTabContent">
                                         <td>01/01/2021</td>
                                         <td>10000000</td>
                                         <td>100</td>
-                                        <td>1hour</td>
                                     </tr>
-                                    <tr>
+                                    <tr id="scoreTabContent">
                                         <td>01/01/2021</td>
                                         <td>10000000</td>
                                         <td>1000</td>
-                                        <td>1hour</td>
                                     </tr>
-                                </tbody></table>
+                                </tbody>
+                            </table>
                         </div>
                         <div id="Transactions" className="tabcontent2">
                             <table className="table" style={{ width: '100%' }}>
@@ -231,18 +255,28 @@ export default function Account() {
                                         <th>Transaction</th>
                                         <th>Amount</th>
                                     </tr>
-                                    {txs.map(tx => {
-                                        return <WalletTx
-                                            amount={parseFloat((tx.value / 1000000000000000000).toFixed(6)) || tx.amount}
-                                            address={address}
-                                            from={tx.from}
-                                            type={tx.type}
-                                            to={tx.to}
-                                            date={tx.timeStamp}
-                                            key={Math.random() * 10000}
-                                        />
+                                    {txs.map((tx) => {
+                                        return (
+                                            <WalletTx
+                                                amount={
+                                                    parseFloat(
+                                                        (
+                                                            tx.value /
+                                                            1000000000000000000
+                                                        ).toFixed(6)
+                                                    ) || tx.amount
+                                                }
+                                                address={address}
+                                                from={tx.from}
+                                                type={tx.type}
+                                                to={tx.to}
+                                                date={tx.timeStamp}
+                                                key={Math.random() * 10000}
+                                            />
+                                        );
                                     })}
-                                </tbody></table>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

@@ -9,30 +9,28 @@
 }
 /* Nav Bar */
 #navAccount {
+    display: flex;
+    justify-content: space-between;
     background: black;
-    display: grid;
-    grid-template-columns: 10% 1fr 1fr 10%;
-    min-height: 8vh;
+    height: 70px;
     align-items: center;
-    width: 100vw;
     border-bottom: solid white 2px;
 }
 a:-webkit-any-link {
+    color: var(--green);
     cursor: pointer;
     text-decoration: none;
 }
 #settings {
-        color: var(--green);
+    color: var(--green);
 }
 #accountLogo {
-    font-size: 1.5rem;
-    padding: 1rem;
+    font-size: 1.4rem;
     text-transform: uppercase;
     /* animation: flicker 1.5s infinite alternate; */
-    width: 300px;
+    width: 250px;
     text-align: center;
     margin: 5px;
-    color: var(--green);
 }
 #accountLogo::-moz-selection {
     color: var(--neon-text-color);
@@ -56,10 +54,10 @@ a:-webkit-any-link {
     54%,
     56%,
     100% {
-        text-shadow: -0.2rem -0.2rem 1rem rgb(32, 255, 3), 0.2rem 0.2rem 1rem rgb(7, 253, 27),
-            0 0 2rem var(--neon-text-color), 0 0 4rem var(--neon-text-color),
-            0 0 6rem var(--neon-text-color), 0 0 8rem var(--neon-text-color),
-            0 0 10rem var(--neon-text-color);
+        text-shadow: -0.2rem -0.2rem 1rem rgb(32, 255, 3),
+            0.2rem 0.2rem 1rem rgb(7, 253, 27), 0 0 2rem var(--neon-text-color),
+            0 0 4rem var(--neon-text-color), 0 0 6rem var(--neon-text-color),
+            0 0 8rem var(--neon-text-color), 0 0 10rem var(--neon-text-color);
     }
 
     20%,
@@ -68,24 +66,44 @@ a:-webkit-any-link {
         text-shadow: none;
     }
 }
+#accountLogo,
+.nav-links {
+    display: inline;
+}
+.nav-links {
+    float: right;
+}
+.nav-links li {
+    display: inline;
+    list-style: none;
+    float: right;
+}
+.nav-links a {
+    text-decoration: none;
+    letter-spacing: 3px;
+    font-size: 1.4rem;
+    padding: 10px;
+}
 /* both containers */
 .containerAccount {
+    min-height: 50vh;
     margin-top: 100px;
+    padding-bottom: 15px;
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 /* left container */
 .left-container {
-    height: 50vh;
+    padding-bottom: 15px;
+    text-align: center;
     width: 20%;
     background: rgb(0, 0, 0);
     border: solid white 2px;
-    text-align: center;
 }
 .QR-code img {
-    width: 200px;
-    height: 200px;
+    width: 85%;
+    height: 85%;
     padding: 20px 0px 0px 0px;
     /* top right bottom left */
 }
@@ -98,18 +116,16 @@ a:-webkit-any-link {
     font-size: 1.5rem;
     padding-top: 15px;
     text-decoration: underline;
-
 }
-.btn button{
+.btn button {
     font-family: 'Mina', sans-serif;
     font-size: 1rem;
     cursor: pointer;
     width: 99px;
-
 }
 /* right container */
 .right-container {
-    height: 50vh;
+    padding-bottom: 15px;
     margin-left: 5px;
     width: 60%;
     background: rgb(0, 0, 0);
@@ -118,17 +134,16 @@ a:-webkit-any-link {
 /* Style the tab */
 .tab-container {
     margin: 10px;
-overflow: auto;    
-max-height: 47vh;
+    overflow: auto;
+    max-height: 47vh;
     -ms-overflow-style: none !important;
-
 }
 .tab-container::-webkit-scrollbar {
     display: none;
 }
 .tab {
-    position:sticky;
-	top:0;
+    position: sticky;
+    top: 0;
     overflow: hidden;
     border: 1px solid #ccc;
     background-color: #000000;
@@ -166,7 +181,8 @@ max-height: 47vh;
     border: 1px solid #ccc;
     border-top: none;
 }
-.table{
+
+.table {
     text-align: center;
 }
 .tabcontent2 {
@@ -177,4 +193,83 @@ max-height: 47vh;
 }
 .balance {
     margin-top: 20px;
+}
+/* Media Queries */
+/* Portrait and Landscape */
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) {
+    #root {
+        margin-top: 0px;
+    }
+    #navAccount {
+        height: 60px;
+    }
+    #accountLogo {
+        font-size: 0.9rem;
+        width: 150px;
+    }
+    .nav-links a {
+        padding-right: 15px;
+        letter-spacing: 0px;
+        font-size: 0.9rem;
+    }
+    /* both containers */
+    .containerAccount {
+        margin-top: 30px;
+        flex-direction: column;
+        align-items: center;
+    }
+    /* left container */
+    .left-container {
+        width: 80%;
+    }
+    .QR-code img {
+        width: 60%;
+        padding: 10px 0px 0px 0px;
+        /* top right bottom left */
+    }
+    .username {
+        font-size: 1.8rem;
+    }
+    .btn button {
+        width: 60%;
+    }
+    .send {
+        margin-bottom: 10px;
+    }
+    /* right container */
+    .right-container {
+        margin-top: 5px;
+        margin-left: 0px;
+        width: 80%;
+    }
+    /* Style the tab */
+    .tab {
+        display: flex;
+        justify-content: center;
+    }
+    .tablinks {
+        width: 50%;
+    }
+    .tab button {
+        padding: 10px;
+    }
+    /* Style the tab content */
+
+    .tabcontent1 {
+        width: 100%;
+        padding: 14px 12px;
+    }
+    .table {
+        font-size: 0.8rem;
+        padding: 0px;
+    }
+
+}
+
+/* Portrait */
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+}
+
+/* Landscape */
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
 }

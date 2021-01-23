@@ -16,12 +16,12 @@ function App() {
   return (
     <Router history={history}>
       <Switch>
-        <UnPrivateRoute path="/login" component={Login} />
-        <UnPrivateRoute path="/register" component={Register} />
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
         <Route path="/snake" component={Container} />
         <Route exact path="/" component={Home} />
         <Route exact path="/two" component={HomeTwo} />
-        <PrivateRoute path="/account" component={Account} />
+        <Route path="/account" component={Account} />
         <Route path="/" component={NoMatchPage} />
       </Switch>
     </Router>
