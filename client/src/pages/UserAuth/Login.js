@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import Message from '../../components/Message';
 import history from "../../history";
 import AuthService from '../../services/AuthService';
 import { AuthContext } from '../../context/AuthContext';
