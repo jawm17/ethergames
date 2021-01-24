@@ -14,14 +14,14 @@ import { Router, Route, Switch } from 'react-router-dom';
 
 function App() {
   return (
-    <Router>
+    <Router history={history}>
       <Switch>
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
+        <UnPrivateRoute path="/login" component={Login} />
+        <UnPrivateRoute path="/register" component={Register} />
         <Route path="/snake" component={Container} />
         <Route exact path="/" component={Home} />
         <Route exact path="/two" component={HomeTwo} />
-        <Route path="/account" component={Account} />
+        <PrivateRoute path="/account" component={Account} />
         <Route path="/" component={NoMatchPage} />
       </Switch>
     </Router>
