@@ -14,9 +14,17 @@ import { Router, Route, Switch } from 'react-router-dom';
 
 function App() {
   return (
-    <div>
-      hello
-    </div>
+    <Router history={history}>
+      <Switch>
+        <UnPrivateRoute path="/login" component={Login} />
+        <UnPrivateRoute path="/register" component={Register} />
+        <Route path="/snake" component={Container} />
+        <Route exact path="/" component={Home} />
+        <Route exact path="/two" component={HomeTwo} />
+        <PrivateRoute path="/account" component={Account} />
+        <Route path="/" component={NoMatchPage} />
+      </Switch>
+    </Router>
   );
 }
 
