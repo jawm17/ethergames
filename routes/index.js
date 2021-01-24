@@ -8,8 +8,8 @@ router.use("/User", userRouter);
 router.use("/Game", gameRouter);
 
 // If no API routes are hit, send the React app
-router.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+router.use("/", function(req, res) {
+  res.sendFile(path.join(__dirname, "../client/public/index.html"));
 });
 
 module.exports = router;
