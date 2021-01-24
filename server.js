@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
-const router = require("./routes/index");
+const router = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 5000;
 const cookieParser = require("cookie-parser");
@@ -15,9 +15,6 @@ app.use(cookieParser());
 if (process.env.NODE_ENV === "production") {
   // Set static folder
   app.use(express.static("client/build"));
-  app.get("*", function (req, res) {
-    res.sendFile(path.join(__dirname, "./client/build/index.html"));
-  });
 }
 
 // Add routes, both API and view
