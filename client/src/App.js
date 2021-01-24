@@ -14,7 +14,7 @@ import { Router, Route, Switch } from 'react-router-dom';
 
 function App() {
   return (
-    <Router history={history}>
+    <Router>
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
