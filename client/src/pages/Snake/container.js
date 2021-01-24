@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import SnakeGame from "./snakeGame";
 import TxService from "../../services/TxService";
 import GameService from "../../services/GameService";
-import Score from "../../components/score";
+import Score from "../../components/score.js";
 import { AuthContext } from '../../context/AuthContext';
 import "./snakeStyle.css";
 
