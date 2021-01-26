@@ -69,7 +69,7 @@ export default function Container() {
 
 
   return (
-    <div id="container" tabIndex="0">
+    <div id="container" tabIndex="0" style={{ outline: "none" }}>
       {/* <div id="headerSnake">
 
       </div> */}
@@ -134,6 +134,9 @@ export default function Container() {
                 </li>
               </ol>
           </div>
+      </div>
+      <div id="footerHome">
+
       </div>
     </div>
   );

@@ -142,6 +142,7 @@ body{
     font-family: 'Mina', sans-serif;
     margin-bottom: 10px;
     margin-left: 5px;
+    color: #69ff05;
 }
 
 #leaderBoard {
@@ -158,18 +159,19 @@ body{
     max-width: 450px;
     width: 90vw;
     height: 400px;
-    color: white;
     float: left;
     margin-top: 60px;
     margin-left: 90px;
     margin-bottom: 40px;
     font-family: 'Mina', sans-serif;
     font-size: 20px;
+    color: #69ff05;
 }
 
 #instuctList {
     margin-top: 20px;
     margin-left: 20px;
+    color: white;
 }
 
 .liSnake {
