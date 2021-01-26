@@ -109,6 +109,31 @@ export default function Container() {
             })}
           </div>
         </div>
+        <div id="instructions">
+              <div>
+                How to play
+              </div>
+              <ol id="instuctList">
+                <li className="liSnake">
+                  Deposit funds in your account.
+                </li>
+                <li className="liSnake">
+                  Start game - each play costs $0.25 - 70% goes to the pot while the remaining 30% is used to maintain the site.
+                </li>
+                <li className="liSnake">
+                  Use the arrow keys (desktop) or the arrow buttons (mobile) to move. Eat the food and grow in size. Each food eaten is 5 points.
+                </li>
+                <li className="liSnake">
+                  Don't eat yourself.
+                </li>
+                <li className="liSnake">
+                  Don't eat the border.
+                </li>
+                <li className="liSnake"> 
+                  Beat the top score and win the pot!
+                </li>
+              </ol>
+          </div>
       </div>
     </div>
   );
