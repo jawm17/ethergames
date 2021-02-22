@@ -10,9 +10,10 @@
     position: fixed;
     width: 100vw;
     height: 100px;
-    background-color: white;
-    border-bottom-right-radius: 18px;
-    border-bottom-left-radius: 18px;
+    background-color: black;
+    color:  rgb(72, 254, 12);
+    /* border-bottom-right-radius: 18px;
+    border-bottom-left-radius: 18px; */
 }
 
 #heroTwo {
@@ -28,5 +29,6 @@
 
 #gamesArea {
     height: 1000px;
-    width: 10px;
+    width: 100vw;
+    background-color: black;
 }

@@ -1,7 +1,7 @@
 const CANVAS_SIZE = [1250, 670];
 const SNAKE_START = [
-  [17, 10],
-  [17, 11]
+  [1, 10],
+  [1, 11]
 ];
 const APPLE_START = [28, 3];
 const SCALE = 30;

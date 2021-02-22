@@ -15,10 +15,12 @@ export default function Home() {
 
     useEffect(() => {
         getInfo();
-        document.getElementById("heroSection").addEventListener("mousemove", (e) => generateTrail(e));
-        interval = setInterval(() => {
-            updateTrails();
-        }, 20);
+
+        // generate trail code 
+        // document.getElementById("heroSection").addEventListener("mousemove", (e) => generateTrail(e));
+        // interval = setInterval(() => {
+        //     updateTrails();
+        // }, 20);
     });
 
     function getInfo() {
@@ -136,9 +138,9 @@ export default function Home() {
                                 </div>
                             </a>
                         </li>
-                        <li>
+                        <li onClick={() => history.push("/tetris")}>
                             <a href>TETRIS
-                <div className="icon">
+                                <div className="icon">
                                     <img src="https://amp.thenationalnews.com/image/policy:1.1019785:1589539690/ac15-may-tetris.jpg?f=16x9&w=1200&$p$f$w=5f04803" alt="" />
                                 </div>
                                 <div>

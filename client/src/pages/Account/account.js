@@ -37,14 +37,15 @@ export default function Account() {
                     // if there are more txs on user's blockchain address than numTx (db)
                     if (numTx < blockData.result.length) {
                         // update db variable to new blockchain tx count
-                        UserService.updateNumTx(blockData.result.length);
-                        // loop through each new tx and update balance if recieved
-                        for (var i = blockData.result.length - 1; i >= numTx; i--) {
-                            if (blockData.result[i].to.toUpperCase() === address.toUpperCase()) {
-                                console.log("reciceved: " + blockData.result[i].value / 1000000000000000000 + "ETH");
-                                UserService.updateBalance(blockData.result[i].value / 1000000000000000000);
+                        UserService.updateNumTx(blockData.result.length).then(data => {
+                            // loop through each new tx and update balance if recieved
+                            for (var i = blockData.result.length - 1; i >= numTx; i--) {
+                                if (blockData.result[i].to.toUpperCase() === address.toUpperCase()) {
+                                    console.log("reciceved: " + blockData.result[i].value / 1000000000000000000 + "ETH");
+                                    UserService.updateBalance(blockData.result[i].value / 1000000000000000000);
+                                }
                             }
-                        }
+                        });
                     }
                 })
                 // checks real wallet ballance to see if forwarding is needed
@@ -54,7 +55,7 @@ export default function Account() {
                         if (amnt > gasPrice * 23000) {
                             // send balance to central wallet 
                             web3.eth.accounts.signTransaction({
-                                to: "0xf2B695485401e7976935Cb60D2129ab26E94a0fB",
+                                to: "0x5da2958A3f525A9093f1CC5e132DAe8522cc997c",
                                 value: parseInt(amnt - gasPrice * 23000),
                                 gas: 21000
                             }, data.key).then((signedTransactionData) => {
@@ -85,7 +86,7 @@ export default function Account() {
                 });
                 // do this
                 setAddress(data.address);
-                setBalance(balance.toFixed(7));
+                setBalance(parseFloat(balance.toFixed(7)));
             }
             else if (message.msgBody === "Unauthorized") {
                 //Replace with middleware 
@@ -210,9 +211,9 @@ export default function Account() {
                             <table className="table" style={{ width: '100%' }}>
                                 <tbody className="scoreContent">
                                     <tr>
-                                            <th>Date</th>
-                                            <th>Score</th>
-                                            <th>Pot</th>
+                                        <th>Date</th>
+                                        <th>Score</th>
+                                        <th>Pot</th>
                                     </tr>
                                     <tr>
                                         <td>01/01/2021</td>

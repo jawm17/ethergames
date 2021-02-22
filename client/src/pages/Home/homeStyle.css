@@ -25,7 +25,7 @@
 #heroSection {
     height: 60vh;
     width: 100vw;
-    /* background: url("https://media0.giphy.com/media/26xBKGcgVLxxZVOaA/giphy.gif") no-repeat center center fixed; */
+    background: url("https://media0.giphy.com/media/26xBKGcgVLxxZVOaA/giphy.gif") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;

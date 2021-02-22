@@ -5,12 +5,12 @@ import "./snakeStyle.css";
 import { useInterval } from "./useInterval";
 var CANVAS_SIZE = [1250, 670];
 var SNAKE_START = [
-  [17, 10],
-  [17, 11]
+  [1, 10],
+  [1, 11]
 ];
-var APPLE_START = [28, 3];
+var APPLE_START = [1, 14];
 var SCALE = 30;
-var SPEED = 70;
+var SPEED = 100;
 var DIRECTIONS = {
   38: [0, -1], // up
   40: [0, 1], // down
@@ -31,7 +31,7 @@ export default function SnakeGame(props) {
   const [balance, setBalance] = useState(0);
   const [startDisplay, setStartDisplay] = useState("flex");
   const [endDisplay, setEndDisplay] = useState("none");
-  const [width, setWidth] = useState(window.innerWidth >= 1250 ? 1250 : window.innerWidth);
+  const [width, setWidth] = useState(window.innerWidth >= 1250 ? 1250 : window.innerWidth-50);
 
   const style = {
     startScreen: {
@@ -68,10 +68,11 @@ export default function SnakeGame(props) {
   useInterval(() => gameLoop(), speed);
 
   const windowResize = () => {
+    console.log('resize')
     if(window.innerWidth >= 1250) {
       setWidth(1250);
     } else {
-      setWidth(window.innerWidth);
+      setWidth(window.innerWidth-50);
     }
   }
 
