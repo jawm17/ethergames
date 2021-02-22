@@ -4,6 +4,7 @@ import TxService from "../../services/TxService";
 import GameService from "../../services/GameService";
 import Score from "../../components/score.js";
 import { AuthContext } from '../../context/AuthContext';
+import history from "../../history";
 import "./snakeStyle.css";
 
 
@@ -69,47 +70,56 @@ export default function Container() {
 
 
   return (
-    <div id="container" tabIndex="0" style={{ outline: "none" }}>
-      {/* <div id="headerSnake">
+    <div>
+      <div id="container" tabIndex="0" style={{ outline: "none" }}>
+        {/* <div id="headerSnake">
 
       </div> */}
-      <SnakeGame inc={() => incrementScore()} start={() => gameStart()} gameOver={() => gameOver()} />
-      <div id="info">
-        <div id="top">
-          <div id="title">
-            SNAKE
-          </div>
-          <div id="dot">
-
-          </div>
-          <div id="jackpot">
-            Jackpot: {parseFloat(pot.toFixed(6))} ETH
-          </div>
-          <div id="dot">
-
-          </div>
-          <div id="highScore">
-            Score to beat: {scoreToBeat}
-          </div>
-          <div id="score">
-            Score: {score}
-          </div>
+        <div id="closeGameButton" onClick={() => history.push("/")}>
+          <img id="closeX" src="https://firebasestorage.googleapis.com/v0/b/gamesresources-28440.appspot.com/o/x.png?alt=media&token=fc3b3baa-be28-4071-a4e1-271b96c5995f" alt="close button"></img>
         </div>
-        <div id="leaderBoardArea">
-          <div id="leaderBoardTitle">
-            High Scores
+        <SnakeGame inc={() => incrementScore()} start={() => gameStart()} gameOver={() => gameOver()} />
+        <div id="info">
+          <div id="top">
+            <div id="title">
+              SNAKE
           </div>
-          <div id="leaderBoard">
-            {scores.map(score => {
-              return <Score
-                user={score.user}
-                score={score.score}
-                key={score.timeStamp}
-              />
-            })}
+            <div id="dot">
+
+            </div>
+            <div id="jackpot">
+              Jackpot: {parseFloat(pot.toFixed(6))} ETH
           </div>
-        </div>
-        <div id="instructions">
+            <div id="dot">
+
+            </div>
+            <div id="highScore">
+              Score to beat: {scoreToBeat}
+            </div>
+            <div id="score">
+              Score: {score}
+            </div>
+          </div>
+          </div>
+
+          <div id="boardAndInstruct">
+
+            <div id="leaderBoardArea">
+              <div id="leaderBoardTitle">
+                High Scores
+              </div>
+              <div id="leaderBoard">
+                {scores.map(score => {
+                  return <Score
+                    user={score.user}
+                    score={score.score}
+                    key={score.timeStamp}
+                  />
+                })}
+              </div>
+            </div>
+
+            <div id="instructions">
               <div>
                 How to play
               </div>
@@ -129,10 +139,11 @@ export default function Container() {
                 <li className="liSnake">
                   Don't eat the border.
                 </li>
-                <li className="liSnake"> 
+                <li className="liSnake">
                   Beat the top score and win the pot!
                 </li>
               </ol>
+            </div>
           </div>
       </div>
       <div id="footerHome">

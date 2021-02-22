@@ -20,12 +20,40 @@ body{
     width: 100vw;
     height: 80px;
     background-color: black;
-    border-bottom-right-radius: 20px;
-    border-bottom-left-radius: 20px;
+    /* border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px; */
 }
 
 #container {
     background-color: black;
+}
+
+#closeGameButton {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    background-color: white;
+    top: 15px;
+    left: 15px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 500;
+}
+
+#closeX {
+    width: 15px;
+    height: 15px;
+}
+
+#closeGameButton:active {
+    box-shadow: none;
+}
+
+#closeGameButton:hover {
+    cursor: pointer;
 }
 
 #snakeStartTitle {
@@ -33,7 +61,6 @@ body{
     font-size: 30px;
     color: black;
     margin-top: -50px;
-
 }
 
 #snakeEndTitle {
@@ -50,7 +77,7 @@ body{
 
 #info {
     background-color: black;
-    height: 100vh;
+    height: 100px;
     color: white;
 }
 
@@ -131,9 +158,14 @@ body{
     font-weight: 700px;
 }
 
+#boardAndInstruct {
+    display: flex;
+    align-items: center;
+    width: 100vw;
+    background-color: red;
+}
+
 #leaderBoardArea {
-    float: left;
-    margin-top: 60px;
     margin-left: 40px;
     margin-bottom: 40px;
 }
@@ -157,11 +189,9 @@ body{
 }
 
 #instructions {
-    max-width: 450px;
-    width: 90vw;
+    width: 450px;
     height: 400px;
-    float: left;
-    margin-top: 60px;
+    background-color: black;
     margin-left: 90px;
     margin-bottom: 40px;
     font-family: 'Mina', sans-serif;
