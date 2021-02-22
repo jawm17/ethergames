@@ -77,7 +77,7 @@ body{
 
 #info {
     background-color: black;
-    height: 100px;
+    height: 120px;
     color: white;
 }
 
@@ -160,9 +160,7 @@ body{
 
 #boardAndInstruct {
     display: flex;
-    align-items: center;
     width: 100vw;
-    background-color: red;
 }
 
 #leaderBoardArea {
@@ -175,6 +173,7 @@ body{
     font-family: 'Mina', sans-serif;
     margin-bottom: 10px;
     margin-left: 5px;
+    margin-bottom: 20px;
     color: #69ff05;
 }
 
@@ -189,11 +188,11 @@ body{
 }
 
 #instructions {
-    width: 450px;
+    max-width: 90vw;
     height: 400px;
-    background-color: black;
     margin-left: 90px;
     margin-bottom: 40px;
+    margin-right: 50px;
     font-family: 'Mina', sans-serif;
     font-size: 20px;
     color: #69ff05;
@@ -207,4 +206,14 @@ body{
 
 .liSnake {
     margin-top: 10px;
+}
+
+@media only screen and (max-width: 1300px) {  
+    #boardAndInstruct { 
+        display: block;
+    }
+    #instructions {
+        margin-left: 40px;
+        margin-bottom: 40px;
+    }
 }
