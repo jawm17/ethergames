@@ -130,7 +130,7 @@ body{
     color: #69ff05;
 }
 
-#dot {
+.dot {
     float: left;
     border-radius: 50%;
     width: 10px;

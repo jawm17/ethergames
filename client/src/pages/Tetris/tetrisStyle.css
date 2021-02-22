@@ -1,0 +1,185 @@
+body{
+    padding: 0;
+    margin: 0;
+}
+
+#container {
+    background-color: black;
+}
+
+#closeGameButton {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    background-color: white;
+    top: 15px;
+    left: 15px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 500;
+}
+
+#closeX {
+    width: 15px;
+    height: 15px;
+}
+
+#closeGameButton:active {
+    box-shadow: none;
+}
+
+#closeGameButton:hover {
+    cursor: pointer;
+}
+
+#info {
+    background-color: black;
+    height: 120px;
+    color: white;
+}
+
+#startInfo {
+    text-align: center;
+}
+
+#top {
+    width: 100vw;
+    float: left;
+    position: relative;
+}
+
+#score {
+    position: absolute;
+    top: 35px;
+    right: 185px;
+    font-family: 'Mina', sans-serif;
+    font-size: 20px;
+}
+
+#playBtn {
+    position: absolute;
+    z-index: 100;
+    bottom: -65px;
+    right: 60px;
+    height: 40px;
+    width: 80px;
+    border-style: solid;
+    border-radius: 6px;
+    border-color: #5DE900;
+    border-width: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #69ff05;
+    font-family: 'Mina', sans-serif;
+}
+
+#playBtn:hover {
+    cursor: pointer;
+}
+
+#titleTetris {
+    float: left;
+    margin-top: 40px;
+    margin-left: 40px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 20px;
+    color: yellow;
+}
+
+.dotTetris {
+    float: left;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    background-color: yellow;
+    margin-top: 43px;
+    margin-left: 20px;
+}
+
+#jackpot {
+    float: left;
+    margin-top: 33px;
+    margin-left: 20px;
+    font-size: 20px;
+    font-family: 'Mina', sans-serif;
+    font-weight: 700px;
+}
+
+#highScore {
+    float: left;
+    margin-top: 33px;
+    margin-left: 20px;
+    font-size: 20px;
+    font-family: 'Mina', sans-serif;
+    font-weight: 700px;
+}
+
+#boardAndInstruct {
+    display: flex;
+    width: 100vw;
+}
+
+#leaderBoardArea {
+    margin-left: 40px;
+    margin-bottom: 40px;
+}
+
+#leaderBoardTitleTetris {
+    font-size: 20px;
+    font-family: 'Mina', sans-serif;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    margin-bottom: 20px;
+    color: yellow;
+}
+
+#leaderBoard {
+    max-width: 800px;
+    width: 90vw;
+    height: 400px;
+    border-style: solid;
+    border-color: white;
+    background-color: white;
+    border-radius: 12px;
+}
+
+#instructionsTetris {
+    max-width: 90vw;
+    height: 400px;
+    margin-left: 90px;
+    margin-bottom: 40px;
+    margin-right: 50px;
+    font-family: 'Mina', sans-serif;
+    font-size: 20px;
+    color: yellow;
+}
+
+#instuctList {
+    margin-top: 20px;
+    margin-left: 20px;
+    color: white;
+}
+
+.liSnake {
+    margin-top: 10px;
+}
+
+#footerYellow {
+    background-color: yellow;
+    height: 30vh;
+    width: 100vw;
+}
+
+@media only screen and (max-width: 1300px) {  
+    #boardAndInstruct { 
+        display: block;
+    }
+    #instructionsTetris {
+        margin-left: 40px;
+        margin-bottom: 40px;
+    }
+}

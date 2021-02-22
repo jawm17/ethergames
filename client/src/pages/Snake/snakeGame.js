@@ -214,7 +214,7 @@ export default function SnakeGame(props) {
         </div>
         <div id="playBtn" onClick={() => startGame()}>
           play
-      </div>
+        </div>
       </div>
     </div>
 
