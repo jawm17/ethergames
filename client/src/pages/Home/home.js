@@ -117,29 +117,18 @@ export default function Home() {
                 <div className="game-container">
                     <ul className="games">
                         <li onClick={() => history.push("/snake")}>
-                            <a href>SNAKE
-                <div className="icon">
+                            <div>SNAKE
+                                 <div className="icon">
                                     <img src="https://image.winudf.com/v2/image/Y29tLnNuYWtlY29tcGFueS5zbmFrZWlvZ2FtZV9zY3JlZW5fMV9wcmU1c3c3YQ/screen-1.jpg?fakeurl=1&type=.jpg" alt="" />
                                 </div>
                                 <div>
                                     <h1>Jackpot: {parseFloat(snakePot.toFixed(6))} ETH</h1>
                                     <p>High Score: {snakeScore}</p>
                                 </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href>ASTEROIDS
-                <div className="icon">
-                                    <img src="https://images.saymedia-content.com/.image/t_share/MTc0MDE0OTk4MzEyMzk2NjY3/asteroids-by-atari-classic-video-games-reviewed.jpg" alt="" />
-                                </div>
-                                <div>
-                                    <h1>Jackpot: 0.002 ETH</h1>
-                                    <p>High Score: 200</p>
-                                </div>
-                            </a>
+                            </div>
                         </li>
                         <li onClick={() => history.push("/tetris")}>
-                            <a href>TETRIS
+                            <div>TETRIS
                                 <div className="icon">
                                     <img src="https://amp.thenationalnews.com/image/policy:1.1019785:1589539690/ac15-may-tetris.jpg?f=16x9&w=1200&$p$f$w=5f04803" alt="" />
                                 </div>
@@ -147,10 +136,21 @@ export default function Home() {
                                     <h1>Jackpot: 13 ETH</h1>
                                     <p>High Score: 21000</p>
                                 </div>
-                            </a>
+                            </div>
                         </li>
                         <li>
-                            <a href>PAC-BOY
+                            <div>ASTEROIDS
+                                <div className="icon">
+                                    <img src="https://images.saymedia-content.com/.image/t_share/MTc0MDE0OTk4MzEyMzk2NjY3/asteroids-by-atari-classic-video-games-reviewed.jpg" alt="" />
+                                </div>
+                                <div>
+                                    <h1>Jackpot: 0.002 ETH</h1>
+                                    <p>High Score: 200</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>PAC-BOY
                 <div className="icon">
                                     <img src="https://miro.medium.com/max/2496/1*hCdywjP_Sg1zTyc_BbbpSg.png" alt="" />
                                 </div>
@@ -158,7 +158,7 @@ export default function Home() {
                                     <h1>Jackpot: 0.8 ETH</h1>
                                     <p>High Score: 14000</p>
                                 </div>
-                            </a>
+                            </div>
                         </li>
                     </ul>
                 </div>

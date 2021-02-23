@@ -5,6 +5,10 @@
     color: black;
     font-family: 'Mina', sans-serif;
     font-size: 20px;
+    border-bottom-style: dashed;
+    border-bottom-color: gray;
+    border-bottom-width: 2px;
+    margin-top: 15px;
 }
 
 .leftEl {

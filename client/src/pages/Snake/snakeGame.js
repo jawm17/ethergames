@@ -87,9 +87,22 @@ export default function SnakeGame(props) {
     let keyCode = e.keyCode
     e.preventDefault();
     if (keyCode >= 37 && keyCode <= 40) {
+      // don't allow player to reverse into themselves
+      if(keyCode === 39 && dir === DIRECTIONS[37]) {
+        return
+      } 
+      if(keyCode === 37 && dir === DIRECTIONS[39]) {
+        return
+      } 
+      if(keyCode === 40 && dir === DIRECTIONS[38]) {
+        return
+      } 
+      if(keyCode === 38 && dir === DIRECTIONS[40]) {
+        return
+      } 
       setDir(DIRECTIONS[keyCode]);
     }
-  }
+}
 
   const createApple = () =>
     apple.map((_a, i) => Math.floor(Math.random() * (CANVAS_SIZE[i] / SCALE)));

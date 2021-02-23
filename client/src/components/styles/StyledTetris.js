@@ -8,6 +8,7 @@ export const StyledTetrisWrapper = styled.div`
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
     position: relative;
+    outline: none;
 
     #test {
         display: flex;
@@ -15,7 +16,8 @@ export const StyledTetrisWrapper = styled.div`
 
     aside {
         position: absolute;
-        bottom: -120px;
+        right: 165px;
+        bottom: -65px;
     }
 
 `;

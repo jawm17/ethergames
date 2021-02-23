@@ -64,13 +64,13 @@ export default function TetrisContainer() {
                 Start game - each play costs $0.25 - 70% goes to the pot while the remaining 30% is used to maintain the site.
                 </li>
               <li className="liSnake">
-                Use the arrow keys (desktop) or the arrow buttons (mobile) to move. Eat the food and grow in size. Each food eaten is 5 points.
+                Use the arrow keys (desktop) or the arrow buttons (mobile) to play. 
                 </li>
               <li className="liSnake">
-                Don't eat yourself.
+                Clear rows by filling them completely and increase your score. 
                 </li>
               <li className="liSnake">
-                Don't eat the border.
+                The speed increases as you progress.
                 </li>
               <li className="liSnake">
                 Beat the top score and win the pot!

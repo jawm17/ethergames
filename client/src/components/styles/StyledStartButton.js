@@ -1,22 +1,23 @@
 import styled from "styled-components";
 
 export const StyledStartButton = styled.button`
-  box-sizing: border-box;
-  margin: 0 0 20px 0;
-  padding: 20px;
-  min-height: 30px;
-  width: 12;
-  border-radius: 20px;
-  border: none;
-  color: white;
-  background: #333;
-  font-family: Pixel, Arial, Helvetica, sans-serif;
-  font-size: 1rem;
-  outline: none;
-  cursor: pointer;
-  position: absolute;
-  bottom: -100px;
-  right: 0px;
-  z-index: 400;
+position: absolute;
+z-index: 100;
+bottom: -65px;
+right: 60px;
+height: 40px;
+width: 80px;
+font-size: 16px;
+border-style: solid;
+border-radius: 6px;
+border-color: yellow;
+border-width: 2px;
+display: flex;
+justify-content: center;
+align-items: center;
+color: yellow;
+font-family: 'Mina', sans-serif;
+background-color: black;
+outline: none;
 `;
 
