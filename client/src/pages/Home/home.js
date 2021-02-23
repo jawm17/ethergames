@@ -8,6 +8,8 @@ export default function Home() {
     const [height, setHeight] = useState(document.documentElement.clientHeight);
     const [snakePot, setSnakePot] = useState(0);
     const [snakeScore, setSnakeScore] = useState(0);
+    const [tetrisPot, setTetrisPot] = useState(0);
+    const [tetrisScore, setTetrisScore] = useState(0);
 
     let particles = [];
     const sizes = [15, 20, 25, 35, 45];
@@ -29,6 +31,15 @@ export default function Home() {
                 let scoresArray = (data.scores.sort((a, b) => (b.score - a.score))).slice(0, 10);
                 setSnakePot(data.pot);
                 setSnakeScore(scoresArray[0].score);
+            } else {
+                console.log("error");
+            }
+        });
+        GameService.getInfo("tetris").then(data => {
+            if (!data.message) {
+                let scoresArray = (data.scores.sort((a, b) => (b.score - a.score))).slice(0, 10);
+                setTetrisPot(data.pot);
+                setTetrisScore(scoresArray[0].score);
             } else {
                 console.log("error");
             }
@@ -133,8 +144,8 @@ export default function Home() {
                                     <img src="https://amp.thenationalnews.com/image/policy:1.1019785:1589539690/ac15-may-tetris.jpg?f=16x9&w=1200&$p$f$w=5f04803" alt="" />
                                 </div>
                                 <div>
-                                    <h1>Jackpot: 13 ETH</h1>
-                                    <p>High Score: 21000</p>
+                                    <h1>Jackpot: {parseFloat(tetrisPot.toFixed(6))} ETH</h1>
+                                    <p>High Score: {tetrisScore}</p>
                                 </div>
                             </div>
                         </li>
