@@ -79,6 +79,22 @@ userRouter.get('/info', passport.authenticate('jwt', { session: false }), (req, 
     });
 });
 
+//gets user info
+userRouter.get('/balance', passport.authenticate('jwt', { session: false }), (req, res) => {
+    const message = { msgBody: "Error has occured", msgError: true };
+    User.findById({ _id: req.user._id }).exec((err, document) => {
+        if (err) {
+            res.status(500).json({ message });
+        }
+        else {
+            res.status(200).json({
+                balance: document.balance,
+                authenticated: true
+            });
+        }
+    });
+});
+
 // update user balance
 userRouter.post('/update-balance', passport.authenticate('jwt', { session: false }), (req, res) => {
     const message = { msgBody: "Error has occured", msgError: true };
