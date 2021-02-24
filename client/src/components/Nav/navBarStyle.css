@@ -1,79 +1,79 @@
 /* Nav Bar */
 #nav {
-    background-color: black;
-    height: 90px;
-    display: flex;
-    align-items: center;
-    width: 100vw;
+  background-color: black;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 a:-webkit-any-link {
-    cursor: pointer;
-    text-decoration: none;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 #logoMain {
-    color: var(--green);
-    font-size: 1.5rem;
-    float: left;
-    margin-left: 6vw;
-    /* animation: flicker 4s infinite alternate; */
-    text-transform: uppercase;
-    font-size: 20px;
+  color: var(--green);
+  font-size: 1.5rem;
+  /* animation: flicker 4s infinite alternate; */
+  text-transform: uppercase;
+  font-size: 20px;
+  width: 45%;
+  display: flex;
+  justify-content: flex-start;
 }
 
 #logoMain::-moz-selection {
-    color: var(--neon-text-color);
+  color: var(--neon-text-color);
 }
 
 #logoMain::selection {
-    color: var(--neon-text-color);
+  color: var(--neon-text-color);
 }
 
 #logoMain:focus {
-    outline: none;
+  outline: none;
 }
 
 #logoMain:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 /* Animate neon flicker */
 @keyframes flicker {
-    0%,
-    19%,
-    21%,
-    23%,
-    25%,
-    54%,
-    56%,
-    100% {
-        text-shadow: -0.2rem -0.2rem 1rem rgb(32, 255, 3), 0.2rem 0.2rem 1rem rgb(7, 253, 27),
-            0 0 2rem var(--neon-text-color), 0 0 4rem var(--neon-text-color),
-            0 0 6rem var(--neon-text-color), 0 0 8rem var(--neon-text-color),
-            0 0 10rem var(--neon-text-color);
-    }
+  0%,
+  19%,
+  21%,
+  23%,
+  25%,
+  54%,
+  56%,
+  100% {
+    text-shadow: -0.2rem -0.2rem 1rem rgb(32, 255, 3),
+      0.2rem 0.2rem 1rem rgb(7, 253, 27), 0 0 2rem var(--neon-text-color),
+      0 0 4rem var(--neon-text-color), 0 0 6rem var(--neon-text-color),
+      0 0 8rem var(--neon-text-color), 0 0 10rem var(--neon-text-color);
+  }
 
-    20%,
-    24%,
-    55% {
-        text-shadow: none;
-    }
+  20%,
+  24%,
+  55% {
+    text-shadow: none;
+  }
 }
 
 .nav-links {
-    width: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    right: 3vw;
+  width: fit-content;
+  width: 45%;
+  display: flex;
+  justify-content: flex-end;
 }
 
-.nav-links div{
-    margin-right: 20px;
+.nav-links div {
+  width: 100px;
 }
 
-.nav-links div:hover{
-    cursor: pointer;
+.nav-links div:hover {
+  cursor: pointer;
 }

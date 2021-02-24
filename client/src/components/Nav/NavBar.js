@@ -32,18 +32,33 @@ const NavBar = props => {
     }
 
     const authenticatedNavBar = () => {
-        return (
-            <>
-                <nav id="nav">
-                    <h1 id="logoMain" onClick={() => history.push("/")}>Ether Games</h1>
-                    <div className="nav-links">
-                        <div onClick={() => history.push("/")}>Arcade</div>
-                        <div onClick={() => history.push("/account")}>Wallet</div>
-                    </div>
-                </nav>
-            </>
-        )
+        if(props.page === "account") {
+            return (
+                <>
+                    <nav id="nav">
+                        <h1 id="logoMain" onClick={() => history.push("/")}>Ether Games</h1>
+                        <div className="nav-links">
+                            <div onClick={() => history.push("/settings")}>Settings</div>
+                            <div onClick={() => history.push("/logout")}>Log Out</div>
+                        </div>
+                    </nav>
+                </>
+            )
+        } else {
+            return (
+                <>
+                    <nav id="nav">
+                        <h1 id="logoMain" onClick={() => history.push("/")}>Ether Games</h1>
+                        <div className="nav-links">
+                            <div onClick={() => history.push("/")}>Arcade</div>
+                            <div onClick={() => history.push("/account")}>Wallet</div>
+                        </div>
+                    </nav>
+                </>
+            )
+        }
     }
+  
     return (
         <nav>
             {!isAuthenticated ? unauthenticatedNavBar() : authenticatedNavBar()}

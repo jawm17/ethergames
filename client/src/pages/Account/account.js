@@ -6,6 +6,7 @@ import UserService from '../../services/UserService';
 import TxHistoryService from '../../services/TxHistoryService';
 import { AuthContext } from '../../context/AuthContext';
 import history from "../../history";
+import NavBar from "../../components/Nav/NavBar";
 import "./accountStyle.css";
 const QRCode = require('qrcode');
 var Web3 = require('web3');
@@ -157,18 +158,7 @@ export default function Account() {
                     qr={qrCode}
                 />
             ) : null}
-            <header>
-                <nav id="navAccount">
-                    <h1 id="accountLogo" onClick={() => history.push('/')}>
-                        Ether Games
-                    </h1>
-                    <ul class="nav-links">
-                        <li>
-                            <a href="settings.html">Settings</a>
-                        </li>
-                    </ul>
-                </nav>
-            </header>
+            <NavBar page={"account"}/>
             <section className="containerAccount">
                 <div className="left-container">
                     <div className="username">
