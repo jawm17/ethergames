@@ -9,6 +9,16 @@ export default {
                     return { message: { msgBody: "Unauthorized", msgError: true } };
             });
     },
+    getUserBalance: () => {
+        return fetch('/user/balance')
+            .then(response => {
+                if (response.status !== 401) {
+                    return response.json().then(data => data);
+                }
+                else
+                    return { message: { msgBody: "Unauthorized", msgError: true } };
+            });
+    },
     updateBalance: (funds) => {
         return fetch('/user/update-balance', {
             method: "post",

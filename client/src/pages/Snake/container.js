@@ -22,15 +22,21 @@ export default function Container() {
   }, []);
 
   function getInfo() {
-    GameService.getInfo("snake").then(data => {
-      if (!data.message) {
-        let scoresArray = (data.scores.sort((a, b) => (b.score - a.score))).slice(0, 10);
-        setPot(data.pot);
-        setScores(scoresArray);
-        setScoreToBeat(scoresArray[0].score);
-      } else {
-        console.log("error");
-      }
+    return new Promise(resolve => {
+      GameService.getInfo("snake").then(data => {
+        if (!data.message) {
+          let scoresArray = (data.scores.sort((a, b) => (b.score - a.score))).slice(0, 10);
+          setPot(data.pot);
+          setScores(scoresArray);
+          if (scoresArray.length > 0) {
+            setScoreToBeat(scoresArray[0].score);
+          }
+          resolve();
+        } else {
+          console.log("game info error");
+          resolve();
+        }
+      })
     })
   }
 
@@ -40,8 +46,8 @@ export default function Container() {
 
   function gameStart() {
     TxService.potPayment(0.001, "snake").then(data => {
-      getInfo();
-    })
+      setPot(pot + 0.001);
+    });
     setScore(0);
   }
 
@@ -51,7 +57,8 @@ export default function Container() {
     });
   }
 
-  function gameOver() {
+  async function gameOver() {
+    await getInfo();
     if (scores.length >= 1) {
       // multiple scores
       if (score > scores[0].score) {
@@ -83,15 +90,13 @@ export default function Container() {
           <div id="top">
             <div id="title">
               SNAKE
-          </div>
+            </div>
             <div className="dot">
-
             </div>
             <div id="jackpot">
               Jackpot: {parseFloat(pot.toFixed(6))} ETH
-          </div>
+            </div>
             <div className="dot">
-
             </div>
             <div id="highScore">
               Score to beat: {scoreToBeat}
@@ -100,51 +105,51 @@ export default function Container() {
               Score: {score}
             </div>
           </div>
-          </div>
+        </div>
 
-          <div id="boardAndInstruct">
+        <div id="boardAndInstruct">
 
-            <div id="leaderBoardArea">
-              <div id="leaderBoardTitle">
-                High Scores
+          <div id="leaderBoardArea">
+            <div id="leaderBoardTitle">
+              High Scores
               </div>
-              <div id="leaderBoard">
-                {scores.map(score => {
-                  return <Score
-                    user={score.user}
-                    score={score.score}
-                    key={score.timeStamp}
-                  />
-                })}
-              </div>
-            </div>
-
-            <div id="instructions">
-              <div>
-                How to play
-              </div>
-              <ol id="instuctList">
-                <li className="liSnake">
-                  Deposit funds in your account.
-                </li>
-                <li className="liSnake">
-                  Start game - each play costs $0.25 - 70% goes to the pot while the remaining 30% is used to maintain the site.
-                </li>
-                <li className="liSnake">
-                  Use the arrow keys (desktop) or the arrow buttons (mobile) to move. Eat the food and grow in size. Each food eaten is 5 points.
-                </li>
-                <li className="liSnake">
-                  Don't eat yourself.
-                </li>
-                <li className="liSnake">
-                  Don't eat the border.
-                </li>
-                <li className="liSnake">
-                  Beat the top score and win the pot!
-                </li>
-              </ol>
+            <div id="leaderBoard">
+              {scores.map(score => {
+                return <Score
+                  user={score.user}
+                  score={score.score}
+                  key={score.timeStamp}
+                />
+              })}
             </div>
           </div>
+
+          <div id="instructions">
+            <div>
+              How to play
+              </div>
+            <ol id="instuctList">
+              <li className="liSnake">
+                Deposit funds in your account.
+                </li>
+              <li className="liSnake">
+                Start game - each play costs $0.25 - 70% goes to the pot while the remaining 30% is used to maintain the site.
+                </li>
+              <li className="liSnake">
+                Use the arrow keys (desktop) or the arrow buttons (mobile) to move. Eat the food and grow in size. Each food eaten is 5 points.
+                </li>
+              <li className="liSnake">
+                Don't eat yourself.
+                </li>
+              <li className="liSnake">
+                Don't eat the border.
+                </li>
+              <li className="liSnake">
+                Beat the top score and win the pot!
+                </li>
+            </ol>
+          </div>
+        </div>
       </div>
       <div id="footerHome">
 

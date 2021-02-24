@@ -149,7 +149,6 @@ body{
 
 #instructionsTetris {
     max-width: 90vw;
-    height: 400px;
     margin-left: 90px;
     margin-bottom: 40px;
     margin-right: 50px;
@@ -185,5 +184,24 @@ body{
     #instructionsTetris {
         margin-left: 40px;
         margin-bottom: 40px;
+    }
+}
+
+@media only screen and (max-width: 1040px) {  
+    #info {
+        height: 200px;
+    }
+    .dotTetris {
+        display: none;
+    }
+    #jackpot {
+        position: absolute;
+        top: 50px;
+        left: 20px;
+    }
+    #highScore {
+        position: absolute;
+        top: 90px;
+        left: 20px;
     }
 }

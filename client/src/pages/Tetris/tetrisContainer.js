@@ -1,57 +1,113 @@
-import React from "react";
+import React, {useEffect, useState, useContext} from "react";
 import Tetris from "../../components/Tetris";
 import history from "../../history";
+import { AuthContext } from '../../context/AuthContext';
+import GameService from "../../services/GameService";
+import TxService from "../../services/TxService";
+import Score from "../../components/score.js";
 import "./tetrisStyle.css";
 
 export default function TetrisContainer() {
+  const authContext = useContext(AuthContext);
+
+  const [pot, setPot] = useState(0);
+  const [scores, setScores] = useState([]);
+  const [scoreToBeat, setScoreToBeat] = useState(1000);
+  const [user, setUser] = useState(authContext.user.username);
+
+  useEffect(() => {
+    getInfo();
+  }, []);
+
+  function getInfo() {
+    return new Promise(resolve => {
+      GameService.getInfo("tetris").then(data => {
+        if (!data.message) {
+          let scoresArray = (data.scores.sort((a, b) => (b.score - a.score))).slice(0, 10);
+          setPot(data.pot);
+          setScores(scoresArray);
+          if (scoresArray.length > 0) {
+            setScoreToBeat(scoresArray[0].score);
+          }
+          resolve();
+        } else {
+          console.log("error");
+          resolve();
+        }
+      })
+    })
+  }
+
+  function gameStart() {
+    TxService.potPayment(0.001, "tetris").then(data => {
+      setPot(pot + 0.001);
+    });
+  }
+
+  async function gameOver(score) {
+    await getInfo();
+    if (scores.length >= 1) {
+      // multiple scores
+      if (score > scores[0].score) {
+        // top score
+        GameService.potPayout("tetris").then(data => {
+          newScore(score);
+        });
+      } else {
+        newScore(score);
+      }
+    } else {
+      // no scores set
+      newScore(score);
+    }
+  }
+
+  function newScore(score) {
+    GameService.newScore("tetris", user, score).then(data => {
+      getInfo();
+    });
+  }
+
 
   return (
     <div>
       <div id="container" tabIndex="0" style={{ outline: "none" }} onKeyDown={e => e.preventDefault()}>
-        {/* <div id="headerSnake">
-
-      </div> */}
         <div id="closeGameButton" onClick={() => history.push("/")}>
           <img id="closeX" src="https://firebasestorage.googleapis.com/v0/b/gamesresources-28440.appspot.com/o/yellowX.png?alt=media&token=4fca2aaa-9123-434a-839d-3a1cf3ee3436" alt="close button"></img>
         </div>
-        <Tetris />
+        <Tetris start={() => gameStart()} gameOver={(score) => gameOver(score)} />
         <div id="info">
           <div id="top">
             <div id="titleTetris">
               TETRIS
             </div>
             <div className="dotTetris">
-
             </div>
             <div id="jackpot">
-              Jackpot: 2 ETH
+              Jackpot: {parseFloat(pot.toFixed(6))} ETH
             </div>
             <div className="dotTetris">
-
             </div>
             <div id="highScore">
-              Score to beat: 24,960
+              Score to beat: {scoreToBeat}
             </div>
           </div>
         </div>
-
         <div id="boardAndInstruct">
-
           <div id="leaderBoardArea">
             <div id="leaderBoardTitleTetris">
               High Scores
               </div>
             <div id="leaderBoard">
-              {/* {scores.map(score => {
+              {scores.map(score => {
                 return <Score
                   user={score.user}
                   score={score.score}
                   key={score.timeStamp}
                 />
-              })} */}
+              })}
             </div>
           </div>
-
           <div id="instructionsTetris">
             <div>
               How to play
@@ -80,7 +136,6 @@ export default function TetrisContainer() {
         </div>
       </div>
       <div id="footerYellow">
-
       </div>
     </div>
   );

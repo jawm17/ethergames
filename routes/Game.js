@@ -46,7 +46,7 @@ gameRouter.post('/potPayment', passport.authenticate('jwt', { session: false }),
             res.status(500).json({ message: message });
         }
         else {
-            User.findOneAndUpdate({ _id: req.user._id }, { $inc: { balance: document.pot }, $push: {recievedTx: { from: "snake", "amount": document.pot, "type": "jackpot", "timeStamp": Date.now() } } }).exec((err, document) => {
+            User.findOneAndUpdate({ _id: req.user._id }, { $inc: { balance: document.pot }, $push: {recievedTx: { from: game, "amount": document.pot, "type": "jackpot", "timeStamp": Date.now() } } }).exec((err, document) => {
                 if (err) {
                     res.status(500).json({ message });
                 }

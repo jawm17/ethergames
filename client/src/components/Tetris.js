@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { createStage, checkCollision } from "../gameHelpers";
 import { StyledTetrisWrapper, StyledTetris } from "./styles/StyledTetris";
 import { usePlayer } from "../hooks/usePlayer";
 import { useStage } from "../hooks/useStage";
 import { useInterval } from "../hooks/useInterval";
 import { useGameStatus } from "../hooks/useGameStatus";
+import { AuthContext } from '../context/AuthContext';
+import UserService from "../services/UserService";
 import Stage from './Stage';
 import Display from './Display';
 import StartButton from "./StartButton";
 
-const Tetris = () => {
+const Tetris = (props) => {
+    const authContext = useContext(AuthContext);
     const [dropTime, setDropTime] = useState(null);
     const [gameOver, setGameOver] = useState(false);
 
@@ -24,14 +27,29 @@ const Tetris = () => {
     }
 
     const startGame = () => {
-        //reset everything
-        setStage(createStage());
-        setDropTime(1000);
-        resetPlayer();
-        setGameOver(false);
-        setScore(0);
-        setRows(0);
-        setLevel(0);
+        UserService.getUserBalance().then(data => {
+            const { message, balance } = data;
+            if (!message) {
+                if (balance >= 0.001) {
+                    //reset everything
+                    setStage(createStage());
+                    setDropTime(1000);
+                    resetPlayer();
+                    setGameOver(false);
+                    setScore(0);
+                    setRows(0);
+                    setLevel(0);
+                    props.start();
+                } else {
+                    alert("insufficient funds");
+                }
+            }
+            else if (message.msgBody === "Unauthorized") {
+                //Replace with middleware 
+                authContext.setUser({ username: "" });
+                authContext.setIsAuthenticated(false);
+            }
+        });
     }
 
     const drop = () => {
@@ -48,6 +66,8 @@ const Tetris = () => {
             if (player.pos.y < 1) {
                 setGameOver(true);
                 setDropTime(null);
+                console.log(score);
+                props.gameOver(score);
             }
             updatePlayerPos({ x: 0, y: 0, collided: true });
         }
@@ -91,19 +111,15 @@ const Tetris = () => {
                     <Stage stage={stage} />
                 </StyledTetris>
                 <aside>
-                        {gameOver ? (
-                           null
-                        ) : (
-                                <div id="test">
-                                    <Display text={`Level: ${level}`} />
-                                    <Display text={`Rows: ${rows}`} />
-                                    <Display text={`Score: ${score}`} />
-                                </div>
-                            )}
-                    </aside>
-                    <div> 
-                        <StartButton callback={startGame} />
+                    <div id="test">
+                        <Display text={`Level: ${level}`} />
+                        <Display text={`Rows: ${rows}`} />
+                        <Display text={`Score: ${score}`} />
                     </div>
+                </aside>
+                <div>
+                    <StartButton callback={startGame} />
+                </div>
             </StyledTetrisWrapper>
         </div>
     );

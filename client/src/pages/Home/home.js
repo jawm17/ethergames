@@ -6,9 +6,11 @@ import history from "../../history";
 import "./homeStyle.css";
 
 export default function Home() {
-  const [height, setHeight] = useState(document.documentElement.clientHeight);
-  const [snakePot, setSnakePot] = useState(0);
-  const [snakeScore, setSnakeScore] = useState(0);
+    const [height, setHeight] = useState(document.documentElement.clientHeight);
+    const [snakePot, setSnakePot] = useState(0);
+    const [snakeScore, setSnakeScore] = useState(0);
+    const [tetrisPot, setTetrisPot] = useState(0);
+    const [tetrisScore, setTetrisScore] = useState(0);
 
   let particles = [];
   const sizes = [15, 20, 25, 35, 45];
@@ -17,12 +19,33 @@ export default function Home() {
   useEffect(() => {
     getInfo();
 
-    // generate trail code
-    // document.getElementById("heroSection").addEventListener("mousemove", (e) => generateTrail(e));
-    // interval = setInterval(() => {
-    //     updateTrails();
-    // }, 20);
-  });
+        // generate trail code 
+        // document.getElementById("heroSection").addEventListener("mousemove", (e) => generateTrail(e));
+        // interval = setInterval(() => {
+        //     updateTrails();
+        // }, 20);
+    });
+
+    function getInfo() {
+        GameService.getInfo("snake").then(data => {
+            if (!data.message) {
+                let scoresArray = (data.scores.sort((a, b) => (b.score - a.score))).slice(0, 10);
+                setSnakePot(data.pot);
+                setSnakeScore(scoresArray[0].score);
+            } else {
+                console.log("error");
+            }
+        });
+        GameService.getInfo("tetris").then(data => {
+            if (!data.message) {
+                let scoresArray = (data.scores.sort((a, b) => (b.score - a.score))).slice(0, 10);
+                setTetrisPot(data.pot);
+                setTetrisScore(scoresArray[0].score);
+            } else {
+                console.log("error");
+            }
+        })
+    }
 
   function getInfo() {
     GameService.getInfo("snake").then((data) => {

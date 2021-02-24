@@ -146,7 +146,7 @@ export default function SnakeGame(props) {
 
   const startGame = () => {
     if (gameOver) {
-      UserService.getUserInfo().then(data => {
+      UserService.getUserBalance().then(data => {
         const { message, balance } = data;
         if (!message) {
           if (balance >= 0.001) {
