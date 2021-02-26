@@ -34,13 +34,13 @@ export default function TetrisContainer() {
           console.log("error");
           resolve();
         }
-      })
-    })
+      });
+    });
   }
 
   function gameStart() {
-    TxService.potPayment(0.001, "tetris").then(data => {
-      setPot(pot + 0.001);
+    TxService.potPayment(0.000152, "tetris").then(data => {
+      setPot(pot + 0.000152);
     });
   }
 

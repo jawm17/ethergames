@@ -149,7 +149,7 @@ export default function SnakeGame(props) {
       UserService.getUserBalance().then(data => {
         const { message, balance } = data;
         if (!message) {
-          if (balance >= 0.001) {
+          if (balance >= 0.000152) {
             setSnake(SNAKE_START);
             setApple(APPLE_START);
             setDir([0, -1]);

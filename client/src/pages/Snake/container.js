@@ -36,8 +36,8 @@ export default function Container() {
           console.log("game info error");
           resolve();
         }
-      })
-    })
+      });
+    });
   }
 
   function incrementScore() {
@@ -45,8 +45,8 @@ export default function Container() {
   }
 
   function gameStart() {
-    TxService.potPayment(0.001, "snake").then(data => {
-      setPot(pot + 0.001);
+    TxService.potPayment(0.000152, "snake").then(data => {
+      setPot(pot + 0.000152);
     });
     setScore(0);
   }
