@@ -4,7 +4,7 @@
 }
 
 #homeArea {
-  background: linear-gradient(0deg, rgb(29, 29, 29) 0%, black 25%);
+  /* background: linear-gradient(0deg, rgb(29, 29, 29) 0%, black 25%); */
   color: var(--green);
   font-family: "Orbitron", sans-serif;
   letter-spacing: 0.05em;
@@ -15,6 +15,10 @@
   -khtml-user-select: none;
   -webkit-user-select: none;
   -o-user-select: none;
+  position: fixed;
+  overflow-y: scroll;
+  height: 100vh;
+  width: 100vw;
 }
 
 /* Hero */
@@ -72,6 +76,9 @@
   text-align: center;
   vertical-align: top;
   padding: 20px;
+}
+.gameButton:hover {
+  cursor: pointer;
 }
 .snake-border {
   border-radius: 15%;

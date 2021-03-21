@@ -21,7 +21,7 @@ const NavBar = props => {
         return (
             <>
                 <nav id="nav">
-                    <h1 id="logoMain" onClick={() => history.push("/")}>Ether Games</h1>
+                    <h1 id="logoMain" onClick={() => history.push("/")}>ethergames</h1>
                     <div className="nav-links">
                         <div onClick={() => history.push("/")}>Arcade</div>
                         <div onClick={() => history.push("/login")}>Log In</div>
@@ -36,7 +36,7 @@ const NavBar = props => {
             return (
                 <>
                     <nav id="nav">
-                        <h1 id="logoMain" onClick={() => history.push("/")}>Ether Games</h1>
+                        <h1 id="logoMain" onClick={() => history.push("/")}>ethergames</h1>
                         <div className="nav-links">
                             <div onClick={() => history.push("/settings")}>Settings</div>
                             <div onClick={() => history.push("/logout")}>Log Out</div>
@@ -48,7 +48,7 @@ const NavBar = props => {
             return (
                 <>
                     <nav id="nav">
-                        <h1 id="logoMain" onClick={() => history.push("/")}>Ether Games</h1>
+                        <h1 id="logoMain" onClick={() => history.push("/")}>ethergames</h1>
                         <div className="nav-links">
                             <div onClick={() => history.push("/")}>Arcade</div>
                             <div onClick={() => history.push("/account")}>Wallet</div>
