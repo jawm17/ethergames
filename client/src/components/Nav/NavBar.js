@@ -17,25 +17,6 @@ const NavBar = (props) => {
       }
     });
   };
-
-  const unauthenticatedNavBar = () => {
-    return (
-      <>
-        <nav id="nav">
-          <h1 id="logoMain" onClick={() => history.push("/")}>
-            Ether Games
-          </h1>
-          <div className="nav-links">
-            <div onClick={() => history.push("/about")}>About</div>
-            <div onClick={() => history.push("/")}>Arcade</div>
-            <div onClick={() => history.push("/login")}>Log In</div>
-          </div>
-        </nav>
-      </>
-      
-    );
-  };
-
     const unauthenticatedNavBar = () => {
         return (
             <>
