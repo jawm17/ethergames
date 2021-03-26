@@ -1,0 +1,40 @@
+#about {
+    height: fit-content;
+}
+/* Hero */
+.about-hero-container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.ether-logo {
+  margin-top: 100px;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-image: url(./ether-games-newLogo.png);
+  width: 50%;
+  height: 60%;
+  box-shadow: 0 0 20px 30px rgb(63, 255, 73);
+}
+/* About Website */
+.about-words-container {
+    height: 70vh;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+.about-words{
+    width: 80%;
+    font-family: "Orbitron", sans-serif;
+}
+.about-header{
+    padding-bottom: 20px;
+    font-size: 2rem;
+}
+.about-paragraph{
+    padding-bottom: 20px;
+    font-size: 1.5rem;
+}

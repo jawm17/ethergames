@@ -24,12 +24,9 @@
 /* Hero */
 #heroSection {
   height: 70vh;
-  width: 100vw;
-  /* background: url("https://media0.giphy.com/media/26xBKGcgVLxxZVOaA/giphy.gif") no-repeat center center fixed; */
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  width:100vw;
+  display: flex;
+  justify-content: center;
 }
 
 #heroSection img {
@@ -38,9 +35,13 @@
 }
 
 .hero {
+  width: 80%;
+  height: 90%;
+  background: url(./games.gif) no-repeat center center fixed;
   text-align: center;
-  color: var(--green);
+  color: black;
   font-size: 2.5rem;
+  border-radius: 15px;
 }
 .hero h1 {
   height: 50vh;

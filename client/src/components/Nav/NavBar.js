@@ -1,22 +1,22 @@
-import React, { useContext } from 'react';
+import React, { useContext } from "react";
 import history from "../../history";
-import AuthService from '../../services/AuthService';
-import { AuthContext } from '../../context/AuthContext';
+import AuthService from "../../services/AuthService";
+import { AuthContext } from "../../context/AuthContext";
 import "./navBarStyle.css";
 
+const NavBar = (props) => {
+  const { isAuthenticated, user, setIsAuthenticated, setUser } = useContext(
+    AuthContext
+  );
 
-const NavBar = props => {
-    const { isAuthenticated, user, setIsAuthenticated, setUser } = useContext(AuthContext);
-
-    const onClickLogoutHandler = () => {
-        AuthService.logout().then(data => {
-            if (data.success) {
-                setUser(data.user);
-                setIsAuthenticated(false);
-            }
-        });
-    }
-
+  const onClickLogoutHandler = () => {
+    AuthService.logout().then((data) => {
+      if (data.success) {
+        setUser(data.user);
+        setIsAuthenticated(false);
+      }
+    });
+  };
     const unauthenticatedNavBar = () => {
         return (
             <>
@@ -30,6 +30,7 @@ const NavBar = props => {
             </>
         )
     }
+  
 
     const authenticatedNavBar = () => {
         if(props.page === "account") {
@@ -64,6 +65,5 @@ const NavBar = props => {
             {!isAuthenticated ? unauthenticatedNavBar() : authenticatedNavBar()}
         </nav>
     )
-}
-
-export default NavBar;
+  };
+  export default NavBar;

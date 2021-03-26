@@ -1,5 +1,6 @@
 import React from 'react';
 import NoMatchPage from "./pages/noMatchPage";
+import About from "./pages/About/AboutPage";
 import Container from "./pages/Snake/container";
 import Login from "./pages/UserAuth/Login";
 import Register from "./pages/UserAuth/Register";
@@ -20,6 +21,7 @@ function App() {
         <UnPrivateRoute path="/register" component={Register} />
         <Route path="/snake" component={Container} />
         <Route path="/tetris" component={TetrisContainer} />
+        <Route exact path="/about" component={About} />
         <Route exact path="/" component={Home} />
         <PrivateRoute path="/account" component={Account} />
         <Route path="/" component={NoMatchPage} />
