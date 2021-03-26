@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import "./footerStyle.css";
 
-const Footer = (props) => {
+const Footer = () => {
   return (
     <footer className="footerHome">
       <div className="icons-container">
@@ -32,19 +32,11 @@ const Footer = (props) => {
         </div>
       </div>
       <div className="footer-info">
-        <ul>
-          <a href="">
-            <li>About</li>
-          </a>
-          <a href="">
-            <li>Need Help?</li>
-          </a>
-          <a href="">
-            <li>Destinations</li>
-          </a>
-          <a href="">
-            <li>Tips</li>
-          </a>
+        <ul id="footer-list">
+          <li className="footer-page">about</li>
+          <li className="footer-page">need help?</li>
+          <li className="footer-page">destinations</li>
+          <li className="footer-page">tips</li>
         </ul>
       </div>
       {/* <div className="support-title">
@@ -57,7 +49,7 @@ const Footer = (props) => {
                 <div className="icons"><i className="fab fa-github"></i></div>
             </div> */}
       <div className="copy-write">
-        <p>©2021 Ether Games</p>
+        <p>©2021 ethergames.io</p>
       </div>
     </footer>
   );

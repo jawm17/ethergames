@@ -6,6 +6,10 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  font-family: 'Orbitron', sans-serif;
+  /* position: fixed;
+  top: 0px;
+  z-index: 2000; */
 }
 
 a:-webkit-any-link {
@@ -13,11 +17,22 @@ a:-webkit-any-link {
   text-decoration: none;
 }
 
+.navButton {
+  height: 40px;
+  margin-right: 20px;
+  border-radius: 8px;
+  border-color: rgb(72, 254, 12);
+  border-style: solid;
+  border-width: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #logoMain {
   color: var(--green);
   font-size: 1.5rem;
   /* animation: flicker 4s infinite alternate; */
-  text-transform: uppercase;
   font-size: 20px;
   width: 45%;
   display: flex;

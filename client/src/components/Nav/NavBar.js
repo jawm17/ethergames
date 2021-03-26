@@ -21,10 +21,10 @@ const NavBar = props => {
         return (
             <>
                 <nav id="nav">
-                    <h1 id="logoMain" onClick={() => history.push("/")}>ethergames</h1>
+                    <h1 id="logoMain" onClick={() => history.push("/")}>ethergames.io</h1>
                     <div className="nav-links">
-                        <div onClick={() => history.push("/")}>Arcade</div>
-                        <div onClick={() => history.push("/login")}>Log In</div>
+                        <div className="navButton" onClick={() => history.push("/")}>Arcade</div>
+                        <div className="navButton" onClick={() => history.push("/login")}>Log In</div>
                     </div>
                 </nav>
             </>
@@ -36,10 +36,10 @@ const NavBar = props => {
             return (
                 <>
                     <nav id="nav">
-                        <h1 id="logoMain" onClick={() => history.push("/")}>ethergames</h1>
+                        <h1 id="logoMain" onClick={() => history.push("/")}>ethergames.io</h1>
                         <div className="nav-links">
-                            <div onClick={() => history.push("/settings")}>Settings</div>
-                            <div onClick={() => history.push("/logout")}>Log Out</div>
+                            <div className="navButton" onClick={() => history.push("/")}>Arcade</div>
+                            <div className="navButton" onClick={() => onClickLogoutHandler()}>Log Out</div>
                         </div>
                     </nav>
                 </>
@@ -48,10 +48,10 @@ const NavBar = props => {
             return (
                 <>
                     <nav id="nav">
-                        <h1 id="logoMain" onClick={() => history.push("/")}>ethergames</h1>
+                        <h1 id="logoMain" onClick={() => history.push("/")}>ethergames.io</h1>
                         <div className="nav-links">
-                            <div onClick={() => history.push("/")}>Arcade</div>
-                            <div onClick={() => history.push("/account")}>Wallet</div>
+                            <div className="navButton"  onClick={() => history.push("/")}>Arcade</div>
+                            <div className="navButton"  onClick={() => history.push("/account")}>Wallet</div>
                         </div>
                     </nav>
                 </>
