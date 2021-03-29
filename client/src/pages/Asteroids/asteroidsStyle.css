@@ -1,0 +1,21 @@
+/* #gameCanvas {
+    width: 100vw;
+    height: 90vh;
+} */
+
+#asteroidsGameArea {
+    width: 100vw;
+    height: 570px;
+    display: flex;
+    justify-content: center;
+    background-color: gray;
+}
+
+#titleAsteroids {
+    float: left;
+    margin-top: 40px;
+    margin-left: 40px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 20px;
+    color: #efefef;
+}

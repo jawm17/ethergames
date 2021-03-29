@@ -84,9 +84,9 @@ export default function Container() {
         {/* <div id="headerSnake">
 
       </div> */}
-        <div id="closeGameButton" onClick={() => history.push("/")}>
+        {/* <div id="closeGameButton" onClick={() => history.push("/")}>
           <img id="closeX" src="https://firebasestorage.googleapis.com/v0/b/gamesresources-28440.appspot.com/o/x.png?alt=media&token=fc3b3baa-be28-4071-a4e1-271b96c5995f" alt="close button"></img>
-        </div>
+        </div> */}
         <SnakeGame inc={() => incrementScore()} start={() => gameStart()} gameOver={() => gameOver()} />
         <div id="info">
           <div id="top">

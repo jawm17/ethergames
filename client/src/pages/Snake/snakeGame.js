@@ -217,7 +217,7 @@ export default function SnakeGame(props) {
         </div>
         <div style={{ outline: "none", display: "flex", justifyContent: "center" }}>
           <canvas
-            style={{ border: "1px dashed black" }}
+            id="snakeCanvas"
             ref={canvasRef}
             width={`${CANVAS_SIZE[0]}px`}
             height={`${CANVAS_SIZE[1]}px`}

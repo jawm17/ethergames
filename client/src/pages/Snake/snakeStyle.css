@@ -5,13 +5,20 @@ body{
 
 #screen {
     width: 100vw;
-    height: 680px;
+    height: calc(100vh - 200px);
     max-height: 100vh;
     background-color: #c9c9c9;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
     position: relative;
     z-index: 2;
+}
+
+#snakeCanvas {
+    border: 1px dashed black;
+    width: 100vw;
+    max-width: 1250px;
+    height: calc(100vh - 200px);
 }
 
 #headerSnake {

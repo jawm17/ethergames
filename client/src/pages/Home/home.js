@@ -178,7 +178,7 @@ export default function Home() {
               </li>
             </div>
             <div className="asteroids-border">
-              <li id="asteroids-game" className="gameButton">
+              <li id="asteroids-game" className="gameButton" onClick={() => history.push("/asteroids")}>
                 <div>
                   ASTEROIDS
                   <div className="asteroids-icon">
