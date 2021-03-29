@@ -66,23 +66,7 @@
 .fa-github {
     color: rgb(98, 98, 98);
 } */
-/* Footer Info */
-.footer-info {
-  width: 65%;
-}
-.footer-info ul {
-  display: flex;
-  justify-content: space-evenly;
-  justify-self: center;
-  align-items: center;
-  height: 10vh;
-  list-style-type: none;
-  color: rgb(98, 98, 98);
-}
-.footer-info ul a {
-  color: rgb(98, 98, 98);
-}
-.support-title {
+/* .support-title {
   color: rgb(98, 98, 98);
   font-size: 13px;
   padding-top: 10px;
@@ -96,8 +80,28 @@
 }
 .support-container i {
   font-size: 17px;
+} */
+
+.footer-info {
+  width: 65%;
+}
+#footer-list {
+  display: flex;
+  justify-content: space-evenly;
+  justify-self: center;
+  align-items: center;
+  height: 10vh;
+  list-style-type: none;
+}
+.footer-info {
+  color: rgb(98, 98, 98);
 }
 .copy-write {
   color: rgb(98, 98, 98);
   font-size: 15px;
+}
+/* footer page links */
+.footer-page:hover {
+  color: rgb(72, 254, 12);
+  cursor: pointer;
 }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import NavBar from "../../components/Nav/NavBar";
 import SnakeGame from "./snakeGame";
 import TxService from "../../services/TxService";
 import GameService from "../../services/GameService";
@@ -78,6 +79,7 @@ export default function Container() {
 
   return (
     <div>
+      <NavBar />
       <div id="container" tabIndex="0" style={{ outline: "none" }}>
         {/* <div id="headerSnake">
 
