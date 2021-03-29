@@ -6,7 +6,7 @@ import Score from "../../components/score.js";
 import { AuthContext } from '../../context/AuthContext';
 import history from "../../history";
 import "./snakeStyle.css";
-
+import Footer from "../../components/Footer/footer"
 
 export default function Container() {
   const authContext = useContext(AuthContext);
@@ -151,9 +151,7 @@ export default function Container() {
           </div>
         </div>
       </div>
-      <div id="footerHome">
-
-      </div>
+      <Footer/>
     </div>
   );
 }
