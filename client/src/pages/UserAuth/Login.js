@@ -24,7 +24,7 @@ const Login = props => {
             }
             else
                 setMessage(message);
-                console.log(message);
+            console.log(message);
         });
     }
 
@@ -33,9 +33,9 @@ const Login = props => {
     return (
         <div className="authBg">
             <nav id="nav">
-                        <h1 id="logoMain" onClick={() => history.push("/")}>ethergames.io</h1>
-                        <div className="nav-links"></div>
-                    </nav>
+                <h1 id="logoMain" onClick={() => history.push("/")}>ethergames.io</h1>
+                <div className="nav-links"></div>
+            </nav>
             <form autoComplete="off" className="form" name="login-form" onSubmit={onSubmit}>
                 <div className="control">
                     <h1 className="title">Log In</h1>

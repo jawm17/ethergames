@@ -51,9 +51,10 @@ const Register = props => {
 
     return (
         <div className="authBg">
-            <div id="authHeader">
-                <h1 id="logoAuth" onClick={() => history.push("/")}>ethergames.io</h1>
-            </div>
+             <nav id="nav">
+                <h1 id="logoMain" onClick={() => history.push("/")}>ethergames.io</h1>
+                <div className="nav-links"></div>
+            </nav>
             <form autoComplete="off" className="form" onSubmit={onSubmit}>
                 <div className="control">
                     <h1 className="title">Sign up</h1>
