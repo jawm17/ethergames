@@ -8,7 +8,7 @@ import { AuthContext } from '../../context/AuthContext';
 import "./snakeStyle.css";
 import Footer from "../../components/Footer/Footer"
 
-export default function Container() {
+export default function SnakeContainer() {
   const authContext = useContext(AuthContext);
 
   const [score, setScore] = useState(0);

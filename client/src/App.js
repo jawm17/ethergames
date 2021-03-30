@@ -7,7 +7,7 @@ import { Router, Route, Switch } from 'react-router-dom';
 // Pages
 import NoMatchPage from "./pages/noMatchPage";
 import About from "./pages/About/AboutPage";
-import Container from "./pages/Snake/container";
+import SnakeContainer from "./pages/Snake/SnakeContainer";
 import Login from "./pages/UserAuth/Login";
 import Register from "./pages/UserAuth/Register";
 import Home from "./pages/Home/home";
@@ -22,7 +22,7 @@ function App() {
       <Switch>
         <UnPrivateRoute path="/login" component={Login} />
         <UnPrivateRoute path="/register" component={Register} />
-        <Route path="/snake" component={Container} />
+        <Route path="/snake" component={SnakeContainer} />
         <Route path="/tetris" component={TetrisContainer} />
         <Route path="/about" component={About} />
         <Route exact path="/" component={Home} />
