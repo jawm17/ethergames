@@ -5,7 +5,7 @@ import UnPrivateRoute from './hocs/UnPrivateRoute';
 import { Router, Route, Switch } from 'react-router-dom';
 
 // Pages
-import NoMatchPage from "./pages/noMatchPage";
+import NoMatchPage from "./pages/NoMatchPage";
 import About from "./pages/About/AboutPage";
 import SnakeContainer from "./pages/Snake/SnakeContainer";
 import Login from "./pages/UserAuth/Login";
