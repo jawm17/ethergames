@@ -10,7 +10,7 @@ import About from "./pages/About/AboutPage";
 import SnakeContainer from "./pages/Snake/SnakeContainer";
 import Login from "./pages/UserAuth/Login";
 import Register from "./pages/UserAuth/Register";
-import Home from "./pages/Home/home";
+import Home from "./pages/Home/Home";
 import Account from "./pages/Account/Account";
 import TetrisContainer from "./pages/Tetris/TetrisContainer";
 import AsteroidsContainer from "./pages/Asteroids/AsteroidsContainer";
