@@ -1,4 +1,5 @@
 import React from "react";
+import history from "../../history";
 import "./footerStyle.css";
 
 const Footer = () => {
@@ -33,10 +34,10 @@ const Footer = () => {
       </div>
       <div className="footer-info">
         <ul id="footer-list">
-          <li className="footer-page">about</li>
+          <li className="footer-page" onClick={() => history.push("/about")}>about</li>
+          <li className="footer-page">terms</li>
           <li className="footer-page">need help?</li>
-          <li className="footer-page">destinations</li>
-          <li className="footer-page">tips</li>
+          <li className="footer-page">token</li>
         </ul>
       </div>
       {/* <div className="support-title">

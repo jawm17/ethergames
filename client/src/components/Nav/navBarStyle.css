@@ -25,6 +25,7 @@ a:-webkit-any-link {
   align-items: center;
   justify-content: center;
   color: rgb(72, 254, 12);
+  letter-spacing: 0.05em;
 }
 
 #logoMain {
@@ -34,6 +35,7 @@ a:-webkit-any-link {
   width: 45%;
   display: flex;
   justify-content: flex-start;
+  letter-spacing: 0.05em;
 }
 
 #logoMain::-moz-selection {
