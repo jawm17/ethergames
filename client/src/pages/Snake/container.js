@@ -79,6 +79,7 @@ export default function Container() {
 
   return (
     <div>
+      <div className="snakeGame-Area">
       <NavBar />
       <div id="container" tabIndex="0" style={{ outline: "none" }}>
         {/* <div id="headerSnake">
@@ -154,6 +155,7 @@ export default function Container() {
         </div>
       </div>
       <Footer/>
+      </div>
     </div>
   );
 }

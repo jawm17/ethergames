@@ -61,9 +61,9 @@ const NavBar = (props) => {
     }
   
     return (
-        <nav>
+        <>
             {!isAuthenticated ? unauthenticatedNavBar() : authenticatedNavBar()}
-        </nav>
+        </>
     )
   };
   export default NavBar;

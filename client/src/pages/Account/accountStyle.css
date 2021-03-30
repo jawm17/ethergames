@@ -3,9 +3,20 @@
     --neon-text-color: rgb(0, 0, 0);
 }
 #accountArea {
-    background-color: #000000;
     color: var(--green);
-    font-family: 'Orbitron', sans-serif;
+    font-family: "Orbitron", sans-serif;
+    letter-spacing: 0.05em;
+    height: fit-content;
+    width: 100vw;
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    position: fixed;
+    overflow-y: scroll;
+    height: 100vh;
+    width: 100vw;
 }
 a:-webkit-any-link {
     cursor: pointer;
