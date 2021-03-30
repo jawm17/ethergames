@@ -12,6 +12,11 @@
     position: relative;
 }
 
+#asteroidsCanvas {
+    width: 100vw;
+    max-width: 760px;
+}
+
 #titleAsteroids {
     float: left;
     margin-top: 40px;

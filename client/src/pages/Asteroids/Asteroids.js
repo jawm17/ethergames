@@ -37,7 +37,7 @@ export default function Asteroids() {
     var interval;
 
     useEffect(() => {
-        canv = document.getElementById("gameCanvas");
+        canv = document.getElementById("asteroidsCanvas");
         ctx = canv.getContext("2d");
     });
 
@@ -593,7 +593,7 @@ export default function Asteroids() {
 
     return (
         <div id="asteroidsGameArea" tabIndex="0" style={{ outline: "none" }}>
-            <canvas id="gameCanvas" width="760" height="570"></canvas>
+            <canvas id="asteroidsCanvas" width="760" height="570"></canvas>
             <div id="asteroidsPlayBtn" onClick={() => newGame()}>
                 play
             </div>
