@@ -5,15 +5,15 @@ import UnPrivateRoute from './hocs/UnPrivateRoute';
 import { Router, Route, Switch } from 'react-router-dom';
 
 // Pages
-import NoMatchPage from "./pages/noMatchPage";
+import NoMatchPage from "./pages/NoMatchPage";
 import About from "./pages/About/AboutPage";
-import Container from "./pages/Snake/container";
+import SnakeContainer from "./pages/Snake/SnakeContainer";
 import Login from "./pages/UserAuth/Login";
 import Register from "./pages/UserAuth/Register";
-import Home from "./pages/Home/home";
-import Account from "./pages/Account/account";
-import TetrisContainer from "./pages/Tetris/tetrisContainer";
-import AsteroidsContainer from "./pages/Asteroids/asteroidsContainer";
+import Home from "./pages/Home/Home";
+import Account from "./pages/Account/Account";
+import TetrisContainer from "./pages/Tetris/TetrisContainer";
+import AsteroidsContainer from "./pages/Asteroids/AsteroidsContainer";
 
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
       <Switch>
         <UnPrivateRoute path="/login" component={Login} />
         <UnPrivateRoute path="/register" component={Register} />
-        <Route path="/snake" component={Container} />
+        <Route path="/snake" component={SnakeContainer} />
         <Route path="/tetris" component={TetrisContainer} />
         <Route path="/about" component={About} />
         <Route exact path="/" component={Home} />

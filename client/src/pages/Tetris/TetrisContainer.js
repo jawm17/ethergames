@@ -1,10 +1,10 @@
 import React, {useEffect, useState, useContext} from "react";
-import Tetris from "../../components/Tetris";
+import Tetris from "../../components/Tetris/Tetris";
 import history from "../../history";
 import { AuthContext } from '../../context/AuthContext';
 import GameService from "../../services/GameService";
 import TxService from "../../services/TxService";
-import Score from "../../components/score.js";
+import ScoreBoardScore from "../../components/ScoreBoardScore";
 import "./tetrisStyle.css";
 
 export default function TetrisContainer() {
@@ -100,7 +100,7 @@ export default function TetrisContainer() {
               </div>
             <div id="leaderBoard">
               {scores.map(score => {
-                return <Score
+                return <ScoreBoardScore
                   user={score.user}
                   score={score.score}
                   key={score.timeStamp}

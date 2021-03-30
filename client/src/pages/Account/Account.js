@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import WalletTx from "../../components/walletTx";
-import SendEthModal from "../../components/sendEthModal";
-import RecieveEthModal from '../../components/recieveEthModal';
+import WalletTx from "../../components/WalletTx";
+import SendEthModal from "../../components/SendEthModal";
+import RecieveEthModal from '../../components/RecieveEthModal';
 import UserService from '../../services/UserService';
 import TxHistoryService from '../../services/TxHistoryService';
 import { AuthContext } from '../../context/AuthContext';
-import history from "../../history";
 import NavBar from "../../components/Nav/NavBar";
 import "./accountStyle.css";
 const QRCode = require('qrcode');

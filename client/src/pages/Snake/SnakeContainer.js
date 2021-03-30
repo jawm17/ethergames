@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import NavBar from "../../components/Nav/NavBar";
-import SnakeGame from "./snakeGame";
+import SnakeGame from "./SnakeGame";
 import TxService from "../../services/TxService";
 import GameService from "../../services/GameService";
-import Score from "../../components/score.js";
+import ScoreBoardScore from "../../components/ScoreBoardScore";
 import { AuthContext } from '../../context/AuthContext';
-import history from "../../history";
 import "./snakeStyle.css";
-import Footer from "../../components/Footer/footer"
+import Footer from "../../components/Footer/Footer"
 
-export default function Container() {
+export default function SnakeContainer() {
   const authContext = useContext(AuthContext);
 
   const [score, setScore] = useState(0);
@@ -118,7 +117,7 @@ export default function Container() {
               </div>
             <div id="leaderBoard">
               {scores.map(score => {
-                return <Score
+                return <ScoreBoardScore
                   user={score.user}
                   score={score.score}
                   key={score.timeStamp}

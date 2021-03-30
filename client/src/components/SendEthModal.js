@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import "./sendEthModalStyle.css";
+import "./styles/sendEthModalStyle.css";
 import UserService from '../services/UserService';
 import { AuthContext } from '../context/AuthContext';
 import TxService from "../services/TxService";

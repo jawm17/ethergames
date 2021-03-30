@@ -1,5 +1,5 @@
 import React from "react";
-import "./recieveEthModalStyle.css";
+import "./styles/recieveEthModalStyle.css";
 
 export default function RecieveEthModal(props) {
 

@@ -9,6 +9,12 @@
     display: flex;
     justify-content: center;
     background-color: gray;
+    position: relative;
+}
+
+#asteroidsCanvas {
+    width: 100vw;
+    max-width: 760px;
 }
 
 #titleAsteroids {
@@ -18,4 +24,26 @@
     font-family: 'Press Start 2P', cursive;
     font-size: 20px;
     color: #efefef;
+}
+
+#asteroidsPlayBtn {
+    position: absolute;
+    z-index: 100;
+    bottom: -65px;
+    right: 60px;
+    height: 40px;
+    width: 80px;
+    border-style: solid;
+    border-radius: 6px;
+    border-color: gray;
+    border-width: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #efefef;
+    font-family: 'Mina', sans-serif;
+}
+
+#asteroidsPlayBtn:hover {
+    cursor: pointer;
 }

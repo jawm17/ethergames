@@ -1,5 +1,5 @@
 import React from "react";
-import "./messageStyle.css";
+import "./styles/messageStyle.css";
 
 
 const getStyle = (props)=>{

@@ -1,5 +1,5 @@
 import React from "react";
-import "./scoreStyle.css";
+import "./styles/scoreBoardScoreStyle.css";
 
 export default function Score(props) {
 
