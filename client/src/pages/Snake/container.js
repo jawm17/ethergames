@@ -3,7 +3,7 @@ import NavBar from "../../components/Nav/NavBar";
 import SnakeGame from "./snakeGame";
 import TxService from "../../services/TxService";
 import GameService from "../../services/GameService";
-import Score from "../../components/score.js";
+import ScoreBoardScore from "../../components/ScoreBoardScore";
 import { AuthContext } from '../../context/AuthContext';
 import history from "../../history";
 import "./snakeStyle.css";
@@ -117,7 +117,7 @@ export default function Container() {
               </div>
             <div id="leaderBoard">
               {scores.map(score => {
-                return <Score
+                return <ScoreBoardScore
                   user={score.user}
                   score={score.score}
                   key={score.timeStamp}
