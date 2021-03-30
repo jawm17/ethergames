@@ -5,9 +5,8 @@ import TxService from "../../services/TxService";
 import GameService from "../../services/GameService";
 import ScoreBoardScore from "../../components/ScoreBoardScore";
 import { AuthContext } from '../../context/AuthContext';
-import history from "../../history";
 import "./snakeStyle.css";
-import Footer from "../../components/Footer/footer"
+import Footer from "../../components/Footer/Footer"
 
 export default function Container() {
   const authContext = useContext(AuthContext);

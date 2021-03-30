@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import NavBar from "../../components/Nav/NavBar";
-import Footer from "../../components/Footer/footer";
+import Footer from "../../components/Footer/Footer";
 import GameService from "../../services/GameService";
 import history from "../../history";
 import "./homeStyle.css";

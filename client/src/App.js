@@ -11,7 +11,7 @@ import Container from "./pages/Snake/container";
 import Login from "./pages/UserAuth/Login";
 import Register from "./pages/UserAuth/Register";
 import Home from "./pages/Home/home";
-import Account from "./pages/Account/account";
+import Account from "./pages/Account/Account";
 import TetrisContainer from "./pages/Tetris/tetrisContainer";
 import AsteroidsContainer from "./pages/Asteroids/asteroidsContainer";
 
