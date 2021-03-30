@@ -36,7 +36,7 @@ const Register = props => {
                     if (!message.msgError) {
                         timerID = setTimeout(() => {
                             props.history.push('/login');
-                        }, 2000)
+                        }, 1500)
                     }
                 });
             } else {
@@ -51,7 +51,7 @@ const Register = props => {
 
     return (
         <div className="authBg">
-             <nav id="nav">
+            <nav id="nav">
                 <h1 id="logoMain" onClick={() => history.push("/")}>ethergames.io</h1>
                 <div className="nav-links"></div>
             </nav>
@@ -109,7 +109,7 @@ const Register = props => {
                 </button>
                 {message ? <AuthMessage message={message} /> : null}
                 <div className="already-have">
-                   <a href="/login">Already have an account? Sign in</a>
+                    <a href="/login">Already have an account? Sign in</a>
                 </div>
             </form>
         </div>

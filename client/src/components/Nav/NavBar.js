@@ -52,7 +52,7 @@ const NavBar = (props) => {
                         <h1 id="logoMain" onClick={() => history.push("/")}>ethergames.io</h1>
                         <div className="nav-links">
                             <div className="navButton"  onClick={() => history.push("/")}>Arcade</div>
-                            <div className="navButton"  onClick={() => history.push("/account")}>Wallet</div>
+                            <div className="navButton"  onClick={() => history.push("/account")}>Account</div>
                         </div>
                     </nav>
                 </>
