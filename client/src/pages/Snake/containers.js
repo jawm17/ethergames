@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import NavBar from "../../components/Nav/NavBar";
-import SnakeGame from "./snakeGame";
+import SnakeGame from "./SnakeGame";
 import TxService from "../../services/TxService";
 import GameService from "../../services/GameService";
 import ScoreBoardScore from "../../components/ScoreBoardScore";

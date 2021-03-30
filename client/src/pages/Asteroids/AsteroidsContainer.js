@@ -1,5 +1,5 @@
 import React from "react";
-import Asteroids from "./asteroids";
+import Asteroids from "./Asteroids";
 import history from "../../history";
 import "./asteroidsStyle.css";
 

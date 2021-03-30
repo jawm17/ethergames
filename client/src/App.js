@@ -13,7 +13,7 @@ import Register from "./pages/UserAuth/Register";
 import Home from "./pages/Home/home";
 import Account from "./pages/Account/Account";
 import TetrisContainer from "./pages/Tetris/tetrisContainer";
-import AsteroidsContainer from "./pages/Asteroids/asteroidsContainer";
+import AsteroidsContainer from "./pages/Asteroids/AsteroidsContainer";
 
 
 function App() {
