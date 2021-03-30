@@ -34,19 +34,11 @@ export default function Asteroids() {
     var ctx;
     var roidsLeft, roidsTotal;
     var level, lives, roids, score, scoreHigh, ship, text, textAlpha;
+    var interval;
 
     useEffect(() => {
         canv = document.getElementById("gameCanvas");
         ctx = canv.getContext("2d");
-
-        newGame();
-
-        // set up event handlers
-        document.addEventListener("keydown", keyDown);
-        document.addEventListener("keyup", keyUp);
-
-        // set up the game loop
-        setInterval(update, 1000 / FPS);
     });
 
     function createAsteroidBelt() {
@@ -201,6 +193,16 @@ export default function Asteroids() {
     }
 
     function newGame() {
+        // set up event handlers
+        document.addEventListener("keydown", keyDown);
+        document.addEventListener("keyup", keyUp);
+
+        // clear interval
+        clearInterval(interval);
+
+        // set up the game loop
+        interval = setInterval(update, 1000 / FPS);
+
         level = 0;
         lives = GAME_LIVES;
         score = 0;
@@ -590,8 +592,11 @@ export default function Asteroids() {
     }
 
     return (
-        <div id="asteroidsGameArea"  tabIndex="0" style={{ outline: "none" }}>
+        <div id="asteroidsGameArea" tabIndex="0" style={{ outline: "none" }}>
             <canvas id="gameCanvas" width="760" height="570"></canvas>
+            <div id="asteroidsPlayBtn" onClick={() => newGame()}>
+                play
+            </div>
         </div>
     );
 }
