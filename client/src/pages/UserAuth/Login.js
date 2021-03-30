@@ -24,6 +24,7 @@ const Login = props => {
             }
             else
                 setMessage(message);
+                console.log(message);
         });
     }
 

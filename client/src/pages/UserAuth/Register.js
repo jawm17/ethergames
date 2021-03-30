@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import AuthService from '../../services/AuthService';
 import history from "../../history";
-import Message from '../../components/Message.js';
+import AuthMessage from '../../components/AuthMessage';
 import "./AuthStyle.css";
 
 const Register = props => {
@@ -106,7 +106,7 @@ const Register = props => {
                     </div>
                     <div className="text">SIGN UP</div>
                 </button>
-                {message ? <Message message={message} /> : null}
+                {message ? <AuthMessage message={message} /> : null}
                 <div className="already-have">
                    <a href="/login">Already have an account? Sign in</a>
                 </div>
