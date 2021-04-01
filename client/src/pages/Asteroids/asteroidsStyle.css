@@ -47,3 +47,13 @@
 #asteroidsPlayBtn:hover {
     cursor: pointer;
 }
+
+.dotAsteroids {
+    float: left;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    background-color: gray;
+    margin-top: 43px;
+    margin-left: 20px;
+}

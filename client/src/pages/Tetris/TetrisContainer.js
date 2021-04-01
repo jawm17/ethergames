@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext} from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Tetris from "../../components/Tetris/Tetris";
 import history from "../../history";
 import { AuthContext } from '../../context/AuthContext';
@@ -23,11 +23,11 @@ export default function TetrisContainer() {
     return new Promise(resolve => {
       GameService.getInfo("tetris").then(data => {
         if (!data.message) {
-          let scoresArray = (data.scores.sort((a, b) => (b.score - a.score))).slice(0, 10);
           setPot(data.pot);
-          setScores(scoresArray);
+          let scoresArray = (data.scores.sort((a, b) => (b.score - a.score))).slice(0, 10);
           if (scoresArray.length > 0) {
             setScoreToBeat(scoresArray[0].score);
+            setScores(scoresArray);
           }
           resolve();
         } else {
@@ -46,10 +46,10 @@ export default function TetrisContainer() {
 
   async function gameOver(score) {
     await getInfo();
+    // multiple scores
     if (scores.length >= 1) {
-      // multiple scores
+      // top score
       if (score > scores[0].score) {
-        // top score
         GameService.potPayout("tetris").then(data => {
           newScore(score);
         });
@@ -120,10 +120,10 @@ export default function TetrisContainer() {
                 Start game - each play costs $0.25 - 70% goes to the pot while the remaining 30% is used to maintain the site.
                 </li>
               <li className="liSnake">
-                Use the arrow keys (desktop) or the arrow buttons (mobile) to play. 
+                Use the arrow keys (desktop) or the arrow buttons (mobile) to play.
                 </li>
               <li className="liSnake">
-                Clear rows by filling them completely and increase your score. 
+                Clear rows by filling them completely and increase your score.
                 </li>
               <li className="liSnake">
                 The speed increases as you progress.
