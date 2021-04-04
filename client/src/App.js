@@ -14,6 +14,7 @@ import Home from "./pages/Home/Home";
 import Account from "./pages/Account/Account";
 import TetrisContainer from "./pages/Tetris/TetrisContainer";
 import AsteroidsContainer from "./pages/Asteroids/AsteroidsContainer";
+import Pacman from "./pages/Pacman/Pacman";
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route path="/about" component={About} />
         <Route exact path="/" component={Home} />
         <Route path="/asteroids" component={AsteroidsContainer} />
+        <Route path="/pacman" component={Pacman} />
         <PrivateRoute path="/account" component={Account} />
         <Route path="/" component={NoMatchPage} />
       </Switch>

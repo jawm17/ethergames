@@ -104,9 +104,9 @@ export default function Home() {
               </li>
             </div>
             <div className="pacBoy-border">
-              <li id="pacBoy-game" className="gameButton">
+              <li id="pacBoy-game" className="gameButton" onClick={() => history.push("/pacman")}>
                 <div>
-                  PAC-BOY
+                  PAC-MAN
                   <div className="pacBoy-icon">
                     <img src={require("./snake.gif")} />
                   </div>
