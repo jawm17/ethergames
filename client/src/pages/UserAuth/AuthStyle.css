@@ -220,3 +220,6 @@ body {
     font-size: 12px;
     padding-left: 10px;
 }
+.block-cube-hover:hover {
+    cursor: pointer;
+}

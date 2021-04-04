@@ -1,0 +1,19 @@
+#leaderBoardTitle {
+    font-size: 20px;
+    font-family: 'Mina', sans-serif;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    margin-bottom: 20px;
+    color: #69ff05;
+}
+
+#leaderBoard {
+    max-width: 800px;
+    width: 90vw;
+    height: 400px;
+    border-style: solid;
+    border-color: white;
+    background-color: white;
+    border-radius: 12px;
+    overflow-y: scroll;
+}

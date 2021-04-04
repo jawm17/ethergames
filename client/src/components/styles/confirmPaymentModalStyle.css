@@ -1,0 +1,37 @@
+#grayedOut {
+    width: 100vw;
+    height: 100vh;
+    top: 0px;
+    left: 0px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0,0.7);
+    z-index: 500;
+}
+
+#modalRectangle {
+    width: 400px;
+    height: 250px;
+    background-color: white;
+    border-radius: 12px;
+}
+
+#confirmPaymentBtn {
+    width: 80px;
+    height: 40px;
+    background-color: #5DE900;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+}
+
+#confirmPaymentBtn:hover {
+    cursor: pointer;
+}
+
+#paymentMessage {
+    
+}

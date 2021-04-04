@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import AuthService from '../../services/AuthService';
 import history from "../../history";
-import Message from '../../components/Message.js';
+import AuthMessage from '../../components/AuthMessage';
 import "./AuthStyle.css";
 
 const Register = props => {
@@ -36,7 +36,7 @@ const Register = props => {
                     if (!message.msgError) {
                         timerID = setTimeout(() => {
                             props.history.push('/login');
-                        }, 2000)
+                        }, 1500)
                     }
                 });
             } else {
@@ -51,9 +51,10 @@ const Register = props => {
 
     return (
         <div className="authBg">
-            <div id="authHeader">
-                <h1 id="logoAuth" onClick={() => history.push("/")}>ethergames.io</h1>
-            </div>
+            <nav id="nav">
+                <h1 id="logoMain" onClick={() => history.push("/")}>ethergames.io</h1>
+                <div className="nav-links"></div>
+            </nav>
             <form autoComplete="off" className="form" onSubmit={onSubmit}>
                 <div className="control">
                     <h1 className="title">Sign up</h1>
@@ -106,9 +107,9 @@ const Register = props => {
                     </div>
                     <div className="text">SIGN UP</div>
                 </button>
-                {message ? <Message message={message} /> : null}
+                {message ? <AuthMessage message={message} /> : null}
                 <div className="already-have">
-                   <a href="/login">Already have an account? Sign in</a>
+                    <a href="/login">Already have an account? Sign in</a>
                 </div>
             </form>
         </div>

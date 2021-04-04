@@ -3,6 +3,7 @@ import UserService from '../../services/UserService';
 import { AuthContext } from '../../context/AuthContext';
 import "./snakeStyle.css";
 import { useInterval } from "./useInterval";
+import ConfirmPaymentModal from "../../components/ConfirmPaymentModal";
 var CANVAS_SIZE = [1250, 670];
 var SNAKE_START = [
   [1, 10],
@@ -23,6 +24,7 @@ export default function SnakeGame(props) {
   const authContext = useContext(AuthContext);
 
   const canvasRef = useRef();
+  const [confirmingPayment, setConfirmingPayment] = useState(false);
   const [snake, setSnake] = useState(SNAKE_START);
   const [apple, setApple] = useState(APPLE_START);
   const [dir, setDir] = useState([0, -1]);
@@ -31,7 +33,7 @@ export default function SnakeGame(props) {
   const [balance, setBalance] = useState(0);
   const [startDisplay, setStartDisplay] = useState("flex");
   const [endDisplay, setEndDisplay] = useState("none");
-  const [width, setWidth] = useState(window.innerWidth >= 1250 ? 1250 : window.innerWidth-50);
+  const [width, setWidth] = useState(window.innerWidth >= 1250 ? 1250 : window.innerWidth - 50);
 
   const style = {
     startScreen: {
@@ -43,7 +45,8 @@ export default function SnakeGame(props) {
       borderBottomRightRadius: 20,
       borderBottomLeftRadius: 20,
       justifyContent: "center",
-      alignItems: "center"
+      alignItems: "center",
+
     },
     endScreen: {
       display: endDisplay,
@@ -54,14 +57,15 @@ export default function SnakeGame(props) {
       borderBottomRightRadius: 20,
       borderBottomLeftRadius: 20,
       justifyContent: "center",
-      alignItems: "center"
+      alignItems: "center",
+
     }
   }
 
   var rectWidth = 1;
   var rectHeight = 1;
   var cornerRadius = 0.2;
-  
+
 
   CANVAS_SIZE = [width, 670];
 
@@ -69,10 +73,10 @@ export default function SnakeGame(props) {
 
   const windowResize = () => {
     console.log('resize')
-    if(window.innerWidth >= 1250) {
+    if (window.innerWidth >= 1250) {
       setWidth(1250);
     } else {
-      setWidth(window.innerWidth-50);
+      setWidth(window.innerWidth - 50);
     }
   }
 
@@ -84,25 +88,26 @@ export default function SnakeGame(props) {
   };
 
   const keyDown = (e) => {
+    console.log("yes");
     let keyCode = e.keyCode
     e.preventDefault();
     if (keyCode >= 37 && keyCode <= 40) {
       // don't allow player to reverse into themselves
-      if(keyCode === 39 && dir === DIRECTIONS[37]) {
+      if (keyCode === 39 && dir === DIRECTIONS[37]) {
         return
-      } 
-      if(keyCode === 37 && dir === DIRECTIONS[39]) {
+      }
+      if (keyCode === 37 && dir === DIRECTIONS[39]) {
         return
-      } 
-      if(keyCode === 40 && dir === DIRECTIONS[38]) {
+      }
+      if (keyCode === 40 && dir === DIRECTIONS[38]) {
         return
-      } 
-      if(keyCode === 38 && dir === DIRECTIONS[40]) {
+      }
+      if (keyCode === 38 && dir === DIRECTIONS[40]) {
         return
-      } 
+      }
       setDir(DIRECTIONS[keyCode]);
     }
-}
+  }
 
   const createApple = () =>
     apple.map((_a, i) => Math.floor(Math.random() * (CANVAS_SIZE[i] / SCALE)));
@@ -145,29 +150,9 @@ export default function SnakeGame(props) {
   };
 
   const startGame = () => {
+    document.addEventListener("keydown", (e) => keyDown(e));
     if (gameOver) {
-      UserService.getUserBalance().then(data => {
-        const { message, balance } = data;
-        if (!message) {
-          if (balance >= 0.000152) {
-            setSnake(SNAKE_START);
-            setApple(APPLE_START);
-            setDir([0, -1]);
-            setSpeed(SPEED);
-            setStartDisplay("none");
-            setEndDisplay("none");
-            props.start();
-            setGameOver(false);
-          } else {
-            alert("insufficient funds");
-          }
-        }
-        else if (message.msgBody === "Unauthorized") {
-          //Replace with middleware 
-          authContext.setUser({ username: "" });
-          authContext.setIsAuthenticated(false);
-        }
-      });
+      setConfirmingPayment(true);
     }
   };
 
@@ -192,45 +177,83 @@ export default function SnakeGame(props) {
     context.fillRect(apple[0], apple[1], 1, 1);
   }, [snake, apple, gameOver]);
 
+  function confirmPayment() {
+    UserService.getUserBalance().then(data => {
+      const { message, balance } = data;
+      if (!message) {
+        if (balance >= 0.000152) {
+          setSnake(SNAKE_START);
+          setApple(APPLE_START);
+          setDir([0, -1]);
+          setSpeed(SPEED);
+          setStartDisplay("none");
+          setEndDisplay("none");
+          props.start();
+          setConfirmingPayment(false);
+          setGameOver(false);
+        } else {
+          alert("insufficient funds");
+        }
+      }
+      else if (message.msgBody === "Unauthorized") {
+        //Replace with middleware 
+        authContext.setUser({ username: "" });
+        authContext.setIsAuthenticated(false);
+      }
+    });
+  }
+
   return (
-    <div id="snakeTrigger" style={{ outline: "none" }} tabIndex="0" onKeyDown={e => keyDown(e)}>
-      <div id="screen">
-        <div id="startScreen" style={style.startScreen}>
-          <div id="startInfo">
-            <div id="snakeStartTitle">
-              SNAKE
+    <div>
+      {confirmingPayment ? (
+        <ConfirmPaymentModal
+          close={() => confirmPayment()}
+        />
+      ) : null}
+      <div id="snakeTrigger" style={{ outline: "none" }} tabIndex="0">
+        <div id="screen">
+          <div id="startScreen" style={style.startScreen}>
+            <div id="startInfo">
+              <div id="snakeStartTitle">
+                SNAKE
             </div>
-            <div id="snakeStartSub">
-              Press play to start
+              <div id="snakeStartSub">
+                Press play to start
             </div>
-          </div>
-        </div>
-        <div id="startScreen" style={style.endScreen}>
-          <div id="startInfo">
-            <div id="snakeEndTitle">
-              Game Over
-            </div>
-            <div id="snakeStartSub">
-              Press play to start
             </div>
           </div>
-        </div>
-        <div style={{ outline: "none", display: "flex", justifyContent: "center" }}>
-          <canvas
-            id="snakeCanvas"
-            ref={canvasRef}
-            width={`${CANVAS_SIZE[0]}px`}
-            height={`${CANVAS_SIZE[1]}px`}
-          />
-        </div>
-        <div>
-        </div>
-        <div id="playBtn" onClick={() => startGame()}>
-          play
+          <div id="startScreen" style={style.endScreen}>
+            <div id="startInfo">
+              <div id="snakeEndTitle">
+                Game Over
+            </div>
+              <div id="snakeStartSub">
+                Press play to start
+            </div>
+            </div>
+          </div>
+          <div style={{ outline: "none", display: "flex", justifyContent: "center" }}>
+            <canvas
+              id="snakeCanvas"
+              ref={canvasRef}
+              width={`${CANVAS_SIZE[0]}px`}
+              height={`${CANVAS_SIZE[1]}px`}
+            />
+          </div>
+          <div id="snakeControlsOuter">
+            <div id="snakeControls">
+              <img className="snakeControlBtn" onClick={() => setDir(DIRECTIONS[37])} src="https://www.flaticon.com/svg/vstatic/svg/318/318276.svg?token=exp=1617508366~hmac=e70a01f10ad3db4eef5867d573f45a1b" alt="left button"></img>
+              <img className="snakeControlBtn" id="rightBtn" onClick={() => setDir(DIRECTIONS[39])} src="https://www.flaticon.com/svg/vstatic/svg/318/318276.svg?token=exp=1617508366~hmac=e70a01f10ad3db4eef5867d573f45a1b" alt="right button"></img>
+              <img className="snakeControlBtn" id="upBtn" onClick={() => setDir(DIRECTIONS[38])} src="https://www.flaticon.com/svg/vstatic/svg/318/318276.svg?token=exp=1617508366~hmac=e70a01f10ad3db4eef5867d573f45a1b" alt="up button"></img>
+              <img className="snakeControlBtn" id="downBtn" onClick={() => setDir(DIRECTIONS[40])} src="https://www.flaticon.com/svg/vstatic/svg/318/318276.svg?token=exp=1617508366~hmac=e70a01f10ad3db4eef5867d573f45a1b" alt="down button"></img>
+            </div>
+          </div>
+          <div id="playBtnSnake" onClick={() => startGame()}>
+            play
+          </div>
         </div>
       </div>
+
     </div>
-
-
   );
 };

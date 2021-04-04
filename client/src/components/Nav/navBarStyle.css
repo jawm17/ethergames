@@ -3,10 +3,11 @@
   background-color: black;
   height: 90px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: 100vw;
   font-family: "Orbitron", sans-serif;
+
 }
 
 a:-webkit-any-link {
@@ -24,16 +25,31 @@ a:-webkit-any-link {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100px;
   color: rgb(72, 254, 12);
+  letter-spacing: 0.05em;
+}
+
+.navButton:hover {
+  cursor: pointer;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.nav-links {
+  margin-right: 30px;
+  display: flex;
+  align-items: center;
 }
 
 #logoMain {
   color: var(--green);
   font-size: 1.8rem;
   /* animation: flicker 4s infinite alternate; */
-  width: 45%;
-  display: flex;
-  justify-content: flex-start;
+  letter-spacing: 0.05em;
+  margin-left: 30px;
 }
 
 #logoMain::-moz-selection {
@@ -75,17 +91,74 @@ a:-webkit-any-link {
   }
 }
 
-.nav-links {
-  width: fit-content;
-  width: 50%;
-  display: flex;
-  justify-content: flex-end;
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
 }
 
-.nav-links div {
-  width: 100px;
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
-.nav-links div:hover {
+/* The slider */
+.slider {
+  position: absolute;
   cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #5DE900;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  /* border-radius: 34px; */
+  border-radius: 6px;
+}
+
+.slider.round:before {
+  /* border-radius: 50%; */
+  border-radius: 6px;
+}
+
+.sliderTitle {
+  color: #5DE900;
+  position: absolute;
+  bottom: -21px;
+  left: 12px;
+}
+
+.switcher {
+  margin-bottom: 7px;
 }

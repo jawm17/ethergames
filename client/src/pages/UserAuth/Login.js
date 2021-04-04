@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import history from "../../history";
 import AuthService from '../../services/AuthService';
+import AuthMessage from '../../components/AuthMessage';
 import { AuthContext } from '../../context/AuthContext';
 import "./AuthStyle.css";
 
@@ -15,16 +16,18 @@ const Login = props => {
 
     const onSubmit = e => {
         e.preventDefault();
-        AuthService.login(user).then(data => {
-            const { isAuthenticated, user, message } = data;
-            if (isAuthenticated) {
-                authContext.setUser(user);
-                authContext.setIsAuthenticated(isAuthenticated);
-                props.history.push('/');
-            }
-            else
-                setMessage(message);
-        });
+        if (user.username && user.password) {
+            AuthService.login(user).then(data => {
+                const { isAuthenticated, user } = data;
+                if (isAuthenticated) {
+                    authContext.setUser(user);
+                    authContext.setIsAuthenticated(isAuthenticated);
+                    props.history.push('/');
+                }
+                else
+                    setMessage({ msgBody: "Incorrect Login", msgError: true });
+            });
+        }
     }
 
 
@@ -32,9 +35,9 @@ const Login = props => {
     return (
         <div className="authBg">
             <nav id="nav">
-                        <h1 id="logoMain" onClick={() => history.push("/")}>ethergames.io</h1>
-                        <div className="nav-links"></div>
-                    </nav>
+                <h1 id="logoMain" onClick={() => history.push("/")}>ethergames.io</h1>
+                <div className="nav-links"></div>
+            </nav>
             <form autoComplete="off" className="form" name="login-form" onSubmit={onSubmit}>
                 <div className="control">
                     <h1 className="title">Log In</h1>
@@ -75,6 +78,7 @@ const Login = props => {
                     </div>
                     <div className="text">LOG IN</div>
                 </button>
+                {message ? <AuthMessage message={message} /> : null}
                 <div className="dont-have">
                     <a href="/register">Don't have an account? Sign Up</a>
                 </div>
