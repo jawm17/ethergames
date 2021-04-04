@@ -102,7 +102,7 @@ body {
 #scoreSnake {
     position: absolute;
     top: 35px;
-    right: 185px;
+    right: 250px;
     font-family: 'Mina', sans-serif;
     font-size: 20px;
 }
@@ -111,7 +111,7 @@ body {
     position: absolute;
     z-index: 100;
     bottom: -65px;
-    right: 60px;
+    right: 130px;
     height: 40px;
     width: 80px;
     border-style: solid;
@@ -130,6 +130,13 @@ body {
     cursor: pointer;
     color: white;
     background-color: #5DE900;
+}
+
+#snakeSwitcher {
+    position: absolute;
+    bottom: 4px;
+    right: 40px;
+    font-family: "Orbitron", sans-serif;
 }
 
 #title {
@@ -198,6 +205,42 @@ body {
 .liSnake {
     margin-top: 10px;
 } 
+
+#snakeControlsOuter {
+    width: 100vw;
+    height: 40px;
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+#snakeControls {
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.snakeControlBtn {
+    width: 40px;
+    height: 40px;
+}
+
+.snakeControlBtn:hover {
+    cursor: pointer;
+}
+
+#upBtn {
+    transform: rotate(90deg);
+}
+
+#downBtn {
+    transform: rotate(-90deg);
+}
+
+#rightBtn {
+    transform: rotate(180deg);
+}
 
 @media only screen and (max-width: 1300px) {  
     #boardAndInstruct { 

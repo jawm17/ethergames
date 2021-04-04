@@ -76,8 +76,9 @@ a:-webkit-any-link {
 .QR-code img {
     width: 85%;
     height: 85%;
-    padding: 20px 0px 0px 0px;
+    margin: 20px 0px 0px 0px;
     /* top right bottom left */
+    border-radius: 20px;
 }
 .username,
 .QR-code,

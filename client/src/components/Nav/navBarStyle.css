@@ -41,6 +41,7 @@ a:-webkit-any-link {
 .nav-links {
   margin-right: 30px;
   display: flex;
+  align-items: center;
 }
 
 #logoMain {
@@ -142,11 +143,11 @@ input:checked + .slider:before {
 
 /* Rounded sliders */
 .slider.round {
-  border-radius: 34px;
+  border-radius: 6px;
 }
 
 .slider.round:before {
-  border-radius: 50%;
+  border-radius: 6px;
 }
 
 .sliderTitle {
@@ -154,4 +155,8 @@ input:checked + .slider:before {
   position: absolute;
   bottom: -21px;
   left: 12px;
+}
+
+.switcher {
+  margin-bottom: 7px;
 }

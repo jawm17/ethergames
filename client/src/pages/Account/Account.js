@@ -15,8 +15,8 @@ export default function Account() {
     const [balance, setBalance] = useState(null);
     const [txs, setTxs] = useState([]);
     const [address, setAddress] = useState("");
-    const [qrCode, setQrCode] = useState("");
-    const [username, setUsername] = useState("username");
+    const [qrCode, setQrCode] = useState("http://cdn.shopify.com/s/files/1/0062/7892/products/S7004-solid-white_352be2c2-3ecc-4181-8e8c-d75864efbd23.jpg?v=1537978455");
+    const [username, setUsername] = useState("...");
     const [sendingEth, setSendingEth] = useState(false);
     const [recievingEth, setRecievingEth] = useState(false);
     const authContext = useContext(AuthContext);
@@ -186,7 +186,7 @@ export default function Account() {
                                 className="tablinks"
                                 onClick={(e) => openCity(e, 'Scores')}
                             >
-                                Scores
+                                Highscores
                             </button>
                             <button
                                 className="tablinks"

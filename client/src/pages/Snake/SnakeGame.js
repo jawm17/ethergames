@@ -45,7 +45,8 @@ export default function SnakeGame(props) {
       borderBottomRightRadius: 20,
       borderBottomLeftRadius: 20,
       justifyContent: "center",
-      alignItems: "center"
+      alignItems: "center",
+
     },
     endScreen: {
       display: endDisplay,
@@ -56,7 +57,8 @@ export default function SnakeGame(props) {
       borderBottomRightRadius: 20,
       borderBottomLeftRadius: 20,
       justifyContent: "center",
-      alignItems: "center"
+      alignItems: "center",
+
     }
   }
 
@@ -86,6 +88,7 @@ export default function SnakeGame(props) {
   };
 
   const keyDown = (e) => {
+    console.log("yes");
     let keyCode = e.keyCode
     e.preventDefault();
     if (keyCode >= 37 && keyCode <= 40) {
@@ -147,7 +150,8 @@ export default function SnakeGame(props) {
   };
 
   const startGame = () => {
-    if(gameOver) {
+    document.addEventListener("keydown", (e) => keyDown(e));
+    if (gameOver) {
       setConfirmingPayment(true);
     }
   };
@@ -174,29 +178,29 @@ export default function SnakeGame(props) {
   }, [snake, apple, gameOver]);
 
   function confirmPayment() {
-      UserService.getUserBalance().then(data => {
-        const { message, balance } = data;
-        if (!message) {
-          if (balance >= 0.000152) {
-            setSnake(SNAKE_START);
-            setApple(APPLE_START);
-            setDir([0, -1]);
-            setSpeed(SPEED);
-            setStartDisplay("none");
-            setEndDisplay("none");
-            props.start();
-            setConfirmingPayment(false);
-            setGameOver(false);
-          } else {
-            alert("insufficient funds");
-          }
+    UserService.getUserBalance().then(data => {
+      const { message, balance } = data;
+      if (!message) {
+        if (balance >= 0.000152) {
+          setSnake(SNAKE_START);
+          setApple(APPLE_START);
+          setDir([0, -1]);
+          setSpeed(SPEED);
+          setStartDisplay("none");
+          setEndDisplay("none");
+          props.start();
+          setConfirmingPayment(false);
+          setGameOver(false);
+        } else {
+          alert("insufficient funds");
         }
-        else if (message.msgBody === "Unauthorized") {
-          //Replace with middleware 
-          authContext.setUser({ username: "" });
-          authContext.setIsAuthenticated(false);
-        }
-      });
+      }
+      else if (message.msgBody === "Unauthorized") {
+        //Replace with middleware 
+        authContext.setUser({ username: "" });
+        authContext.setIsAuthenticated(false);
+      }
+    });
   }
 
   return (
@@ -206,7 +210,7 @@ export default function SnakeGame(props) {
           close={() => confirmPayment()}
         />
       ) : null}
-      <div id="snakeTrigger" style={{ outline: "none" }} tabIndex="0" onKeyDown={e => keyDown(e)}>
+      <div id="snakeTrigger" style={{ outline: "none" }} tabIndex="0">
         <div id="screen">
           <div id="startScreen" style={style.startScreen}>
             <div id="startInfo">
@@ -236,11 +240,17 @@ export default function SnakeGame(props) {
               height={`${CANVAS_SIZE[1]}px`}
             />
           </div>
-          <div>
+          <div id="snakeControlsOuter">
+            <div id="snakeControls">
+              <img className="snakeControlBtn" onClick={() => setDir(DIRECTIONS[37])} src="https://www.flaticon.com/svg/vstatic/svg/318/318276.svg?token=exp=1617508366~hmac=e70a01f10ad3db4eef5867d573f45a1b" alt="left button"></img>
+              <img className="snakeControlBtn" id="rightBtn" onClick={() => setDir(DIRECTIONS[39])} src="https://www.flaticon.com/svg/vstatic/svg/318/318276.svg?token=exp=1617508366~hmac=e70a01f10ad3db4eef5867d573f45a1b" alt="right button"></img>
+              <img className="snakeControlBtn" id="upBtn" onClick={() => setDir(DIRECTIONS[38])} src="https://www.flaticon.com/svg/vstatic/svg/318/318276.svg?token=exp=1617508366~hmac=e70a01f10ad3db4eef5867d573f45a1b" alt="up button"></img>
+              <img className="snakeControlBtn" id="downBtn" onClick={() => setDir(DIRECTIONS[40])} src="https://www.flaticon.com/svg/vstatic/svg/318/318276.svg?token=exp=1617508366~hmac=e70a01f10ad3db4eef5867d573f45a1b" alt="down button"></img>
+            </div>
           </div>
           <div id="playBtnSnake" onClick={() => startGame()}>
             play
-        </div>
+          </div>
         </div>
       </div>
 
