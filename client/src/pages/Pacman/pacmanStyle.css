@@ -1,5 +1,13 @@
+#pacmanOuter {
+  width: 100vw;
+  height: 608px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: blue;
+}
+
 #pacman {
-    height: 450px;
-    width: 684px;
+    width: 500px;
     margin: 20px auto;
-  }
+}

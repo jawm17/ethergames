@@ -81,9 +81,6 @@ export default function SnakeContainer() {
     <div>
       <NavBar />
       <div id="container" tabIndex="0" style={{ outline: "none" }}>
-        {/* <div id="headerSnake">
-
-      </div> */}
         {/* <div id="closeGameButton" onClick={() => history.push("/")}>
           <img id="closeX" src="https://firebasestorage.googleapis.com/v0/b/gamesresources-28440.appspot.com/o/x.png?alt=media&token=fc3b3baa-be28-4071-a4e1-271b96c5995f" alt="close button"></img>
         </div> */}
@@ -107,11 +104,11 @@ export default function SnakeContainer() {
               Score: {score}
             </div>
             <div id="snakeSwitcher">
-            <label className="switch">
-              <input type="checkbox" checked={staked} onClick={() => setStaked(!staked)} />
-              <span className="slider round"></span>
-              <div className="sliderTitle">{staked ? "paid" : "free"}</div>
-            </label>
+              <label className="switch">
+                <input type="checkbox" checked={staked} onClick={() => setStaked(!staked)} />
+                <span className="slider round"></span>
+                <div className="sliderTitle">{staked ? "paid" : "free"}</div>
+              </label>
             </div>
           </div>
         </div>
@@ -125,26 +122,26 @@ export default function SnakeContainer() {
           <div id="instructions">
             <div>
               How to play
-              </div>
+            </div>
             <ol id="instuctList">
               <li className="liSnake">
                 Deposit funds in your account.
-                </li>
+              </li>
               <li className="liSnake">
-                Start game - each play costs $0.25 - 70% goes to the pot while the remaining 30% is used to maintain the site.
-                </li>
+                Start game - each play costs $0.25.
+              </li>
               <li className="liSnake">
                 Use the arrow keys (desktop) or the arrow buttons (mobile) to move. Eat the food and grow in size. Each food eaten is 5 points.
-                </li>
+              </li>
               <li className="liSnake">
                 Don't eat yourself.
-                </li>
+              </li>
               <li className="liSnake">
                 Don't eat the border.
-                </li>
+              </li>
               <li className="liSnake">
                 Beat the top score and win the pot!
-                </li>
+              </li>
             </ol>
           </div>
         </div>

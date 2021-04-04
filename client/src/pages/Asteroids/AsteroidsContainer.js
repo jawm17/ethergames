@@ -85,7 +85,7 @@ export default function AsteroidsContainer() {
                                 Deposit funds in your account.
                             </li>
                             <li className="liSnake">
-                                Start game - each play costs $0.25 - 70% goes to the pot while the remaining 30% is used to maintain the site.
+                                Start game - each play costs $0.25.
                             </li>
                             <li className="liSnake">
                                 Use the arrow keys (desktop) or the arrow buttons (mobile) to play.

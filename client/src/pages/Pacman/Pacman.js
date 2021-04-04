@@ -1066,8 +1066,8 @@ export default function Pacman() {
 
             dialog("Press N to Start");
 
-            document.addEventListener("keydown", keyDown, true);
-            document.addEventListener("keypress", keyPress, true);
+            document.addEventListener("keydown", (e) => keyDown(e));
+            document.addEventListener("keypress", (e) => keyPress(e));
 
             timer = window.setInterval(mainLoop, 1000 / Pacman.FPS);
         };
@@ -1258,8 +1258,10 @@ export default function Pacman() {
     }, []);
 
     return (
-        <div id="pacman">
+        <div id="pacmanOuter">
+            <div id="pacman">
 
+            </div>
         </div>
     );
 }
