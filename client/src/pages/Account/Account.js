@@ -198,7 +198,7 @@ export default function Account() {
                         {/* Tab content */}
                         <div id="Scores" className="tabcontent1">
                             <table className="table" style={{ width: '100%' }}>
-                                <tbody className="scoreContent">
+                                <tbody>
                                     <tr>
                                         <th>Date</th>
                                         <th>Score</th>
@@ -224,12 +224,12 @@ export default function Account() {
                                         <td>10000000</td>
                                         <td>100</td>
                                     </tr>
-                                    <tr id="scoreTabContent">
+                                    <tr>
                                         <td>01/01/2021</td>
                                         <td>10000000</td>
                                         <td>100</td>
                                     </tr>
-                                    <tr id="scoreTabContent">
+                                    <tr>
                                         <td>01/01/2021</td>
                                         <td>10000000</td>
                                         <td>1000</td>
@@ -238,13 +238,8 @@ export default function Account() {
                             </table>
                         </div>
                         <div id="Transactions" className="tabcontent2">
-                            <table className="table" style={{ width: '100%' }}>
-                                <tbody>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Transaction</th>
-                                        <th>Amount</th>
-                                    </tr>
+                            <div className="table" >
+                                <div className="transactions-body">
                                     {txs.map((tx) => {
                                         return (
                                             <WalletTx
@@ -265,8 +260,8 @@ export default function Account() {
                                             />
                                         );
                                     })}
-                                </tbody>
-                            </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

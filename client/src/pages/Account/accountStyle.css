@@ -106,7 +106,7 @@ a:-webkit-any-link {
 /* Style the tab */
 .tab-container {
     margin: 10px;
-    overflow: auto;
+    overflow-y: auto;
     max-height: 47vh;
     -ms-overflow-style: none !important;
 }
@@ -155,7 +155,6 @@ a:-webkit-any-link {
 }
 
 .table {
-    text-align: center;
 }
 .tabcontent2 {
     display: none;
@@ -165,10 +164,36 @@ a:-webkit-any-link {
 }
 .balance {
     margin-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.transactions-body ul{
+    width: 100%;
+    display: flex;
+}
+.all-trans-container{
+    width: 100%;
+    border-bottom: solid rgba(255, 255, 255, 0.74) 5px;
+    height: fit-content;
+}
+.all-trans-container li{
+    padding: 10px;
+    min-height:30px;
+}
+.trans-date-container{
+    width: 50%;
+}
+.trans-date-container li{
+ padding: 10px;
+}
+.amount{
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
 }
 /* Media Queries */
 /* Portrait and Landscape */
-@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) {
+@media only screen and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) {
     #root {
         margin-top: 0px;
     }
@@ -228,7 +253,9 @@ a:-webkit-any-link {
 
 /* Portrait */
 @media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+    
 }
+
 
 /* Landscape */
 @media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
