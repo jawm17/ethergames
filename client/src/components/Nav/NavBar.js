@@ -70,6 +70,11 @@ const NavBar = (props) => {
                             <div className="inline">
                                 <div className="navButton" onClick={() => history.push("/account")}>Account</div>
                             </div>
+                            {/* <label className="switch">
+                                <input type="checkbox" checked={staked} onClick={() => setStaked(!staked)} />
+                                <span className="slider round"></span>
+                                <div className="sliderTitle">{staked ? "paid" : "free"}</div>
+                            </label> */}
                         </div>
                     </nav>
                 </>

@@ -145,6 +145,7 @@ body{
     border-color: white;
     background-color: white;
     border-radius: 12px;
+    overflow-y: scroll;
 }
 
 #instructionsTetris {
