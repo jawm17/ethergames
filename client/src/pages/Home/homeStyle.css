@@ -12,7 +12,6 @@ bottom margin is 75px */
   font-family: "Orbitron", sans-serif;
   letter-spacing: 0.05em;
   height: fit-content;
-  width: 100vw;
   user-select: none;
   -moz-user-select: none;
   -khtml-user-select: none;
@@ -22,6 +21,8 @@ bottom margin is 75px */
   overflow-y: scroll;
   height: 100vh;
   width: 100vw;
+  top: 0px;
+  left: 0px;
 }
 
 /* Hero */

@@ -48,6 +48,16 @@
     cursor: pointer;
 }
 
+#asteroidsScore {
+    position: absolute;
+    bottom: -65px;
+    right: 185px;
+    font-family: 'Mina', sans-serif;
+    font-size: 20px;
+    color: white;
+
+}
+
 .dotAsteroids {
     float: left;
     border-radius: 50%;

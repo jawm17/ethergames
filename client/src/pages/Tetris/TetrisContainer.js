@@ -98,7 +98,7 @@ export default function TetrisContainer() {
             <div id="leaderBoardTitleTetris">
               High Scores
               </div>
-            <div id="leaderBoard">
+            <div id="leaderBoardTetris">
               {scores.map(score => {
                 return <ScoreBoardScore
                   user={score.user}

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./asteroidsStyle.css";
 
 export default function Asteroids() {
@@ -33,8 +33,10 @@ export default function Asteroids() {
     var canv;
     var ctx;
     var roidsLeft, roidsTotal;
-    var level, lives, roids, score, scoreHigh, ship, text, textAlpha;
+    var level, lives, roids, scoreHigh, ship, text, textAlpha;
     var interval;
+
+    const [score, setScore] = useState(0);
 
     useEffect(() => {
         canv = document.getElementById("asteroidsCanvas");
@@ -65,13 +67,13 @@ export default function Asteroids() {
         if (r == Math.ceil(ROID_SIZE / 2)) { // large asteroid
             roids.push(newAsteroid(x, y, Math.ceil(ROID_SIZE / 4)));
             roids.push(newAsteroid(x, y, Math.ceil(ROID_SIZE / 4)));
-            score += ROID_PTS_LGE;
+            setScore(score => score + ROID_PTS_LGE);
         } else if (r == Math.ceil(ROID_SIZE / 4)) { // medium asteroid
             roids.push(newAsteroid(x, y, Math.ceil(ROID_SIZE / 8)));
             roids.push(newAsteroid(x, y, Math.ceil(ROID_SIZE / 8)));
-            score += ROID_PTS_MED;
+            setScore(score => score + ROID_PTS_MED);
         } else {
-            score += ROID_PTS_SML;
+            setScore(score => score + ROID_PTS_SML);
         }
 
         // check high score
@@ -205,7 +207,7 @@ export default function Asteroids() {
 
         level = 0;
         lives = GAME_LIVES;
-        score = 0;
+        setScore(0);
         ship = newShip();
 
         // get the high score from local storage
@@ -445,18 +447,18 @@ export default function Asteroids() {
         }
 
         // draw the score
-        ctx.textAlign = "right";
-        ctx.textBaseline = "middle";
-        ctx.fillStyle = "white";
-        ctx.font = TEXT_SIZE + "px dejavu sans mono";
-        ctx.fillText(score, canv.width - SHIP_SIZE / 2, SHIP_SIZE);
+        // ctx.textAlign = "right";
+        // ctx.textBaseline = "middle";
+        // ctx.fillStyle = "white";
+        // ctx.font = TEXT_SIZE + "px dejavu sans mono";
+        // ctx.fillText(score, canv.width - SHIP_SIZE / 2, SHIP_SIZE);
 
         // draw the high score
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillStyle = "white";
-        ctx.font = (TEXT_SIZE * 0.75) + "px dejavu sans mono";
-        ctx.fillText("BEST " + scoreHigh, canv.width / 2, SHIP_SIZE);
+        // ctx.textAlign = "center";
+        // ctx.textBaseline = "middle";
+        // ctx.fillStyle = "white";
+        // ctx.font = (TEXT_SIZE * 0.75) + "px dejavu sans mono";
+        // ctx.fillText("BEST " + scoreHigh, canv.width / 2, SHIP_SIZE);
 
         // detect laser hits on asteroids
         var ax, ay, ar, lx, ly;
@@ -594,6 +596,7 @@ export default function Asteroids() {
     return (
         <div id="asteroidsGameArea" tabIndex="0" style={{ outline: "none" }}>
             <canvas id="asteroidsCanvas" width="760" height="570"></canvas>
+            <div id="asteroidsScore">score: {score}</div>
             <div id="asteroidsPlayBtn" onClick={() => newGame()}>
                 play
             </div>

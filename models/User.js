@@ -35,7 +35,8 @@ const UserSchema = new mongoose.Schema({
     recievedTx: {
         type: Array,
         default: []
-    }
+    },
+    posts : [{type : mongoose.Schema.Types.ObjectId, ref: 'Score'}]
 });
 
 UserSchema.pre('save',function(next){
