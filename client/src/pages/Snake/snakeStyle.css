@@ -92,7 +92,7 @@ body {
 #scoreSnake {
     position: absolute;
     top: 35px;
-    right: 250px;
+    right: 175px;
     font-family: 'Mina', sans-serif;
     font-size: 20px;
 }
@@ -101,7 +101,7 @@ body {
     position: absolute;
     z-index: 100;
     bottom: -65px;
-    right: 130px;
+    right:  60px;
     height: 40px;
     width: 80px;
     border-style: solid;
@@ -118,8 +118,8 @@ body {
 
 #playBtnSnake:hover {
     cursor: pointer;
-    color: white;
-    background-color: #5DE900;
+    /* color: white;
+    background-color: #5DE900; */
 }
 
 #snakeSwitcher {

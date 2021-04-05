@@ -8,7 +8,7 @@
     height: 570px;
     display: flex;
     justify-content: center;
-    background-color: gray;
+    background-color: white;
     position: relative;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
@@ -76,6 +76,24 @@
     background-color: gray;
     margin-top: 43px;
     margin-left: 20px;
+}
+
+#instructionsAsteroids {
+    max-width: 90vw;
+    margin-left: 90px;
+    margin-bottom: 40px;
+    margin-right: 50px;
+    font-family: 'Mina', sans-serif;
+    font-size: 20px;
+    color: white;
+}
+
+@media only screen and (max-width: 1300px) {  
+
+    #instructionsAsteroids {
+        margin-left: 40px;
+        margin-bottom: 40px;
+    }
 }
 
 @media only screen and (max-width: 1100px) {  

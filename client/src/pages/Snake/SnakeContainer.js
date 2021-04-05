@@ -117,7 +117,7 @@ export default function SnakeContainer() {
         <div id="boardAndInstruct">
 
           <div id="leaderBoardArea">
-            <Leaderboard scores={scores} />
+            <Leaderboard scores={scores} page="snake"/>
           </div>
 
           <div id="instructions">

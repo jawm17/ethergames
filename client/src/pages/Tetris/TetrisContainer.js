@@ -3,8 +3,8 @@ import Tetris from "../../components/Tetris/Tetris";
 import history from "../../history";
 import { AuthContext } from '../../context/AuthContext';
 import GameService from "../../services/GameService";
+import Leaderboard from "../../components/Leaderboard";
 import TxService from "../../services/TxService";
-import ScoreBoardScore from "../../components/ScoreBoardScore";
 import NavBar from "../../components/Nav/NavBar";
 import "./tetrisStyle.css";
 
@@ -72,7 +72,7 @@ export default function TetrisContainer() {
 
   return (
     <div>
-      <NavBar page="tetris"/>
+      <NavBar page="tetris" />
       <div id="container" tabIndex="0" style={{ outline: "none" }} onKeyDown={e => e.preventDefault()}>
         {/* <div id="closeGameButton" onClick={() => history.push("/")}>
           <img id="closeX" src="https://firebasestorage.googleapis.com/v0/b/gamesresources-28440.appspot.com/o/yellowX.png?alt=media&token=4fca2aaa-9123-434a-839d-3a1cf3ee3436" alt="close button"></img>
@@ -97,18 +97,7 @@ export default function TetrisContainer() {
         </div>
         <div id="boardAndInstruct">
           <div id="leaderBoardArea">
-            <div id="leaderBoardTitleTetris">
-              High Scores
-              </div>
-            <div id="leaderBoardTetris">
-              {scores.map(score => {
-                return <ScoreBoardScore
-                  user={score.user}
-                  score={score.score}
-                  key={score.timeStamp}
-                />
-              })}
-            </div>
+            <Leaderboard scores={scores} page="tetris"/>
           </div>
           <div id="instructionsTetris">
             <div>

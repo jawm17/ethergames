@@ -17,33 +17,22 @@ export default function AsteroidsContainer() {
     const [scores, setScores] = useState([]);
     const [scoreToBeat, setScoreToBeat] = useState(1000);
     const [user, setUser] = useState(authContext.user.username);
-    const [staked, setStaked] = useState(false);
-    const [playing, setPlaying] = useState(false);
 
     useEffect(() => {
         getInfo();
     }, []);
 
-    function changeStake() {
-        if (!playing) {
-          if (user) {
-            setStaked(!staked);
-          } else {
-            alert("you must be logged in to play with money");
-          }
-        }
-      }    
 
     function getInfo() {
         return new Promise(resolve => {
             GameService.getInfo("asteroids").then(data => {
                 if (!data.message) {
                     setPot(data.pot);
-                    if (data.scores.length > 0) {
+                    if(data.scores.length > 0) {
                         let scoresArray = (data.scores.sort((a, b) => (b.score - a.score))).slice(0, 10);
                         setScoreToBeat(scoresArray[0].score);
                         setScores(scoresArray);
-                    }
+                    }   
                     resolve();
                 } else {
                     console.log("error");
@@ -70,7 +59,7 @@ export default function AsteroidsContainer() {
         console.log(score);
         if (scores.length >= 1) {
             // multiple scores
-            if (score > scores[0].score) {
+            if (score > 20) {
                 // top score
                 GameService.potPayout("asteroids").then(data => {
                     newScore();
@@ -83,15 +72,12 @@ export default function AsteroidsContainer() {
             newScore();
         }
     }
-    function changePlayStatus(value) {
-        setPlaying(value);
-      }
 
     return (
         <div>
-            <NavBar page="asteroids" />
+            <NavBar page="asteroids"/>
             <div id="container" tabIndex="0" style={{ outline: "none" }} onKeyDown={e => e.preventDefault()}>
-                <Asteroids start={() => gameStart()} gameOver={(score) => gameOver(score)} changePlayStatus={(val) => changePlayStatus(val)}  staked={staked}/>
+                <Asteroids start={() => gameStart()} gameOver={(score) => gameOver(score)} />
                 <div id="info">
                     <div id="top">
                         <div id="titleAsteroids">
@@ -100,25 +86,20 @@ export default function AsteroidsContainer() {
                         <div className="dotAsteroids">
                         </div>
                         <div id="jackpot">
-                            Jackpot: {pot} ETH
+                            Jackpot: {parseFloat(pot.toFixed(6))} ETH
                         </div>
                         <div className="dotAsteroids">
                         </div>
                         <div id="highScore">
                             Score to beat: {scoreToBeat}
                         </div>
-                        <label className="switch">
-                            <input type="checkbox" checked={staked} onClick={() => changeStake()} />
-                            <span className="slider round"></span>
-                            <div className="sliderTitle">{staked ? "paid" : "free"}</div>
-                        </label>
                     </div>
                 </div>
                 <div id="boardAndInstruct">
                     <div id="leaderBoardArea">
                         <Leaderboard scores={scores} />
                     </div>
-                    <div id="instructionsTetris">
+                    <div id="instructionsAsteroids">
                         <div>
                             How to play
                         </div>

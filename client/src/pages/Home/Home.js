@@ -10,6 +10,10 @@ export default function Home() {
   const [snakeScore, setSnakeScore] = useState(0);
   const [tetrisPot, setTetrisPot] = useState(0);
   const [tetrisScore, setTetrisScore] = useState(0);
+  const [asteroidsPot, setAsteroidsPot] = useState(0);
+  const [asteroidsScore, setAsteroidsScore] = useState(0);
+  const [panmanPot, setPacmanPot] = useState(0);
+  const [pacmanScore, setPacmanScore] = useState(0);
 
   useEffect(() => {
     getGameInfo();
@@ -34,6 +38,17 @@ export default function Home() {
           .slice(0, 10);
         setTetrisPot(data.pot);
         setTetrisScore(scoresArray[0].score);
+      } else {
+        console.log("error");
+      }
+    });
+    GameService.getInfo("asteroids").then((data) => {
+      if (!data.message) {
+        let scoresArray = data.scores
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 10);
+        setAsteroidsPot(data.pot);
+        setAsteroidsScore(scoresArray[0].score);
       } else {
         console.log("error");
       }
@@ -124,8 +139,8 @@ export default function Home() {
                     <img src={require("./asteroids.gif")} />
                   </div>
                   <div>
-                    <h1>Jackpot: 0.002 ETH</h1>
-                    <p>High Score: 200</p>
+                    <h1>Jackpot: {parseFloat(asteroidsPot.toFixed(6))} ETH</h1>
+                    <p>High Score: {asteroidsScore}</p>
                   </div>
                 </div>
               </li>
