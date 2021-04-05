@@ -9,6 +9,7 @@ router.use("/Game", gameRouter);
 
 // If no API routes are hit, send the React app
 router.use('*',function(req, res) {
+  // res.redirect('https://' + req.headers.host + req.url);
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 
