@@ -30,7 +30,6 @@ export default function SnakeGame(props) {
   const [dir, setDir] = useState([0, -1]);
   const [speed, setSpeed] = useState(null);
   const [gameOver, setGameOver] = useState(true);
-  const [balance, setBalance] = useState(0);
   const [startDisplay, setStartDisplay] = useState("flex");
   const [endDisplay, setEndDisplay] = useState("none");
   const [width, setWidth] = useState(window.innerWidth >= 1250 ? 1250 : window.innerWidth - 50);
@@ -81,10 +80,13 @@ export default function SnakeGame(props) {
   }
 
   const endGame = () => {
+    if(props.staked) {
+      props.gameOver();
+    }
     setSpeed(null);
     setGameOver(true);
-    props.gameOver();
     setEndDisplay("flex");
+    props.changePlayStatus(false);
   };
 
   const keyDown = (e) => {
@@ -151,14 +153,46 @@ export default function SnakeGame(props) {
 
   const startGame = () => {
     document.addEventListener("keydown", (e) => keyDown(e));
+    setSnake(SNAKE_START);
+    setApple(APPLE_START);
+    setDir([0, -1]);
+    setSpeed(SPEED);
+    setStartDisplay("none");
+    setEndDisplay("none");
+    setGameOver(false);
+    props.changePlayStatus(true);
+  }
+
+  const initGame = () => {
     if (gameOver) {
-      if(localStorage.getItem('confirmedPayment')) {
+      if (!props.staked) {
+        startGame();
+      } else if (localStorage.getItem('confirmedPayment')) {
         confirmPayment();
       } else {
         setConfirmingPayment(true);
       }
     }
   };
+
+  function confirmPayment() {
+    UserService.getUserBalance().then(data => {
+      const { message, balance } = data;
+      if (!message) {
+        if (balance >= 0.000152) {
+          startGame();
+          props.start();
+          setConfirmingPayment(false);
+        } else {
+          alert("insufficient funds");
+        }
+      }
+      else if (message.msgBody === "Unauthorized") {
+        authContext.setUser({ username: "" });
+        authContext.setIsAuthenticated(false);
+      }
+    });
+  }
 
   useEffect(() => {
     window.onresize = windowResize;
@@ -180,32 +214,6 @@ export default function SnakeGame(props) {
     context.fillStyle = "black";
     context.fillRect(apple[0], apple[1], 1, 1);
   }, [snake, apple, gameOver]);
-
-  function confirmPayment() {
-    UserService.getUserBalance().then(data => {
-      const { message, balance } = data;
-      if (!message) {
-        if (balance >= 0.000152) {
-          setSnake(SNAKE_START);
-          setApple(APPLE_START);
-          setDir([0, -1]);
-          setSpeed(SPEED);
-          setStartDisplay("none");
-          setEndDisplay("none");
-          props.start();
-          setConfirmingPayment(false);
-          setGameOver(false);
-        } else {
-          alert("insufficient funds");
-        }
-      }
-      else if (message.msgBody === "Unauthorized") {
-        //Replace with middleware 
-        authContext.setUser({ username: "" });
-        authContext.setIsAuthenticated(false);
-      }
-    });
-  }
 
   return (
     <div>
@@ -252,7 +260,7 @@ export default function SnakeGame(props) {
               <img className="snakeControlBtn" id="downBtn" onClick={() => setDir(DIRECTIONS[40])} src="https://firebasestorage.googleapis.com/v0/b/gamesresources-28440.appspot.com/o/back-button.png?alt=media&token=f61923a9-ca19-4aaf-974f-31c5f2f2c632" alt="down button"></img>
             </div>
           </div>
-          <div id="playBtnSnake" onClick={() => startGame()}>
+          <div id="playBtnSnake" onClick={() => initGame()}>
             play
           </div>
         </div>

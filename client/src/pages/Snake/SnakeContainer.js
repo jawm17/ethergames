@@ -7,21 +7,38 @@ import { AuthContext } from '../../context/AuthContext';
 import "./snakeStyle.css";
 import Footer from "../../components/Footer/Footer"
 import Leaderboard from "../../components/Leaderboard";
-import { StakeContext } from "../../context/StakeContext";
+import JackPotAlert from "../../components/JackPotAlert";
 
 export default function SnakeContainer() {
   const authContext = useContext(AuthContext);
-  const { staked, setStaked } = useContext(StakeContext);
+  const [staked, setStaked] = useState(false);
 
   const [score, setScore] = useState(0);
   const [pot, setPot] = useState(0);
   const [scores, setScores] = useState([]);
   const [scoreToBeat, setScoreToBeat] = useState(1000);
+  const [playing, setPlaying] = useState(false);
+  const [jackPot, setJackPot] = useState(false);
   const [user, setUser] = useState(authContext.user.username);
 
   useEffect(() => {
     getInfo();
+    if (user) {
+      setStaked(true);
+    }
+    setJackPot(true);
   }, []);
+
+
+  function changeStake() {
+    if (!playing) {
+      if (user) {
+        setStaked(!staked);
+      } else {
+        alert("you must be logged in you niggggerrrr");
+      }
+    }
+  }
 
   function getInfo() {
     return new Promise(resolve => {
@@ -46,6 +63,10 @@ export default function SnakeContainer() {
     setScore(score + 5);
   }
 
+  function changePlayStatus(value) {
+    setPlaying(value);
+  }
+
   function gameStart() {
     TxService.potPayment(0.000152, "snake").then(data => {
       setPot(pot + 0.000152);
@@ -66,6 +87,7 @@ export default function SnakeContainer() {
       if (score > scores[0].score) {
         // top score
         GameService.potPayout("snake").then(data => {
+          setJackPot(true);
           newScore();
         });
       } else {
@@ -80,11 +102,17 @@ export default function SnakeContainer() {
   return (
     <div>
       <NavBar />
+      {jackPot ? (
+        <JackPotAlert
+          close={() => setJackPot(false)}
+          pot={pot}
+        />
+      ) : null}
       <div id="container" tabIndex="0" style={{ outline: "none" }}>
         {/* <div id="closeGameButton" onClick={() => history.push("/")}>
           <img id="closeX" src="https://firebasestorage.googleapis.com/v0/b/gamesresources-28440.appspot.com/o/x.png?alt=media&token=fc3b3baa-be28-4071-a4e1-271b96c5995f" alt="close button"></img>
         </div> */}
-        <SnakeGame inc={() => incrementScore()} start={() => gameStart()} gameOver={() => gameOver()} />
+        <SnakeGame inc={() => incrementScore()} changePlayStatus={(val) => changePlayStatus(val)} start={() => gameStart()} gameOver={() => gameOver()} staked={staked} />
         <div id="info">
           <div id="top">
             <div id="title">
@@ -105,7 +133,7 @@ export default function SnakeContainer() {
             </div>
             <div id="snakeSwitcher">
               <label className="switch">
-                <input type="checkbox" checked={staked} onClick={() => setStaked(!staked)} />
+                <input type="checkbox" checked={staked} onClick={() => changeStake()} />
                 <span className="slider round"></span>
                 <div className="sliderTitle">{staked ? "paid" : "free"}</div>
               </label>

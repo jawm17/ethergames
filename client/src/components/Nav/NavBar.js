@@ -2,18 +2,12 @@ import React, { useContext, useState } from "react";
 import history from "../../history";
 import AuthService from "../../services/AuthService";
 import { AuthContext } from "../../context/AuthContext";
-import { StakeContext } from "../../context/StakeContext";
 import "./navBarStyle.css";
 
 const NavBar = (props) => {
     const { isAuthenticated, user, setIsAuthenticated, setUser } = useContext(
         AuthContext
     );
-    const { staked, setStaked } = useContext(
-        StakeContext
-    );
-
-    const btnClasses = `navButton inline`;
 
     const onClickLogoutHandler = () => {
         AuthService.logout().then((data) => {
@@ -23,6 +17,7 @@ const NavBar = (props) => {
             }
         });
     };
+
     const unauthenticatedNavBar = () => {
         return (
             <>

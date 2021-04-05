@@ -1,0 +1,64 @@
+#confettiCanvas {
+    position: fixed;
+    width: 0px;
+    height: 0px;
+}
+
+#jackPotModalOuter {
+    width: 100vw;
+    height: 100vh;
+    top: 0px;
+    left: 0px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0,0.7);
+    z-index: 500;
+}
+
+#jackPotModal {
+    width: 400px;
+    height: 250px;
+    background-color: white;
+    border-radius: 12px;
+    text-align: center;
+    position: relative;
+}
+
+#closeJackPotModal {
+    width: 80px;
+    height: 40px;
+    background-color: #5DE900;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+}
+
+#alertTitle {
+    font-weight: bolder;
+    margin-top: 20px;
+    font-size: 20px;
+    font-family: "Orbitron", sans-serif;
+}
+
+#alertSubTitle {
+    margin-top: 20px;
+    font-size: 20px;
+    font-family: 'Mina', sans-serif;
+}
+
+#btnCenter {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    bottom: 20px;
+    font-family: "Orbitron", sans-serif;
+    font-size: 15px;
+}
+
+#closeJackPotModal:hover {
+    cursor: pointer;
+}

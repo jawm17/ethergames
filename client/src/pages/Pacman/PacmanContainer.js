@@ -7,11 +7,9 @@ import { AuthContext } from '../../context/AuthContext';
 import "./pacmanStyle.css";
 import Footer from "../../components/Footer/Footer"
 import Leaderboard from "../../components/Leaderboard";
-import { StakeContext } from "../../context/StakeContext";
 
 export default function SnakeContainer() {
     const authContext = useContext(AuthContext);
-    const { staked, setStaked } = useContext(StakeContext);
 
     const [score, setScore] = useState(0);
     const [pot, setPot] = useState(0);
@@ -102,9 +100,9 @@ export default function SnakeContainer() {
                         </div>
                         <div id="snakeSwitcher">
                             <label className="switch">
-                                <input type="checkbox" checked={staked} onClick={() => setStaked(!staked)} />
+                                <input type="checkbox" />
                                 <span className="slider round"></span>
-                                <div className="sliderTitle">{staked ? "paid" : "free"}</div>
+                                <div className="sliderTitle"></div>
                             </label>
                         </div>
                     </div>
