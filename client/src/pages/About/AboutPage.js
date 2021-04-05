@@ -19,10 +19,8 @@ export default function About() {
           </div>
           <div className="about-paragraph">
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Dignissim cras tincidunt lobortis feugiat vivamus at augue. Morbi
-              quis commodo odio aenean sed adipiscing diam donec.
+              Ethergames is a pay-per-play classic arcade style gaming site where users can win real money. 
+              The site uses the cryptocurrency Ethereum for secure, trustless payments. Deposit Ethereum in your account and start playing.
             </p>
           </div>
           <div className="about-header">
@@ -30,10 +28,7 @@ export default function About() {
           </div>
           <div className="about-paragraph">
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Dignissim cras tincidunt lobortis feugiat vivamus at augue. Morbi
-              quis commodo odio aenean sed adipiscing diam donec.
+              Multiplayer games and custom lottery coming soon!
             </p>
           </div>
         </div>
