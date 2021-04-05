@@ -72,6 +72,7 @@ a:-webkit-any-link {
     width: 20%;
     background: rgb(0, 0, 0);
     border: solid white 2px;
+    border-radius: 15px 0px 0 15px;
 }
 .QR-code img {
     width: 85%;
@@ -90,11 +91,18 @@ a:-webkit-any-link {
     padding-top: 15px;
     text-decoration: underline;
 }
+.btn{
+    padding-top: 10px;
+    text-align: center;
+}
 .btn button {
     font-family: 'Mina', sans-serif;
     font-size: 1rem;
     cursor: pointer;
-    width: 99px;
+    width: 41.5%;
+    border-radius: 8px;
+    background: white;
+    margin: 2px;
 }
 /* right container */
 .right-container {
@@ -103,6 +111,8 @@ a:-webkit-any-link {
     width: 60%;
     background: rgb(0, 0, 0);
     border: solid white 2px;
+    border-radius: 0 15px 15px 0;
+
 }
 /* Style the tab */
 .tab-container {
@@ -120,10 +130,11 @@ a:-webkit-any-link {
     overflow: hidden;
     border: 1px solid #ccc;
     background-color: #000000;
+    border-radius: 15px  15px 0 0;
 }
 
 /* Style the buttons that are used to open the tab content */
-.tab button {
+.tab button{
     background-color: inherit;
     float: left;
     border: none;
@@ -133,6 +144,8 @@ a:-webkit-any-link {
     transition: 0.3s;
     font-family: 'Mina', sans-serif;
     color: var(--green);
+    font-size: 20px;
+    width: 50%;
 }
 
 /* Change background color of buttons on hover */
@@ -148,33 +161,68 @@ a:-webkit-any-link {
 }
 
 /* Style the tab content */
-
 .tabcontent1 {
     padding: 6px 12px;
     border: 1px solid #ccc;
     border-top: none;
-}
-
-.table {
+    border-radius:  0 0 15px  15px;
 }
 .tabcontent2 {
     display: none;
     padding: 6px 12px;
     border: 1px solid #ccc;
     border-top: none;
+    border-radius:  0 0 15px  15px;
 }
 .balance {
     margin-top: 20px;
     padding-left: 20px;
     padding-right: 20px;
 }
+/* Score Tab */
+/* Scores top */
+.all-scores-container{
+    display: flex;
+    flex-direction: column;
+}
+.all-scores-container li{
+    list-style-type: none;
+}
+.scores-top{
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 10px;
+    font-size: 1.2rem;
+    text-decoration: underline 3px;
+}
+.scores-top li{
+text-align: center;
+  width: 33.3%;
+}
+/* Scores body */
+.scores-body-container{
+    display: flex;
+    flex-direction: column;
+}
+.scores-body{
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 10px;
+    padding-top: 5px;
+    border-bottom: solid rgba(255, 255, 255, 0.74) 2px;
+}
+.scores-body li{
+    text-align: center;
+  width: 33.3%;
+}
+/* Transaction Tap */
 .transactions-body ul{
     width: 100%;
     display: flex;
 }
 .all-trans-container{
     width: 100%;
-    border-bottom: solid rgba(255, 255, 255, 0.74) 5px;
+    border-bottom: solid rgba(255, 255, 255, 0.74) 2px;
     height: fit-content;
 }
 .all-trans-container li{
