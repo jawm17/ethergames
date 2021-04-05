@@ -7,7 +7,7 @@ export default function Asteroids(props) {
     const authContext = useContext(AuthContext);
     const FPS = 30; // frames per second
     const FRICTION = 0.7; // friction coefficient of space (0 = no friction, 1 = lots of friction)
-    const GAME_LIVES = 3; // starting number of lives
+    const GAME_LIVES = 1; // starting number of lives
     const LASER_DIST = 0.6; // max distance laser can travel as fraction of screen width
     const LASER_EXPLODE_DUR = 0.1; // duration of the lasers' explosion in seconds
     const LASER_MAX = 10; // maximum number of lasers on screen at once
@@ -32,13 +32,14 @@ export default function Asteroids(props) {
     const TEXT_FADE_TIME = 2.5; // text fade time in seconds
     const TEXT_SIZE = 40; // text font height in pixels
 
+    const [gameOverBool, setGameOverBool] = useState(true);
+
     // set up the game variables
     var canv;
     var ctx;
     var roidsLeft, roidsTotal;
     var level, lives, roids, scoreHigh, ship, text, textAlpha;
     var interval;
-    var gameOverBool = true;
 
     const [score, setScore] = useState(0);
 
@@ -196,22 +197,38 @@ export default function Asteroids(props) {
 
     function newGame() {
         if (gameOverBool === true) {
-            console.log("new game")
-            gameOverBool = false;
-            canv = document.getElementById("asteroidsCanvas");
-            ctx = canv.getContext("2d");
-            level = 0;
-            lives = GAME_LIVES;
-            setScore(0);
-            ship = newShip();
-            clearInterval(interval);
-            interval = setInterval(update, 1000 / FPS);
+            setGameOverBool(false);
+            UserService.getUserBalance().then(data => {
+                const { message, balance } = data;
+                if (!message) {
+                    if (balance >= 0.000152) {
+                        props.start();
+                        clearInterval(interval);
+                        canv = document.getElementById("asteroidsCanvas");
+                        ctx = canv.getContext("2d");
+                        level = 0;
+                        lives = GAME_LIVES;
+                        setScore(0);
+                        ship = newShip();
+                        interval = setInterval(update, 1000 / FPS);
 
-            document.addEventListener("keydown", keyDown);
-            document.addEventListener("keyup", keyUp);
+                        document.addEventListener("keydown", keyDown);
+                        document.addEventListener("keyup", keyUp);
 
-            newLevel();
+                        newLevel();
+                    } else {
+                        setGameOverBool(true);
+                        alert("insufficient funds");
+                    }
+                }
+                else if (message.msgBody === "Unauthorized") {
+                    //Replace with middleware 
+                    authContext.setUser({ username: "" });
+                    authContext.setIsAuthenticated(false);
+                }
+            });
         }
+
         // UserService.getUserBalance().then(data => {
         //     const { message, balance } = data;
         //     if (!message) {
@@ -464,7 +481,7 @@ export default function Asteroids(props) {
         if (ship.dead) {
             // after the ship has gotten fucking destroyed, start a new game
             clearInterval(interval);
-            gameOverBool = true;
+            setGameOverBool(true);
         }
 
         // draw the lives
