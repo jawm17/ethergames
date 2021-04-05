@@ -18,6 +18,7 @@ export default function SnakeContainer() {
   const [scoreToBeat, setScoreToBeat] = useState(1000);
   const [jackPot, setJackPot] = useState(false);
   const [user, setUser] = useState(authContext.user.username);
+  const [prevPot, setPrevPot] = useState(0);
 
   useEffect(() => {
     getInfo();
@@ -67,6 +68,7 @@ export default function SnakeContainer() {
       if (score > scores[0].score) {
         // top score
         GameService.potPayout("snake").then(data => {
+          setPrevPot(pot);
           setJackPot(true);
           newScore();
         });
@@ -85,7 +87,7 @@ export default function SnakeContainer() {
       {jackPot ? (
         <JackPotAlert
           close={() => setJackPot(false)}
-          pot={pot}
+          pot={prevPot}
         />
       ) : null}
       <div id="container" tabIndex="0" style={{ outline: "none" }}>

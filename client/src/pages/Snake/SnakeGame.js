@@ -161,13 +161,11 @@ export default function SnakeGame(props) {
 
   const initGame = () => {
     if (gameOver) {
-      if (localStorage.getItem('confirmedPaymentSnake')) {
-        confirmPayment();
-      } else {
-        setConfirmingPayment(true);
-      }
-    }
-  };
+      
+       confirmPayment();
+   
+  }
+}
 
   function confirmPayment() {
     UserService.getUserBalance().then(data => {
@@ -211,11 +209,6 @@ export default function SnakeGame(props) {
 
   return (
     <div>
-      {confirmingPayment ? (
-        <ConfirmPaymentModal
-          close={() => confirmPayment()}
-        />
-      ) : null}
       <div id="snakeTrigger" style={{ outline: "none" }} tabIndex="0">
         <div id="screen">
           <div id="startScreen" style={style.startScreen}>

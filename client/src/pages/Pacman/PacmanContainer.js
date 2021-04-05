@@ -98,13 +98,6 @@ export default function SnakeContainer() {
                         <div id="scoreSnake">
                             Score: {score}
                         </div>
-                        <div id="snakeSwitcher">
-                            <label className="switch">
-                                <input type="checkbox" />
-                                <span className="slider round"></span>
-                                <div className="sliderTitle"></div>
-                            </label>
-                        </div>
                     </div>
                 </div>
 

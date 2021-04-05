@@ -22,33 +22,41 @@ export default function Home() {
   function getGameInfo() {
     GameService.getInfo("snake").then((data) => {
       if (!data.message) {
-        let scoresArray = data.scores
-          .sort((a, b) => b.score - a.score)
-          .slice(0, 10);
+        if (data.scores.length > 0) {
+          let scoresArray = data.scores
+            .sort((a, b) => b.score - a.score)
+            .slice(0, 10);
+          setSnakeScore(scoresArray[0].score);
+        } else {
+          setSnakeScore(100);
+        }
         setSnakePot(data.pot);
-        setSnakeScore(scoresArray[0].score);
-      } else {
-        console.log("error");
       }
     });
     GameService.getInfo("tetris").then((data) => {
       if (!data.message) {
-        let scoresArray = data.scores
-          .sort((a, b) => b.score - a.score)
-          .slice(0, 10);
+        if (data.scores.length > 0) {
+          let scoresArray = data.scores
+            .sort((a, b) => b.score - a.score)
+            .slice(0, 10);
+          setTetrisScore(scoresArray[0].score);
+        } else {
+          setTetrisScore(100);
+        }
         setTetrisPot(data.pot);
-        setTetrisScore(scoresArray[0].score);
-      } else {
-        console.log("error");
       }
     });
     GameService.getInfo("asteroids").then((data) => {
       if (!data.message) {
-        let scoresArray = data.scores
-          .sort((a, b) => b.score - a.score)
-          .slice(0, 10);
+        if (data.scores.length > 0) {
+          let scoresArray = data.scores
+            .sort((a, b) => b.score - a.score)
+            .slice(0, 10);
+          setAsteroidsScore(scoresArray[0].score);
+        } else {
+          setAsteroidsScore(100);
+        }
         setAsteroidsPot(data.pot);
-        setAsteroidsScore(scoresArray[0].score);
       } else {
         console.log("error");
       }
@@ -68,12 +76,12 @@ export default function Home() {
                   <div className="hero-front">
                     <div className="heroLogo-container">
                       <div>
-                      <div className="logoUnderline1"></div>
+                        <div className="logoUnderline1"></div>
                         <h1 className="heroLogo1">Ether</h1>
                         <div className="logoUnderline1"></div>
                       </div>
                       <div>
-                      <div className="logoUnderline2"></div>
+                        <div className="logoUnderline2"></div>
                         <h1 className="heroLogo2">Games</h1>
                         <div className="logoUnderline2"></div>
                       </div>
