@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import UserService from '../../services/UserService';
+import { AuthContext } from '../../context/AuthContext';
 import "./asteroidsStyle.css";
 
-export default function Asteroids() {
+export default function Asteroids(props) {
+    const authContext = useContext(AuthContext);
     const FPS = 30; // frames per second
     const FRICTION = 0.7; // friction coefficient of space (0 = no friction, 1 = lots of friction)
     const GAME_LIVES = 3; // starting number of lives
@@ -35,13 +38,9 @@ export default function Asteroids() {
     var roidsLeft, roidsTotal;
     var level, lives, roids, scoreHigh, ship, text, textAlpha;
     var interval;
+    var gameOverBool = true;
 
     const [score, setScore] = useState(0);
-
-    useEffect(() => {
-        canv = document.getElementById("asteroidsCanvas");
-        ctx = canv.getContext("2d");
-    });
 
     function createAsteroidBelt() {
         roids = [];
@@ -127,6 +126,7 @@ export default function Asteroids() {
         ship.dead = true;
         text = "Game Over";
         textAlpha = 1.0;
+        props.gameOver();
     }
 
     function keyDown(/** @type {KeyboardEvent} */ ev) {
@@ -195,30 +195,65 @@ export default function Asteroids() {
     }
 
     function newGame() {
-        // set up event handlers
-        document.addEventListener("keydown", keyDown);
-        document.addEventListener("keyup", keyUp);
+        if (gameOverBool === true) {
+            console.log("new game")
+            gameOverBool = false;
+            canv = document.getElementById("asteroidsCanvas");
+            ctx = canv.getContext("2d");
+            level = 0;
+            lives = GAME_LIVES;
+            setScore(0);
+            ship = newShip();
+            clearInterval(interval);
+            interval = setInterval(update, 1000 / FPS);
 
-        // clear interval
-        clearInterval(interval);
+            document.addEventListener("keydown", keyDown);
+            document.addEventListener("keyup", keyUp);
 
-        // set up the game loop
-        interval = setInterval(update, 1000 / FPS);
-
-        level = 0;
-        lives = GAME_LIVES;
-        setScore(0);
-        ship = newShip();
-
-        // get the high score from local storage
-        var scoreStr = localStorage.getItem(SAVE_KEY_SCORE);
-        if (scoreStr == null) {
-            scoreHigh = 0;
-        } else {
-            scoreHigh = parseInt(scoreStr);
+            newLevel();
         }
+        // UserService.getUserBalance().then(data => {
+        //     const { message, balance } = data;
+        //     if (!message) {
+        //         if (balance >= 0.000152) {
+        //             props.start();
+        //             canv = document.getElementById("asteroidsCanvas");
+        //             ctx = canv.getContext("2d");
+        //             ctx.clearRect(0, 0, canv.width, canv.height);
+        //             // set up event handlers
+        //             document.addEventListener("keydown", keyDown);
+        //             document.addEventListener("keyup", keyUp);
 
-        newLevel();
+        //             // clear interval
+        //             clearInterval(interval);
+
+        //             // set up the game loop
+        //             interval = setInterval(update, 1000 / FPS);
+
+        //             level = 0;
+        //             lives = GAME_LIVES;
+        //             setScore(0);
+        //             ship = newShip();
+
+        //             // get the high score from local storage
+        //             var scoreStr = localStorage.getItem(SAVE_KEY_SCORE);
+        //             if (scoreStr == null) {
+        //                 scoreHigh = 0;
+        //             } else {
+        //                 scoreHigh = parseInt(scoreStr);
+        //             }
+
+        //             newLevel();
+        //         } else {
+        //             alert("insufficient funds");
+        //         }
+        //     }
+        //     else if (message.msgBody === "Unauthorized") {
+        //         //Replace with middleware 
+        //         authContext.setUser({ username: "" });
+        //         authContext.setIsAuthenticated(false);
+        //     }
+        // });
     }
 
     function newLevel() {
@@ -426,17 +461,10 @@ export default function Asteroids() {
             }
         }
 
-        // draw the game text
-        if (textAlpha >= 0) {
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.fillStyle = "rgba(255, 255, 255, " + textAlpha + ")";
-            ctx.font = "small-caps " + TEXT_SIZE + "px dejavu sans mono";
-            ctx.fillText(text, canv.width / 2, canv.height * 0.75);
-            textAlpha -= (1.0 / TEXT_FADE_TIME / FPS);
-        } else if (ship.dead) {
-            // after "game over" fades, start a new game
-            newGame();
+        if (ship.dead) {
+            // after the ship has gotten fucking destroyed, start a new game
+            clearInterval(interval);
+            gameOverBool = true;
         }
 
         // draw the lives
