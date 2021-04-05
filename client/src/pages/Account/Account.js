@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import WalletTx from "../../components/WalletTx";
+import ScoreTx from "../../components/ScoreTx";
 import SendEthModal from "../../components/SendEthModal";
 import RecieveEthModal from "../../components/RecieveEthModal";
 import UserService from "../../services/UserService";
@@ -25,6 +26,7 @@ export default function Account() {
   const [username, setUsername] = useState("...");
   const [sendingEth, setSendingEth] = useState(false);
   const [recievingEth, setRecievingEth] = useState(false);
+  const [scores, setScores] = useState([]);
   const authContext = useContext(AuthContext);
 
   useEffect(() => {
@@ -51,8 +53,8 @@ export default function Account() {
                 ) {
                   console.log(
                     "reciceved: " +
-                      blockData.result[i].value / 1000000000000000000 +
-                      "ETH"
+                    blockData.result[i].value / 1000000000000000000 +
+                    "ETH"
                   );
                   UserService.updateBalance(
                     blockData.result[i].value / 1000000000000000000
@@ -105,6 +107,8 @@ export default function Account() {
         QRCode.toDataURL(data.address, function (err, url) {
           setQrCode(url);
         });
+        // set scores
+        setScores(data.scores);
         // sort eth blockchain txs and data from db
         TxHistoryService.getBlockTx(data.address).then((data2) => {
           if (data2) {
@@ -231,23 +235,18 @@ export default function Account() {
                     <li>Game</li>
                   </div>
                   <div className="scores-body-container">
-                  <div className="scores-body">
-                    <li>03/22/200</li>
-                    <li>100323</li>
-                    <li>Pac-Boy</li>
-                  </div>
-                  <div className="scores-body">
-                    <li>03/22/200</li>
-                    <li>100323</li>
-                    <li>Pac-Boy</li>
-                  </div>
-                  <div className="scores-body">
-                    <li>03/22/200</li>
-                    <li>100323</li>
-                    <li>Pac-Boy</li>
+                    {scores.map((score) => {
+                      return (
+                        <ScoreTx
+                          score={score.score}
+                          game={score.game}
+                          date={score.timeStamp}
+                          key={Math.random() * 10000}
+                        />
+                      );
+                    })}
                   </div>
                 </div>
-              </div>
               </div>
             </div>
             <div id="Transactions" className="tabcontent2">

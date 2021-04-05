@@ -35,7 +35,7 @@ export default function SnakeContainer() {
       if (user) {
         setStaked(!staked);
       } else {
-        alert("you must be logged in you niggggerrrr");
+        alert("you must be logged in to play with money");
       }
     }
   }
@@ -101,7 +101,7 @@ export default function SnakeContainer() {
 
   return (
     <div>
-      <NavBar />
+      <NavBar page="snake"/>
       {jackPot ? (
         <JackPotAlert
           close={() => setJackPot(false)}
@@ -112,7 +112,7 @@ export default function SnakeContainer() {
         {/* <div id="closeGameButton" onClick={() => history.push("/")}>
           <img id="closeX" src="https://firebasestorage.googleapis.com/v0/b/gamesresources-28440.appspot.com/o/x.png?alt=media&token=fc3b3baa-be28-4071-a4e1-271b96c5995f" alt="close button"></img>
         </div> */}
-        <SnakeGame inc={() => incrementScore()} changePlayStatus={(val) => changePlayStatus(val)} start={() => gameStart()} gameOver={() => gameOver()} staked={staked} />
+        <SnakeGame inc={() => incrementScore()} start={() => gameStart()} gameOver={() => gameOver()} staked={staked} />
         <div id="info">
           <div id="top">
             <div id="title">

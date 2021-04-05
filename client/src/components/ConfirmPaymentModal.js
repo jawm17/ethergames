@@ -16,7 +16,7 @@ export default function ConfirmPaymentModal(props) {
 
     function confirmPayment() {
         if(checked) {
-            localStorage.setItem('confirmedPayment', true);
+            localStorage.setItem(`confirmedPayment${props.game}`, true);
             props.close();
         } else {
             props.close();

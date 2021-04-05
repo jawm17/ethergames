@@ -72,7 +72,7 @@ export default function TetrisContainer() {
 
   return (
     <div>
-      <NavBar />
+      <NavBar page="tetris"/>
       <div id="container" tabIndex="0" style={{ outline: "none" }} onKeyDown={e => e.preventDefault()}>
         {/* <div id="closeGameButton" onClick={() => history.push("/")}>
           <img id="closeX" src="https://firebasestorage.googleapis.com/v0/b/gamesresources-28440.appspot.com/o/yellowX.png?alt=media&token=4fca2aaa-9123-434a-839d-3a1cf3ee3436" alt="close button"></img>

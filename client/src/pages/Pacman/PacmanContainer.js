@@ -77,7 +77,7 @@ export default function SnakeContainer() {
 
     return (
         <div>
-            <NavBar />
+            <NavBar page="pacman"/>
             <div id="container" tabIndex="0" style={{ outline: "none" }}>
                 <Pacman />
                 <div id="info">

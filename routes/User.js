@@ -73,6 +73,7 @@ userRouter.get('/info', passport.authenticate('jwt', { session: false }), (req, 
                 numTx: document.numTx,
                 sentTx: document.sentTx,
                 recievedTx: document.recievedTx,
+                scores: document.scores,
                 authenticated: true
             });
         }

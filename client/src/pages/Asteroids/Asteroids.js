@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
 import UserService from '../../services/UserService';
 import GameService from "../../services/GameService";
+import ConfirmPaymentModal from "../../components/ConfirmPaymentModal";
 import { AuthContext } from '../../context/AuthContext';
 import "./asteroidsStyle.css";
 
 export default function Asteroids(props) {
     const authContext = useContext(AuthContext);
+    const [confirmingPayment, setConfirmingPayment] = useState(false);
     const FPS = 30; // frames per second
     const FRICTION = 0.7; // friction coefficient of space (0 = no friction, 1 = lots of friction)
     const GAME_LIVES = 1; // starting number of lives
@@ -196,84 +198,57 @@ export default function Asteroids(props) {
         return roid;
     }
 
-    function newGame() {
-        if (gameOverBool === true) {
-            setGameOverBool(false);
-            UserService.getUserBalance().then(data => {
-                const { message, balance } = data;
-                if (!message) {
-                    if (balance >= 0.000152) {
-                        props.start();
-                        clearInterval(interval);
-                        canv = document.getElementById("asteroidsCanvas");
-                        ctx = canv.getContext("2d");
-                        level = 0;
-                        lives = GAME_LIVES;
-                        setScore(0);
-                        gameScore = 0;
-                        ship = newShip();
-                        interval = setInterval(update, 1000 / FPS);
-
-                        document.addEventListener("keydown", keyDown);
-                        document.addEventListener("keyup", keyUp);
-
-                        newLevel();
-                    } else {
-                        setGameOverBool(true);
-                        alert("insufficient funds");
-                    }
-                }
-                else if (message.msgBody === "Unauthorized") {
-                    //Replace with middleware 
-                    authContext.setUser({ username: "" });
-                    authContext.setIsAuthenticated(false);
-                }
-            });
+    function initGame() {
+        if (gameOverBool) {
+            if (!props.staked) {
+                startGame();
+            } else if (localStorage.getItem('confirmedPaymentAsteroids')) {
+                confirmPayment();
+            } else {
+                setConfirmingPayment(true);
+            }
         }
-
-        // UserService.getUserBalance().then(data => {
-        //     const { message, balance } = data;
-        //     if (!message) {
-        //         if (balance >= 0.000152) {
-        //             props.start();
-        //             canv = document.getElementById("asteroidsCanvas");
-        //             ctx = canv.getContext("2d");
-        //             ctx.clearRect(0, 0, canv.width, canv.height);
-        //             // set up event handlers
-        //             document.addEventListener("keydown", keyDown);
-        //             document.addEventListener("keyup", keyUp);
-
-        //             // clear interval
-        //             clearInterval(interval);
-
-        //             // set up the game loop
-        //             interval = setInterval(update, 1000 / FPS);
-
-        //             level = 0;
-        //             lives = GAME_LIVES;
-        //             setScore(0);
-        //             ship = newShip();
-
-        //             // get the high score from local storage
-        //             var scoreStr = localStorage.getItem(SAVE_KEY_SCORE);
-        //             if (scoreStr == null) {
-        //                 scoreHigh = 0;
-        //             } else {
-        //                 scoreHigh = parseInt(scoreStr);
-        //             }
-
-        //             newLevel();
-        //         } else {
-        //             alert("insufficient funds");
-        //         }
-        //     }
-        //     else if (message.msgBody === "Unauthorized") {
-        //         //Replace with middleware 
-        //         authContext.setUser({ username: "" });
-        //         authContext.setIsAuthenticated(false);
-        //     }
-        // });
     }
+
+    function startGame() {
+        setGameOverBool(false);
+        props.start();
+        clearInterval(interval);
+        canv = document.getElementById("asteroidsCanvas");
+        ctx = canv.getContext("2d");
+        level = 0;
+        lives = GAME_LIVES;
+        setScore(0);
+        gameScore = 0;
+        ship = newShip();
+        interval = setInterval(update, 1000 / FPS);
+
+        document.addEventListener("keydown", keyDown);
+        document.addEventListener("keyup", keyUp);
+
+        newLevel();
+
+    }
+
+    function confirmPayment() {
+        UserService.getUserBalance().then(data => {
+            const { message, balance } = data;
+            if (!message) {
+                if (balance >= 0.000152) {
+                    startGame();
+                    props.start();
+                    setConfirmingPayment(false);
+                } else {
+                    alert("insufficient funds");
+                }
+            }
+            else if (message.msgBody === "Unauthorized") {
+                authContext.setUser({ username: "" });
+                authContext.setIsAuthenticated(false);
+            }
+        });
+    }
+
 
     function newLevel() {
         text = "Level " + (level + 1);
@@ -482,7 +457,7 @@ export default function Asteroids(props) {
 
         function newScore() {
             GameService.newScore("asteroids", user, gameScore).then(data => {
-                
+
             });
         }
 
@@ -648,14 +623,23 @@ export default function Asteroids(props) {
     }
 
     return (
-        <div id="asteroidsGameArea" tabIndex="0" style={{ outline: "none" }}>
-            <canvas id="asteroidsCanvas" width="760" height="570"></canvas>
-            <div id="asteroidsScore">score: {score}</div>
-            <div id="asteroidsPlayBtn" onClick={() => newGame()}>
-                play
+        <div>
+            {confirmingPayment ? (
+                <ConfirmPaymentModal
+                    close={() => confirmPayment()}
+                    game={"asteroids"}
+                />
+            ) : null}
+
+            <div id="asteroidsGameArea" tabIndex="0" style={{ outline: "none" }}>
+                <canvas id="asteroidsCanvas" width="760" height="570"></canvas>
+                <div id="asteroidsScore">score: {score}</div>
+                <div id="asteroidsPlayBtn" onClick={() => initGame()}>
+                    play
             </div>
-            <div id="asteroidsLevel">
-                level: {displayLevel}
+                <div id="asteroidsLevel">
+                    level: {displayLevel}
+                </div>
             </div>
         </div>
     );

@@ -21,7 +21,7 @@ gameRouter.post('/newgame', (req, res) => {
 // update pot for game: game
 gameRouter.post('/payment', passport.authenticate('jwt', { session: false }), (req, res) => {
     const { amount, game } = req.body;
-    User.findOneAndUpdate({ _id: req.user._id }, { $inc: { balance: -amount }, $push: {sentTx: { to: game, "amount": amount, "type": "payment", "timeStamp": Date.now() } } }).exec((err, document) => {
+    User.findOneAndUpdate({ _id: req.user._id }, { $inc: { balance: -amount }, $push: { sentTx: { to: game, "amount": amount, "type": "payment", "timeStamp": Date.now() } } }).exec((err, document) => {
         if (err) {
             res.status(500).json({ message: message });
         }
@@ -41,12 +41,12 @@ gameRouter.post('/payment', passport.authenticate('jwt', { session: false }), (r
 // pot payout
 gameRouter.post('/potPayment', passport.authenticate('jwt', { session: false }), (req, res) => {
     const { game } = req.body;
-    Game.findOneAndUpdate({ "name": game }, {"pot": 0}).exec((err, document) => {
+    Game.findOneAndUpdate({ "name": game }, { "pot": 0 }).exec((err, document) => {
         if (err) {
             res.status(500).json({ message: message });
         }
         else {
-            User.findOneAndUpdate({ _id: req.user._id }, { $inc: { balance: document.pot }, $push: {recievedTx: { from: game, "amount": document.pot, "type": "jackpot", "timeStamp": Date.now() } } }).exec((err, document) => {
+            User.findOneAndUpdate({ _id: req.user._id }, { $inc: { balance: document.pot }, $push: { recievedTx: { from: game, "amount": document.pot, "type": "jackpot", "timeStamp": Date.now() } } }).exec((err, document) => {
                 if (err) {
                     res.status(500).json({ message });
                 }
@@ -61,11 +61,16 @@ gameRouter.post('/potPayment', passport.authenticate('jwt', { session: false }),
 // update score
 gameRouter.post('/score', passport.authenticate('jwt', { session: false }), (req, res) => {
     const { game, score, user } = req.body;
-    Game.findOneAndUpdate({ name: game }, {$push: {scores: { "score": score, "user": user, "timeStamp": Date.now() }} }).exec((err, document) => {
+    Game.findOneAndUpdate({ name: game }, { $push: { scores: { "score": score, "user": user, "timeStamp": Date.now() } } }).exec((err, document) => {
         if (err)
             res.status(500).json({ message: message });
         else
-            res.status(201).json({ message: { msgBody: "Successfully updated score", msgError: false } });
+        User.findOneAndUpdate({ _id: req.user._id }, { $push: { scores: { "game": game, "score": score, "user": user, "timeStamp": Date.now() } } }).exec((err, document) => {
+            if (err)
+                res.status(500).json({ message: message });
+            else
+                res.status(201).json({ message: { msgBody: "Successfully updated score", msgError: false } });
+        });
     });
 });
 

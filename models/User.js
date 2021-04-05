@@ -36,7 +36,10 @@ const UserSchema = new mongoose.Schema({
         type: Array,
         default: []
     },
-    posts : [{type : mongoose.Schema.Types.ObjectId, ref: 'Score'}]
+    scores: {
+        type: Array,
+        default: []
+    }
 });
 
 UserSchema.pre('save',function(next){
