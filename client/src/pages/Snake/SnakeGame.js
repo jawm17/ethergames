@@ -80,13 +80,10 @@ export default function SnakeGame(props) {
   }
 
   const endGame = () => {
-    if(props.staked) {
-      props.gameOver();
-    }
+    props.gameOver();
     setSpeed(null);
     setGameOver(true);
     setEndDisplay("flex");
-    props.changePlayStatus(false);
   };
 
   const keyDown = (e) => {
@@ -160,14 +157,11 @@ export default function SnakeGame(props) {
     setStartDisplay("none");
     setEndDisplay("none");
     setGameOver(false);
-    props.changePlayStatus(true);
   }
 
   const initGame = () => {
     if (gameOver) {
-      if (!props.staked) {
-        startGame();
-      } else if (localStorage.getItem('confirmedPayment')) {
+      if (localStorage.getItem('confirmedPaymentSnake')) {
         confirmPayment();
       } else {
         setConfirmingPayment(true);

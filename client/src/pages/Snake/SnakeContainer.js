@@ -11,34 +11,18 @@ import JackPotAlert from "../../components/JackPotAlert";
 
 export default function SnakeContainer() {
   const authContext = useContext(AuthContext);
-  const [staked, setStaked] = useState(false);
 
   const [score, setScore] = useState(0);
   const [pot, setPot] = useState(0);
   const [scores, setScores] = useState([]);
   const [scoreToBeat, setScoreToBeat] = useState(1000);
-  const [playing, setPlaying] = useState(false);
   const [jackPot, setJackPot] = useState(false);
   const [user, setUser] = useState(authContext.user.username);
 
   useEffect(() => {
     getInfo();
-    if (user) {
-      setStaked(true);
-    }
-    setJackPot(true);
   }, []);
 
-
-  function changeStake() {
-    if (!playing) {
-      if (user) {
-        setStaked(!staked);
-      } else {
-        alert("you must be logged in to play with money");
-      }
-    }
-  }
 
   function getInfo() {
     return new Promise(resolve => {
@@ -61,10 +45,6 @@ export default function SnakeContainer() {
 
   function incrementScore() {
     setScore(score + 5);
-  }
-
-  function changePlayStatus(value) {
-    setPlaying(value);
   }
 
   function gameStart() {
@@ -112,7 +92,7 @@ export default function SnakeContainer() {
         {/* <div id="closeGameButton" onClick={() => history.push("/")}>
           <img id="closeX" src="https://firebasestorage.googleapis.com/v0/b/gamesresources-28440.appspot.com/o/x.png?alt=media&token=fc3b3baa-be28-4071-a4e1-271b96c5995f" alt="close button"></img>
         </div> */}
-        <SnakeGame inc={() => incrementScore()} start={() => gameStart()} gameOver={() => gameOver()} staked={staked} />
+        <SnakeGame inc={() => incrementScore()} start={() => gameStart()} gameOver={() => gameOver()} />
         <div id="info">
           <div id="top">
             <div id="title">
@@ -130,13 +110,6 @@ export default function SnakeContainer() {
             </div>
             <div id="scoreSnake">
               Score: {score}
-            </div>
-            <div id="snakeSwitcher">
-              <label className="switch">
-                <input type="checkbox" checked={staked} onClick={() => changeStake()} />
-                <span className="slider round"></span>
-                <div className="sliderTitle">{staked ? "paid" : "free"}</div>
-              </label>
             </div>
           </div>
         </div>

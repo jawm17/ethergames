@@ -15,10 +15,39 @@ const Tetris = (props) => {
     const authContext = useContext(AuthContext);
     const [dropTime, setDropTime] = useState(null);
     const [gameOver, setGameOver] = useState(false);
+    const [startDisplay, setStartDisplay] = useState("flex");
+    const [endDisplay, setEndDisplay] = useState("none");
 
     const [player, updatePlayerPos, resetPlayer, playerRotate] = usePlayer();
     const [stage, setStage, rowsCleared] = useStage(player, resetPlayer);
     const [score, setScore, rows, setRows, level, setLevel] = useGameStatus(rowsCleared);
+
+    const style = {
+        startScreen: {
+            display: startDisplay,
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            backgroundColor: "yellow",
+            borderBottomRightRadius: 20,
+            borderBottomLeftRadius: 20,
+            justifyContent: "center",
+            alignItems: "center",
+
+        },
+        endScreen: {
+            display: endDisplay,
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            backgroundColor: "yellow",
+            borderBottomRightRadius: 20,
+            borderBottomLeftRadius: 20,
+            justifyContent: "center",
+            alignItems: "center",
+
+        }
+    }
 
     const movePlayer = (dir) => {
         if (!checkCollision(player, stage, { x: dir, y: 0 })) {
@@ -34,6 +63,8 @@ const Tetris = (props) => {
                     //reset everything
                     setStage(createStage());
                     setDropTime(1000);
+                    setStartDisplay("none");
+                    setEndDisplay("none");
                     resetPlayer();
                     setGameOver(false);
                     setScore(0);
@@ -68,6 +99,7 @@ const Tetris = (props) => {
                 setDropTime(null);
                 console.log(score);
                 props.gameOver(score);
+                setEndDisplay("flex");
             }
             updatePlayerPos({ x: 0, y: 0, collided: true });
         }
@@ -107,6 +139,26 @@ const Tetris = (props) => {
     return (
         <div>
             <StyledTetrisWrapper role="button" tabIndex="0" onKeyDown={e => move(e)} onKeyUp={e => keyUp(e)}>
+                <div id="startScreen" style={style.startScreen}>
+                    <div id="startInfo">
+                        <div id="snakeStartTitle">
+                            TETRIS
+                        </div>
+                        <div id="snakeStartSub">
+                            Press play to start
+                        </div>
+                    </div>
+                </div>
+                <div id="startScreen" style={style.endScreen}>
+                    <div id="startInfo">
+                        <div id="snakeEndTitle">
+                            Game Over
+                        </div>
+                        <div id="snakeStartSub">
+                            Press play to start
+                        </div>
+                    </div>
+                </div>
                 <StyledTetris>
                     <Stage stage={stage} />
                 </StyledTetris>
