@@ -16,24 +16,28 @@ export default function Home() {
   });
 
   function getGameInfo() {
-    GameService.getInfo("snake").then(data => {
+    GameService.getInfo("snake").then((data) => {
       if (!data.message) {
-        let scoresArray = (data.scores.sort((a, b) => (b.score - a.score))).slice(0, 10);
+        let scoresArray = data.scores
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 10);
         setSnakePot(data.pot);
         setSnakeScore(scoresArray[0].score);
       } else {
         console.log("error");
       }
     });
-    GameService.getInfo("tetris").then(data => {
+    GameService.getInfo("tetris").then((data) => {
       if (!data.message) {
-        let scoresArray = (data.scores.sort((a, b) => (b.score - a.score))).slice(0, 10);
+        let scoresArray = data.scores
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 10);
         setTetrisPot(data.pot);
         setTetrisScore(scoresArray[0].score);
       } else {
         console.log("error");
       }
-    })
+    });
   }
 
   return (
@@ -42,19 +46,30 @@ export default function Home() {
         {/* Nav Bar */}
         <NavBar />
         <section id="heroSection">
-          <div className="hero">
-            <h1>
-              <p
-                class="typewrite"
-                data-period="2000"
-                data-type='[ "Hi, This is ETHER GAMES.", "Play Games, Win Prizes....Have Fun!"]'
-              >
-                <span class="wrap"></span>
-              </p>
-            </h1>
-            {/* <div id="search-bar">
-                        <h5>seach bar</h5>
-                    </div> */}
+          <div className="hero-back">
+            <div className="hero-mid1">
+              <div className="hero-mid2">
+                <div className="hero-mid3">
+                  <div className="hero-front">
+                    <div className="heroLogo-container">
+                      <div>
+                      <div className="logoUnderline1"></div>
+                        <h1 className="heroLogo1">Ether</h1>
+                        <div className="logoUnderline1"></div>
+                      </div>
+                      <div>
+                      <div className="logoUnderline2"></div>
+                        <h1 className="heroLogo2">Games</h1>
+                        <div className="logoUnderline2"></div>
+                      </div>
+                    </div>
+                    <div className="slogan">
+                      <p>Play the games you onced loved and win ETH!</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -62,7 +77,11 @@ export default function Home() {
         <div className="game-container">
           <ul className="games">
             <div className="snake-border">
-              <li id="snake-game" className="gameButton" onClick={() => history.push("/snake")}>
+              <li
+                id="snake-game"
+                className="gameButton"
+                onClick={() => history.push("/snake")}
+              >
                 <div>
                   SNAKE
                   <div className="snake-icon">
@@ -76,7 +95,11 @@ export default function Home() {
               </li>
             </div>
             <div className="tetris-border">
-              <li id="tetris-game" className="gameButton" onClick={() => history.push("/tetris")}>
+              <li
+                id="tetris-game"
+                className="gameButton"
+                onClick={() => history.push("/tetris")}
+              >
                 <div>
                   TETRIS
                   <div className="tetris-icon">
@@ -90,7 +113,11 @@ export default function Home() {
               </li>
             </div>
             <div className="asteroids-border">
-              <li id="asteroids-game" className="gameButton" onClick={() => history.push("/asteroids")}>
+              <li
+                id="asteroids-game"
+                className="gameButton"
+                onClick={() => history.push("/asteroids")}
+              >
                 <div>
                   ASTEROIDS
                   <div className="asteroids-icon">
@@ -104,7 +131,11 @@ export default function Home() {
               </li>
             </div>
             <div className="pacBoy-border">
-              <li id="pacBoy-game" className="gameButton" onClick={() => history.push("/pacman")}>
+              <li
+                id="pacBoy-game"
+                className="gameButton"
+                onClick={() => history.push("/pacman")}
+              >
                 <div>
                   PAC-MAN
                   <div className="pacBoy-icon">
