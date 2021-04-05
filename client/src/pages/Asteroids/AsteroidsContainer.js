@@ -6,6 +6,7 @@ import TxService from "../../services/TxService";
 import NavBar from "../../components/Nav/NavBar";
 import Leaderboard from "../../components/Leaderboard";
 import Footer from "../../components/Footer/Footer";
+import JackPotAlert from "../../components/JackPotAlert";
 import history from "../../history";
 import "./asteroidsStyle.css";
 
@@ -17,6 +18,8 @@ export default function AsteroidsContainer() {
     const [scores, setScores] = useState([]);
     const [scoreToBeat, setScoreToBeat] = useState(1000);
     const [user, setUser] = useState(authContext.user.username);
+    const [prevPot, setPrevPot] = useState(0);
+    const [jackPot, setJackPot] = useState(false);
 
     useEffect(() => {
         getInfo();
@@ -28,11 +31,11 @@ export default function AsteroidsContainer() {
             GameService.getInfo("asteroids").then(data => {
                 if (!data.message) {
                     setPot(data.pot);
-                    if(data.scores.length > 0) {
+                    if (data.scores.length > 0) {
                         let scoresArray = (data.scores.sort((a, b) => (b.score - a.score))).slice(0, 10);
                         setScoreToBeat(scoresArray[0].score);
                         setScores(scoresArray);
-                    }   
+                    }
                     resolve();
                 } else {
                     console.log("error");
@@ -62,6 +65,8 @@ export default function AsteroidsContainer() {
             if (score > 20) {
                 // top score
                 GameService.potPayout("asteroids").then(data => {
+                    setPrevPot(pot);
+                    setJackPot(true);
                     newScore();
                 });
             } else {
@@ -75,7 +80,13 @@ export default function AsteroidsContainer() {
 
     return (
         <div>
-            <NavBar page="asteroids"/>
+            <NavBar page="asteroids" />
+            {jackPot ? (
+                <JackPotAlert
+                    close={() => setJackPot(false)}
+                    pot={prevPot}
+                />
+            ) : null}
             <div id="container" tabIndex="0" style={{ outline: "none" }} onKeyDown={e => e.preventDefault()}>
                 <Asteroids start={() => gameStart()} gameOver={(score) => gameOver(score)} />
                 <div id="info">

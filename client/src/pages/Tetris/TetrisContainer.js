@@ -6,6 +6,7 @@ import GameService from "../../services/GameService";
 import Leaderboard from "../../components/Leaderboard";
 import TxService from "../../services/TxService";
 import NavBar from "../../components/Nav/NavBar";
+import JackPotAlert from "../../components/JackPotAlert";
 import "./tetrisStyle.css";
 
 export default function TetrisContainer() {
@@ -15,6 +16,8 @@ export default function TetrisContainer() {
   const [scores, setScores] = useState([]);
   const [scoreToBeat, setScoreToBeat] = useState(1000);
   const [user, setUser] = useState(authContext.user.username);
+  const [jackPot, setJackPot] = useState(false);
+  const [prevPot, setPrevPot] = useState(0);
 
   useEffect(() => {
     getInfo();
@@ -52,6 +55,8 @@ export default function TetrisContainer() {
       // top score
       if (score > scores[0].score) {
         GameService.potPayout("tetris").then(data => {
+          setPrevPot(pot);
+          setJackPot(true);
           newScore(score);
         });
       } else {
@@ -73,6 +78,12 @@ export default function TetrisContainer() {
   return (
     <div>
       <NavBar page="tetris" />
+      {jackPot ? (
+        <JackPotAlert
+          close={() => setJackPot(false)}
+          pot={prevPot}
+        />
+      ) : null}
       <div id="container" tabIndex="0" style={{ outline: "none" }} onKeyDown={e => e.preventDefault()}>
         {/* <div id="closeGameButton" onClick={() => history.push("/")}>
           <img id="closeX" src="https://firebasestorage.googleapis.com/v0/b/gamesresources-28440.appspot.com/o/yellowX.png?alt=media&token=4fca2aaa-9123-434a-839d-3a1cf3ee3436" alt="close button"></img>

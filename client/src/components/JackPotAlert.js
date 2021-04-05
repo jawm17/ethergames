@@ -27,7 +27,7 @@ export default function JackPotAlert(props) {
                         NEW HIGHSCORE!!!
                     </div>
                     <div id="alertSubTitle">
-                        You won {props.pot} eth
+                        You won {parseFloat(props.pot.toFixed(6))} eth
                     </div>
                     <div id="btnCenter">
                         <div id="closeJackPotModal" onClick={() => props.close()}>
