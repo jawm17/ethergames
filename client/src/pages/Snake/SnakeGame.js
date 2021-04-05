@@ -152,7 +152,11 @@ export default function SnakeGame(props) {
   const startGame = () => {
     document.addEventListener("keydown", (e) => keyDown(e));
     if (gameOver) {
-      setConfirmingPayment(true);
+      if(localStorage.getItem('confirmedPayment')) {
+        confirmPayment();
+      } else {
+        setConfirmingPayment(true);
+      }
     }
   };
 
@@ -242,10 +246,10 @@ export default function SnakeGame(props) {
           </div>
           <div id="snakeControlsOuter">
             <div id="snakeControls">
-              <img className="snakeControlBtn" onClick={() => setDir(DIRECTIONS[37])} src="https://www.flaticon.com/svg/vstatic/svg/318/318276.svg?token=exp=1617508366~hmac=e70a01f10ad3db4eef5867d573f45a1b" alt="left button"></img>
-              <img className="snakeControlBtn" id="rightBtn" onClick={() => setDir(DIRECTIONS[39])} src="https://www.flaticon.com/svg/vstatic/svg/318/318276.svg?token=exp=1617508366~hmac=e70a01f10ad3db4eef5867d573f45a1b" alt="right button"></img>
-              <img className="snakeControlBtn" id="upBtn" onClick={() => setDir(DIRECTIONS[38])} src="https://www.flaticon.com/svg/vstatic/svg/318/318276.svg?token=exp=1617508366~hmac=e70a01f10ad3db4eef5867d573f45a1b" alt="up button"></img>
-              <img className="snakeControlBtn" id="downBtn" onClick={() => setDir(DIRECTIONS[40])} src="https://www.flaticon.com/svg/vstatic/svg/318/318276.svg?token=exp=1617508366~hmac=e70a01f10ad3db4eef5867d573f45a1b" alt="down button"></img>
+              <img className="snakeControlBtn" onClick={() => setDir(DIRECTIONS[37])} src="https://firebasestorage.googleapis.com/v0/b/gamesresources-28440.appspot.com/o/back-button.png?alt=media&token=f61923a9-ca19-4aaf-974f-31c5f2f2c632" alt="left button"></img>
+              <img className="snakeControlBtn" id="rightBtn" onClick={() => setDir(DIRECTIONS[39])} src="https://firebasestorage.googleapis.com/v0/b/gamesresources-28440.appspot.com/o/back-button.png?alt=media&token=f61923a9-ca19-4aaf-974f-31c5f2f2c632" alt="right button"></img>
+              <img className="snakeControlBtn" id="upBtn" onClick={() => setDir(DIRECTIONS[38])} src="https://firebasestorage.googleapis.com/v0/b/gamesresources-28440.appspot.com/o/back-button.png?alt=media&token=f61923a9-ca19-4aaf-974f-31c5f2f2c632" alt="up button"></img>
+              <img className="snakeControlBtn" id="downBtn" onClick={() => setDir(DIRECTIONS[40])} src="https://firebasestorage.googleapis.com/v0/b/gamesresources-28440.appspot.com/o/back-button.png?alt=media&token=f61923a9-ca19-4aaf-974f-31c5f2f2c632" alt="down button"></img>
             </div>
           </div>
           <div id="playBtnSnake" onClick={() => startGame()}>

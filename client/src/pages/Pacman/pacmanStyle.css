@@ -5,9 +5,33 @@
   justify-content: center;
   align-items: center;
   background-color: blue;
+  position: relative;
 }
 
 #pacman {
     width: 500px;
     margin: 20px auto;
+}
+
+#pacmanPlayBtn {
+  position: absolute;
+  z-index: 100;
+  bottom: -65px;
+  right: 130px;
+  height: 40px;
+  width: 80px;
+  border-style: solid;
+  border-radius: 6px;
+  border-color: blue;
+  border-width: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(24, 67, 255);
+  font-family: 'Mina', sans-serif;
+  transition: all 0.2s ease-in-out;
+}
+
+#pacmanPlayBtn:hover {
+  cursor: pointer;
 }

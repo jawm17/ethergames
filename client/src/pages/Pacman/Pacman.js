@@ -827,7 +827,7 @@ export default function Pacman() {
         }
 
         function keyDown(e) {
-            if (e.keyCode === KEY.N) {
+            if (e === "start") {
                 startNewGame();
             } else if (e.keyCode === KEY.S) {
                 audio.disableSound();
@@ -1068,6 +1068,7 @@ export default function Pacman() {
 
             document.addEventListener("keydown", (e) => keyDown(e));
             document.addEventListener("keypress", (e) => keyPress(e));
+            document.getElementById("pacmanPlayBtn").addEventListener("click", () => keyDown("start"));
 
             timer = window.setInterval(mainLoop, 1000 / Pacman.FPS);
         };
@@ -1261,6 +1262,9 @@ export default function Pacman() {
         <div id="pacmanOuter">
             <div id="pacman">
 
+            </div>
+            <div id="pacmanPlayBtn">
+                play
             </div>
         </div>
     );

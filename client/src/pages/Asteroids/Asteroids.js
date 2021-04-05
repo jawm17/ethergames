@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import UserService from '../../services/UserService';
+import GameService from "../../services/GameService";
+import { AuthContext } from '../../context/AuthContext';
 import "./asteroidsStyle.css";
 
-export default function Asteroids() {
+export default function Asteroids(props) {
+    const authContext = useContext(AuthContext);
     const FPS = 30; // frames per second
     const FRICTION = 0.7; // friction coefficient of space (0 = no friction, 1 = lots of friction)
-    const GAME_LIVES = 3; // starting number of lives
+    const GAME_LIVES = 1; // starting number of lives
     const LASER_DIST = 0.6; // max distance laser can travel as fraction of screen width
     const LASER_EXPLODE_DUR = 0.1; // duration of the lasers' explosion in seconds
     const LASER_MAX = 10; // maximum number of lasers on screen at once
@@ -29,6 +33,10 @@ export default function Asteroids() {
     const TEXT_FADE_TIME = 2.5; // text fade time in seconds
     const TEXT_SIZE = 40; // text font height in pixels
 
+    const [gameOverBool, setGameOverBool] = useState(true);
+    const [displayLevel, setDisplayLevel] = useState(0);
+    const [user, setUser] = useState(authContext.user.username);
+
     // set up the game variables
     var canv;
     var ctx;
@@ -37,11 +45,7 @@ export default function Asteroids() {
     var interval;
 
     const [score, setScore] = useState(0);
-
-    useEffect(() => {
-        canv = document.getElementById("asteroidsCanvas");
-        ctx = canv.getContext("2d");
-    });
+    var gameScore = 0;
 
     function createAsteroidBelt() {
         roids = [];
@@ -68,18 +72,15 @@ export default function Asteroids() {
             roids.push(newAsteroid(x, y, Math.ceil(ROID_SIZE / 4)));
             roids.push(newAsteroid(x, y, Math.ceil(ROID_SIZE / 4)));
             setScore(score => score + ROID_PTS_LGE);
+            gameScore = gameScore + ROID_PTS_LGE;
         } else if (r == Math.ceil(ROID_SIZE / 4)) { // medium asteroid
             roids.push(newAsteroid(x, y, Math.ceil(ROID_SIZE / 8)));
             roids.push(newAsteroid(x, y, Math.ceil(ROID_SIZE / 8)));
             setScore(score => score + ROID_PTS_MED);
+            gameScore = gameScore + ROID_PTS_MED;
         } else {
             setScore(score => score + ROID_PTS_SML);
-        }
-
-        // check high score
-        if (score > scoreHigh) {
-            scoreHigh = score;
-            localStorage.setItem(SAVE_KEY_SCORE, scoreHigh);
+            gameScore = gameScore + ROID_PTS_SML;
         }
 
         // destroy the asteroid
@@ -127,6 +128,7 @@ export default function Asteroids() {
         ship.dead = true;
         text = "Game Over";
         textAlpha = 1.0;
+        props.gameOver();
     }
 
     function keyDown(/** @type {KeyboardEvent} */ ev) {
@@ -195,30 +197,82 @@ export default function Asteroids() {
     }
 
     function newGame() {
-        // set up event handlers
-        document.addEventListener("keydown", keyDown);
-        document.addEventListener("keyup", keyUp);
+        if (gameOverBool === true) {
+            setGameOverBool(false);
+            UserService.getUserBalance().then(data => {
+                const { message, balance } = data;
+                if (!message) {
+                    if (balance >= 0.000152) {
+                        props.start();
+                        clearInterval(interval);
+                        canv = document.getElementById("asteroidsCanvas");
+                        ctx = canv.getContext("2d");
+                        level = 0;
+                        lives = GAME_LIVES;
+                        setScore(0);
+                        gameScore = 0;
+                        ship = newShip();
+                        interval = setInterval(update, 1000 / FPS);
 
-        // clear interval
-        clearInterval(interval);
+                        document.addEventListener("keydown", keyDown);
+                        document.addEventListener("keyup", keyUp);
 
-        // set up the game loop
-        interval = setInterval(update, 1000 / FPS);
-
-        level = 0;
-        lives = GAME_LIVES;
-        setScore(0);
-        ship = newShip();
-
-        // get the high score from local storage
-        var scoreStr = localStorage.getItem(SAVE_KEY_SCORE);
-        if (scoreStr == null) {
-            scoreHigh = 0;
-        } else {
-            scoreHigh = parseInt(scoreStr);
+                        newLevel();
+                    } else {
+                        setGameOverBool(true);
+                        alert("insufficient funds");
+                    }
+                }
+                else if (message.msgBody === "Unauthorized") {
+                    //Replace with middleware 
+                    authContext.setUser({ username: "" });
+                    authContext.setIsAuthenticated(false);
+                }
+            });
         }
 
-        newLevel();
+        // UserService.getUserBalance().then(data => {
+        //     const { message, balance } = data;
+        //     if (!message) {
+        //         if (balance >= 0.000152) {
+        //             props.start();
+        //             canv = document.getElementById("asteroidsCanvas");
+        //             ctx = canv.getContext("2d");
+        //             ctx.clearRect(0, 0, canv.width, canv.height);
+        //             // set up event handlers
+        //             document.addEventListener("keydown", keyDown);
+        //             document.addEventListener("keyup", keyUp);
+
+        //             // clear interval
+        //             clearInterval(interval);
+
+        //             // set up the game loop
+        //             interval = setInterval(update, 1000 / FPS);
+
+        //             level = 0;
+        //             lives = GAME_LIVES;
+        //             setScore(0);
+        //             ship = newShip();
+
+        //             // get the high score from local storage
+        //             var scoreStr = localStorage.getItem(SAVE_KEY_SCORE);
+        //             if (scoreStr == null) {
+        //                 scoreHigh = 0;
+        //             } else {
+        //                 scoreHigh = parseInt(scoreStr);
+        //             }
+
+        //             newLevel();
+        //         } else {
+        //             alert("insufficient funds");
+        //         }
+        //     }
+        //     else if (message.msgBody === "Unauthorized") {
+        //         //Replace with middleware 
+        //         authContext.setUser({ username: "" });
+        //         authContext.setIsAuthenticated(false);
+        //     }
+        // });
     }
 
     function newLevel() {
@@ -426,17 +480,17 @@ export default function Asteroids() {
             }
         }
 
-        // draw the game text
-        if (textAlpha >= 0) {
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.fillStyle = "rgba(255, 255, 255, " + textAlpha + ")";
-            ctx.font = "small-caps " + TEXT_SIZE + "px dejavu sans mono";
-            ctx.fillText(text, canv.width / 2, canv.height * 0.75);
-            textAlpha -= (1.0 / TEXT_FADE_TIME / FPS);
-        } else if (ship.dead) {
-            // after "game over" fades, start a new game
-            newGame();
+        function newScore() {
+            GameService.newScore("asteroids", user, gameScore).then(data => {
+                
+            });
+        }
+
+        if (ship.dead) {
+            // after the ship has gotten destroyed, start a new game
+            newScore();
+            clearInterval(interval);
+            setGameOverBool(true);
         }
 
         // draw the lives
@@ -599,6 +653,9 @@ export default function Asteroids() {
             <div id="asteroidsScore">score: {score}</div>
             <div id="asteroidsPlayBtn" onClick={() => newGame()}>
                 play
+            </div>
+            <div id="asteroidsLevel">
+                level: {displayLevel}
             </div>
         </div>
     );

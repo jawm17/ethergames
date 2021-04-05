@@ -5,6 +5,7 @@ import { AuthContext } from '../../context/AuthContext';
 import GameService from "../../services/GameService";
 import TxService from "../../services/TxService";
 import ScoreBoardScore from "../../components/ScoreBoardScore";
+import NavBar from "../../components/Nav/NavBar";
 import "./tetrisStyle.css";
 
 export default function TetrisContainer() {
@@ -71,10 +72,11 @@ export default function TetrisContainer() {
 
   return (
     <div>
+      <NavBar />
       <div id="container" tabIndex="0" style={{ outline: "none" }} onKeyDown={e => e.preventDefault()}>
-        <div id="closeGameButton" onClick={() => history.push("/")}>
+        {/* <div id="closeGameButton" onClick={() => history.push("/")}>
           <img id="closeX" src="https://firebasestorage.googleapis.com/v0/b/gamesresources-28440.appspot.com/o/yellowX.png?alt=media&token=4fca2aaa-9123-434a-839d-3a1cf3ee3436" alt="close button"></img>
-        </div>
+        </div> */}
         <Tetris start={() => gameStart()} gameOver={(score) => gameOver(score)} />
         <div id="info">
           <div id="top">
