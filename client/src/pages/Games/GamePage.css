@@ -1,0 +1,125 @@
+/* ul {
+    list-style-type: none;
+}
+.gamePage{
+    height: 100vh;
+    width: 100vw;
+    color: white;
+} */
+
+/* Game */
+/* .game-container{
+    height: 100vh;
+    width: 100%;
+}
+.gameArea{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+}
+.info{
+    display: flex;
+}
+.title {
+    padding-left: 50px;
+    padding-top: 40px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 20px;
+    color: #69ff05;
+}
+
+.jackpot {
+    padding-left: 30px;
+    padding-top: 35px;
+    font-size: 20px;
+    letter-spacing: 2px;
+    font-family: "Orbitron", sans-serif;
+}
+.highScore {
+    padding-left: 30px;
+    padding-top: 35px;
+    font-size: 20px;
+    letter-spacing: 2px;
+    font-family: "Orbitron", sans-serif;
+}
+.theGame{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    height: 100%;
+    width: 100%;
+} */
+/* .theGame1{
+    background: #69ff05 ;
+    border-radius: 15px;
+    height: 90%;
+    width: 90%;
+} */
+/* Right Side */
+/* .rightSide{
+    padding-top: 35px;
+    padding-right: 30px;
+    height: 100%;
+    width: 40%;
+} */
+/* High Score and Instructions */
+/* .highScore-instructions-container{
+    height: 100%;
+    width: 100%;
+} */
+/* High Score Container*/
+/* .highScore-container{
+    font-family: "Orbitron", sans-serif;
+}
+.highScore-container h1{
+  font-size: 1.5rem;
+  color: #69ff05;
+  padding-bottom: 10px;
+}
+.gameScores{
+    height: 100%;
+    padding: 5px;
+    border-radius: 15px;
+    overflow-y: auto;
+    -ms-overflow-style: none !important;
+}
+.scores{
+    color:white;
+    padding: 10px;
+    display: flex;
+    border: solid 5px rgb(255, 255, 255);
+    border-radius: 15px;
+    margin-bottom: 5px;
+}
+.userName{
+    font-size: 1.3rem;
+    width: 50%;
+}
+.userScore{
+    display: flex;
+    justify-content: flex-end;
+    font-size: 1.1rem;
+    width: 50%;
+} */
+/* Game instruction Container */
+/* .gameInstructions-container{
+    height: 40%;
+    padding-top: 10px;
+    font-family: "Orbitron", sans-serif;
+}
+.gameInstructions-container h1{
+    font-size: 1.5rem;
+    color: #69ff05;
+    padding-bottom: 10px;
+}
+.instuctList{
+    margin-left: 10px;
+    padding-left: 20px;
+}
+.instuctList li{
+    font-size: 1.2rem;
+    padding-bottom: 10px;
+
+} */

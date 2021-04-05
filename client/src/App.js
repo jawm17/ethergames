@@ -12,6 +12,7 @@ import Login from "./pages/UserAuth/Login";
 import Register from "./pages/UserAuth/Register";
 import Home from "./pages/Home/Home";
 import Account from "./pages/Account/Account";
+// import GamePage from "./pages/Games/GamePage";
 import TetrisContainer from "./pages/Tetris/TetrisContainer";
 import AsteroidsContainer from "./pages/Asteroids/AsteroidsContainer";
 import PacmanContainer from "./pages/Pacman/PacmanContainer";
@@ -26,6 +27,7 @@ function App() {
         <Route path="/snake" component={SnakeContainer} />
         <Route path="/tetris" component={TetrisContainer} />
         <Route path="/about" component={About} />
+        {/* <Route path="/gamePage" component={GamePage} /> */}
         <Route exact path="/" component={Home} />
         <Route path="/asteroids" component={AsteroidsContainer} />
         <Route path="/pacman" component={PacmanContainer} />

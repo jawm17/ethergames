@@ -13,7 +13,7 @@ export default function RecieveEthModal(props) {
                     <img src={props.qr}></img>
                 </div>
                 <div>
-                    {props.address}
+                    <h1>Address</h1> {props.address}
                 </div>
                 <div id="closeButton" onClick={() => props.close()}>
                     close

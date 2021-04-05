@@ -103,7 +103,7 @@ export default function Home() {
                 <div>
                   TETRIS
                   <div className="tetris-icon">
-                    <img src={require("./snake.gif")} />
+                    <img src={require("./tetris.gif")} />
                   </div>
                   <div>
                     <h1>Jackpot: {parseFloat(tetrisPot.toFixed(6))} ETH</h1>
@@ -121,7 +121,7 @@ export default function Home() {
                 <div>
                   ASTEROIDS
                   <div className="asteroids-icon">
-                    <img src={require("./snake.gif")} />
+                    <img src={require("./asteroids.gif")} />
                   </div>
                   <div>
                     <h1>Jackpot: 0.002 ETH</h1>
@@ -139,7 +139,7 @@ export default function Home() {
                 <div>
                   PAC-MAN
                   <div className="pacBoy-icon">
-                    <img src={require("./snake.gif")} />
+                    <img src={require("./pacBoy.gif")} />
                   </div>
                   <div>
                     <h1>Jackpot: 0.8 ETH</h1>

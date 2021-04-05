@@ -1,3 +1,6 @@
+input:focus, textarea:focus, select:focus{
+    outline: none;
+}
 #gray {
     position: fixed;
     background-color: rgba(0,0,0,0.9);
@@ -11,6 +14,7 @@
 }
 
 #modalBody {
+    border-radius: 15px;
     margin-top: -40px;
     width: 600px;
     max-width: 95vw;
@@ -20,27 +24,57 @@
     border-color: rgb(72, 254, 12);
     border-width: 2px;
     border-style: solid;
-    position: relative;
 }
 
 #withdrawTitle {
-    font-size: 20px;
+    font-size: 30px;
     margin-left: 20px;
     margin-top: 15px;
+    text-align: center;
 }
 
 #funds {
+    font-size: 20px;
     margin-left: 20px;
+    padding-top: 20px;
+    text-align: center;
 }
 
 #inputArea {
-    position: absolute;
-    margin-left: 10%;
-    margin-top: 10%;
+    padding-top: 40px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height:85%;
 }
-
+#inputArea input{
+ background: black;
+ border-color: white;
+ color: white;
+ height: 40px;
+ width: 300px;
+ padding: 10px;
+ margin-top: 10px;
+ font-size: 20px;
+ font-family: "Orbitron", sans-serif;
+ border-radius: 15px;
+}
+#address{
+    text-align: center;
+}
+#amount{
+    padding-top: 20px;
+    text-align: center;
+}
+#send-close-btn{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    color: white;
+}
 #closeButton {
     position: absolute;
+    bottom: 0;
     right: 20px;
     bottom: 5px;
     font-size: 25px;
@@ -48,10 +82,10 @@
 
 #sendButton {
     position: absolute;
-    right: 100px;
-    bottom: 5px;
     font-size: 25px;
     color: rgb(72, 254, 12);
+    left: 20px;
+    bottom: 0;
 }
 
 #closeButton, #sendButton:hover {
