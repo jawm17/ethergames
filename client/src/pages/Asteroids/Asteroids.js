@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import UserService from '../../services/UserService';
+import GameService from "../../services/GameService";
 import { AuthContext } from '../../context/AuthContext';
 import "./asteroidsStyle.css";
 
@@ -33,6 +34,8 @@ export default function Asteroids(props) {
     const TEXT_SIZE = 40; // text font height in pixels
 
     const [gameOverBool, setGameOverBool] = useState(true);
+    const [displayLevel, setDisplayLevel] = useState(0);
+    const [user, setUser] = useState(authContext.user.username);
 
     // set up the game variables
     var canv;
@@ -42,6 +45,7 @@ export default function Asteroids(props) {
     var interval;
 
     const [score, setScore] = useState(0);
+    var gameScore = 0;
 
     function createAsteroidBelt() {
         roids = [];
@@ -68,18 +72,15 @@ export default function Asteroids(props) {
             roids.push(newAsteroid(x, y, Math.ceil(ROID_SIZE / 4)));
             roids.push(newAsteroid(x, y, Math.ceil(ROID_SIZE / 4)));
             setScore(score => score + ROID_PTS_LGE);
+            gameScore = gameScore + ROID_PTS_LGE;
         } else if (r == Math.ceil(ROID_SIZE / 4)) { // medium asteroid
             roids.push(newAsteroid(x, y, Math.ceil(ROID_SIZE / 8)));
             roids.push(newAsteroid(x, y, Math.ceil(ROID_SIZE / 8)));
             setScore(score => score + ROID_PTS_MED);
+            gameScore = gameScore + ROID_PTS_MED;
         } else {
             setScore(score => score + ROID_PTS_SML);
-        }
-
-        // check high score
-        if (score > scoreHigh) {
-            scoreHigh = score;
-            localStorage.setItem(SAVE_KEY_SCORE, scoreHigh);
+            gameScore = gameScore + ROID_PTS_SML;
         }
 
         // destroy the asteroid
@@ -209,6 +210,7 @@ export default function Asteroids(props) {
                         level = 0;
                         lives = GAME_LIVES;
                         setScore(0);
+                        gameScore = 0;
                         ship = newShip();
                         interval = setInterval(update, 1000 / FPS);
 
@@ -478,8 +480,15 @@ export default function Asteroids(props) {
             }
         }
 
+        function newScore() {
+            GameService.newScore("asteroids", user, gameScore).then(data => {
+                
+            });
+        }
+
         if (ship.dead) {
-            // after the ship has gotten fucking destroyed, start a new game
+            // after the ship has gotten destroyed, start a new game
+            newScore();
             clearInterval(interval);
             setGameOverBool(true);
         }
@@ -644,6 +653,9 @@ export default function Asteroids(props) {
             <div id="asteroidsScore">score: {score}</div>
             <div id="asteroidsPlayBtn" onClick={() => newGame()}>
                 play
+            </div>
+            <div id="asteroidsLevel">
+                level: {displayLevel}
             </div>
         </div>
     );

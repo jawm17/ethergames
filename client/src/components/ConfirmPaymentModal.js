@@ -1,7 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles/confirmPaymentModalStyle.css";
 
 export default function ConfirmPaymentModal(props) {
+    const [checked, setChecked] = useState(false);
+
+    function handleChange(checkbox) {
+        if(checkbox.target.checked === true) {
+            setChecked(true);
+            console.log("checked");
+        } else {
+            setChecked(false);
+            console.log("not checked");
+        }
+    }
+
+    function confirmPayment() {
+        if(checked) {
+            localStorage.setItem('confirmedPayment', true);
+            props.close();
+        } else {
+            props.close();
+        }
+    }
 
     return (
         <div>
@@ -12,9 +32,9 @@ export default function ConfirmPaymentModal(props) {
                     </div>
                     <div id="ignoreDiv">
                         Don't show this message again
-                        <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat"/>
+                        <input type="checkbox" onChange={(e) => handleChange(e)}  id="vehicle3" name="vehicle3" value="Boat"/>
                     </div>
-                    <div id="confirmPaymentBtn" onClick={() => props.close()}>
+                    <div id="confirmPaymentBtn" onClick={() => confirmPayment()}>
                         confirm
                     </div>
                 </div>

@@ -152,7 +152,11 @@ export default function SnakeGame(props) {
   const startGame = () => {
     document.addEventListener("keydown", (e) => keyDown(e));
     if (gameOver) {
-      setConfirmingPayment(true);
+      if(localStorage.getItem('confirmedPayment')) {
+        confirmPayment();
+      } else {
+        setConfirmingPayment(true);
+      }
     }
   };
 

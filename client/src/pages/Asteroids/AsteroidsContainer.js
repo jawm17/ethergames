@@ -5,6 +5,7 @@ import GameService from "../../services/GameService";
 import TxService from "../../services/TxService";
 import NavBar from "../../components/Nav/NavBar";
 import Leaderboard from "../../components/Leaderboard";
+import Footer from "../../components/Footer/Footer";
 import history from "../../history";
 import "./asteroidsStyle.css";
 
@@ -16,7 +17,6 @@ export default function AsteroidsContainer() {
     const [scores, setScores] = useState([]);
     const [scoreToBeat, setScoreToBeat] = useState(1000);
     const [user, setUser] = useState(authContext.user.username);
-    const [score, setScore] = useState(0);
 
     useEffect(() => {
         getInfo();
@@ -32,7 +32,6 @@ export default function AsteroidsContainer() {
                         let scoresArray = (data.scores.sort((a, b) => (b.score - a.score))).slice(0, 10);
                         setScoreToBeat(scoresArray[0].score);
                         setScores(scoresArray);
-                        console.log("ok");
                     }   
                     resolve();
                 } else {
@@ -47,17 +46,17 @@ export default function AsteroidsContainer() {
         TxService.potPayment(0.000152, "asteroids").then(data => {
             setPot(pot + 0.000152);
         });
-        setScore(0);
     }
 
-    function newScore() {
+    function newScore(score) {
         GameService.newScore("asteroids", user, score).then(data => {
             getInfo();
         });
     }
 
-    async function gameOver() {
+    async function gameOver(score) {
         await getInfo();
+        console.log(score);
         if (scores.length >= 1) {
             // multiple scores
             if (score > scores[0].score) {
@@ -78,7 +77,7 @@ export default function AsteroidsContainer() {
         <div>
             <NavBar />
             <div id="container" tabIndex="0" style={{ outline: "none" }} onKeyDown={e => e.preventDefault()}>
-                <Asteroids start={() => gameStart()} gameOver={() => gameOver()} />
+                <Asteroids start={() => gameStart()} gameOver={(score) => gameOver(score)} />
                 <div id="info">
                     <div id="top">
                         <div id="titleAsteroids">
@@ -127,8 +126,7 @@ export default function AsteroidsContainer() {
                     </div>
                 </div>
             </div>
-            <div id="footerYellow">
-            </div>
+            <Footer />
         </div>
     );
 }
