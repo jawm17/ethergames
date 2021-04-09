@@ -40,6 +40,14 @@ input:focus, textarea:focus, select:focus{
     text-align: center;
 }
 
+#errorMsg {
+    font-size: 20px;
+    margin-left: 20px;
+    padding-top: 20px;
+    text-align: center;
+    color: red;
+}
+
 #inputArea {
     padding-top: 40px;
     display: flex;

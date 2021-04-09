@@ -157,7 +157,6 @@ export default function Asteroids(props) {
         ship.dead = true;
         text = "Game Over";
         textAlpha = 1.0;
-        props.gameOver(gameScore);
     }
 
     function keyDown(/** @type {KeyboardEvent} */ ev) {
@@ -508,19 +507,13 @@ export default function Asteroids(props) {
                 ctx.arc(ship.lasers[i].x, ship.lasers[i].y, ship.r * 0.25, 0, Math.PI * 2, false);
                 ctx.fill();
             }
-        }
-
-        function newScore() {
-            GameService.newScore("asteroids", user, gameScore).then(data => {
-                
-            });
-        }
+        }   
 
         if (ship.dead) {
             // after the ship has gotten destroyed, start a new game
             setEndDisplay("flex");
-            newScore();
             clearInterval(interval);
+            props.gameOver(gameScore);
             setGameOverBool(true);
         }
 

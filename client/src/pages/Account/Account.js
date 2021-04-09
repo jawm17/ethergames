@@ -108,7 +108,10 @@ export default function Account() {
           setQrCode(url);
         });
         // set scores
-        setScores(data.scores);
+        setScores(data.scores.sort((a, b) =>
+          a.timeStamp.toString().substring(0, 9) -
+          b.timeStamp.toString().substring(0, 9)
+        ).reverse());
         // sort eth blockchain txs and data from db
         TxHistoryService.getBlockTx(data.address).then((data2) => {
           if (data2) {

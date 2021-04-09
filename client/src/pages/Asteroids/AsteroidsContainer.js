@@ -52,6 +52,7 @@ export default function AsteroidsContainer() {
     }
 
     function newScore(score) {
+        console.log(score);
         GameService.newScore("asteroids", user, score).then(data => {
             getInfo();
         });
@@ -59,22 +60,21 @@ export default function AsteroidsContainer() {
 
     async function gameOver(score) {
         await getInfo();
-        console.log(score);
         if (scores.length >= 1) {
             // multiple scores
-            if (score > 20) {
+            if (score > scores[0].score) {
                 // top score
                 GameService.potPayout("asteroids").then(data => {
                     setPrevPot(pot);
                     setJackPot(true);
-                    newScore();
+                    newScore(score);
                 });
             } else {
-                newScore();
+                newScore(score);
             }
         } else {
             // no scores set
-            newScore();
+            newScore(score);
         }
     }
 
@@ -122,13 +122,13 @@ export default function AsteroidsContainer() {
                                 Start game - each play costs $0.25.
                             </li>
                             <li className="liSnake">
-                                Use the arrow keys (desktop) or the arrow buttons (mobile) to play.
+                                Use the arrow keys (desktop) or the arrow buttons (mobile) to move.
                             </li>
                             <li className="liSnake">
-                                Clear rows by filling them completely and increase your score.
+                                Use the spacebar (desktop) or the shoot button (mobile) to fire at asteroids.
                             </li>
                             <li className="liSnake">
-                                The speed increases as you progress.
+                                Shoot all the asteroids to level up.
                             </li>
                             <li className="liSnake">
                                 Beat the top score and win the pot!
