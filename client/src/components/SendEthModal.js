@@ -113,8 +113,8 @@ export default function SendEthModal(props) {
           <div id="errorMsg">
             {error ? errorMessage : null}
           </div>
-          <div id="errorMsg">
-            {error ? errorMessage : null}
+          <div id="successMsg">
+            {successMsg ? successMsg : null}
           </div>
           <div id="send-close-btn">
             <div id="sendButton" onClick={() => sendEth()}>

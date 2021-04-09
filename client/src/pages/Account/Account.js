@@ -219,7 +219,7 @@ export default function Account() {
                 className="tablinks"
                 onClick={(e) => openCity(e, "Scores")}
               >
-                Scores
+                High Scores
               </button>
               <button
                 className="tablinks"

@@ -7,17 +7,16 @@ import NavBar from "../../components/Nav/NavBar";
 import Leaderboard from "../../components/Leaderboard";
 import Footer from "../../components/Footer/Footer";
 import JackPotAlert from "../../components/JackPotAlert";
-import history from "../../history";
 import "./asteroidsStyle.css";
 
 export default function AsteroidsContainer() {
 
     const authContext = useContext(AuthContext);
+    let user = authContext.user.username;
 
     const [pot, setPot] = useState(0);
     const [scores, setScores] = useState([]);
     const [scoreToBeat, setScoreToBeat] = useState(1000);
-    const [user, setUser] = useState(authContext.user.username);
     const [prevPot, setPrevPot] = useState(0);
     const [jackPot, setJackPot] = useState(false);
 
@@ -52,7 +51,6 @@ export default function AsteroidsContainer() {
     }
 
     function newScore(score) {
-        console.log(score);
         GameService.newScore("asteroids", user, score).then(data => {
             getInfo();
         });

@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import UserService from '../../services/UserService';
-import GameService from "../../services/GameService";
 import { AuthContext } from '../../context/AuthContext';
 import "./asteroidsStyle.css";
 
@@ -21,7 +20,6 @@ export default function Asteroids(props) {
     const ROID_SIZE = 100; // starting size of asteroids in pixels
     const ROID_SPD = 50; // max starting speed of asteroids in pixels per second
     const ROID_VERT = 10; // average number of vertices on each asteroid
-    const SAVE_KEY_SCORE = "highscore"; // save key for local storage of high score
     const SHIP_BLINK_DUR = 0.1; // duration in seconds of a single blink during ship's invisibility
     const SHIP_EXPLODE_DUR = 0.3; // duration of the ship's explosion in seconds
     const SHIP_INV_DUR = 3; // duration of the ship's invisibility in seconds
@@ -30,12 +28,9 @@ export default function Asteroids(props) {
     const SHIP_TURN_SPD = 360; // turn speed in degrees per second
     const SHOW_BOUNDING = false; // show or hide collision bounding
     const SHOW_CENTRE_DOT = false; // show or hide ship's centre dot
-    const TEXT_FADE_TIME = 2.5; // text fade time in seconds
-    const TEXT_SIZE = 40; // text font height in pixels
 
     const [gameOverBool, setGameOverBool] = useState(true);
     const [displayLevel, setDisplayLevel] = useState(0);
-    const [user, setUser] = useState(authContext.user.username);
     const [startDisplay, setStartDisplay] = useState("flex");
     const [endDisplay, setEndDisplay] = useState("none");
 
@@ -97,12 +92,12 @@ export default function Asteroids(props) {
         var r = roids[index].r;
 
         // split the asteroid in two if necessary
-        if (r == Math.ceil(ROID_SIZE / 2)) { // large asteroid
+        if (r === Math.ceil(ROID_SIZE / 2)) { // large asteroid
             roids.push(newAsteroid(x, y, Math.ceil(ROID_SIZE / 4)));
             roids.push(newAsteroid(x, y, Math.ceil(ROID_SIZE / 4)));
             setScore(score => score + ROID_PTS_LGE);
             gameScore = gameScore + ROID_PTS_LGE;
-        } else if (r == Math.ceil(ROID_SIZE / 4)) { // medium asteroid
+        } else if (r === Math.ceil(ROID_SIZE / 4)) { // medium asteroid
             roids.push(newAsteroid(x, y, Math.ceil(ROID_SIZE / 8)));
             roids.push(newAsteroid(x, y, Math.ceil(ROID_SIZE / 8)));
             setScore(score => score + ROID_PTS_MED);
@@ -121,6 +116,7 @@ export default function Asteroids(props) {
         // new level when no more asteroids
         if (roids.length == 0) {
             level++;
+            setDisplayLevel(level);
             newLevel();
         }
     }
@@ -238,6 +234,7 @@ export default function Asteroids(props) {
                         canv = document.getElementById("asteroidsCanvas");
                         ctx = canv.getContext("2d");
                         level = 0;
+                        setDisplayLevel(0);
                         lives = GAME_LIVES;
                         setScore(0);
                         gameScore = 0;
@@ -259,49 +256,6 @@ export default function Asteroids(props) {
                 }
             });
         }
-
-        // UserService.getUserBalance().then(data => {
-        //     const { message, balance } = data;
-        //     if (!message) {
-        //         if (balance >= 0.000152) {
-        //             props.start();
-        //             canv = document.getElementById("asteroidsCanvas");
-        //             ctx = canv.getContext("2d");
-        //             ctx.clearRect(0, 0, canv.width, canv.height);
-        //             // set up event handlers
-        //             document.addEventListener("keydown", keyDown);
-        //             document.addEventListener("keyup", keyUp);
-
-        //             // clear interval
-        //             clearInterval(interval);
-
-        //             // set up the game loop
-        //             interval = setInterval(update, 1000 / FPS);
-
-        //             level = 0;
-        //             lives = GAME_LIVES;
-        //             setScore(0);
-        //             ship = newShip();
-
-        //             // get the high score from local storage
-        //             var scoreStr = localStorage.getItem(SAVE_KEY_SCORE);
-        //             if (scoreStr == null) {
-        //                 scoreHigh = 0;
-        //             } else {
-        //                 scoreHigh = parseInt(scoreStr);
-        //             }
-
-        //             newLevel();
-        //         } else {
-        //             alert("insufficient funds");
-        //         }
-        //     }
-        //     else if (message.msgBody === "Unauthorized") {
-        //         //Replace with middleware 
-        //         authContext.setUser({ username: "" });
-        //         authContext.setIsAuthenticated(false);
-        //     }
-        // });
     }
 
     function newLevel() {
