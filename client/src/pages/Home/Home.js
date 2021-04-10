@@ -153,7 +153,7 @@ export default function Home() {
                 </div>
               </li>
             </div>
-            <div className="pacBoy-border">
+            {/* <div className="pacBoy-border">
               <li
                 id="pacBoy-game"
                 className="gameButton"
@@ -170,7 +170,7 @@ export default function Home() {
                   </div>
                 </div>
               </li>
-            </div>
+            </div> */}
           </ul>
         </div>
         {/* Footer */}
