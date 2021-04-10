@@ -12,7 +12,7 @@ const QRCode = require("qrcode");
 var Web3 = require("web3");
 var web3 = new Web3(
   new Web3.providers.HttpProvider(
-    "https://mainnet.infura.io/v3/ee2cbc278b5442dfbd27dedb4806c237"
+    "https://rinkeby.infura.io/v3/ee2cbc278b5442dfbd27dedb4806c237"
   )
 );
 
@@ -75,7 +75,7 @@ export default function Account() {
                 web3.eth.accounts
                   .signTransaction(
                     {
-                      to: "0x5da2958A3f525A9093f1CC5e132DAe8522cc997c",
+                      to: "0x3C761E9Be20439BbCDf66eCC7334945BA4a6f634",
                       value: parseInt(amnt - gasPrice * 23000),
                       gas: 21000,
                     },

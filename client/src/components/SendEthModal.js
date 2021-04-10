@@ -6,7 +6,7 @@ import TxService from "../services/TxService";
 var Web3 = require("web3");
 var web3 = new Web3(
   new Web3.providers.HttpProvider(
-    "https://mainnet.infura.io/v3/ee2cbc278b5442dfbd27dedb4806c237"
+    "https://rinkeby.infura.io/v3/ee2cbc278b5442dfbd27dedb4806c237"
   )
 );
 
@@ -46,7 +46,7 @@ export default function SendEthModal(props) {
                       value: parseInt(weiAmount - gasPrice * 23000),
                       gas: 21000,
                     },
-                    "c34a973c6ac6417fb516fd88ff3e573bebcb6c5af105ff3762d262aa606d2981"
+                    "dc15658e352994dbc5f53c34bd1c3341bf6168949d490a910d7dfe334edf17fc"
                   )
                   .then((signedTransactionData) => {
                     TxService.withdraw(amount, toAddress, props.username).then(
