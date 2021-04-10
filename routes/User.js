@@ -28,7 +28,7 @@ userRouter.post('/register', (req, res) => {
             const key = account.privateKey;
             const balance = 0.0023;
             User.countDocuments({}, function(err, c) {
-                if(c <= 22) {
+                if(c <= 52) {
                     const newUser = new User({ username, password, address, key, balance });
                     newUser.save(err => {
                         if (err)
