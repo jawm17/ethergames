@@ -54,13 +54,13 @@ const NavBar = (props) => {
         return (
             <>
                 <nav id="nav">
-                    <h1 id="logoMain" onClick={() => history.push("/")}>ethergames.io</h1>
+                    <h1 id="logoMain" style={colorStyle}  onClick={() => history.push("/")}>ethergames.io</h1>
                     <div className="nav-links">
                         <div className="inline">
-                            <div className="navButton" onClick={() => history.push("/")}>Arcade</div>
+                            <div className="navButton" style={colorStyle}  onClick={() => history.push("/")}>Arcade</div>
                         </div>
                         <div className="inline">
-                            <div className="navButton" onClick={() => history.push("/login")}>Log In</div>
+                            <div className="navButton" style={colorStyle}  onClick={() => history.push("/login")}>Log In</div>
                         </div>
                     </div>
                 </nav>
@@ -73,13 +73,13 @@ const NavBar = (props) => {
             return (
                 <>
                     <nav id="nav">
-                        <h1 id="logoMain" onClick={() => history.push("/")}>ethergames.io</h1>
+                        <h1 id="logoMain" style={colorStyle}  onClick={() => history.push("/")}>ethergames.io</h1>
                         <div className="nav-links">
                             <div className="inline">
-                                <div className="navButton" onClick={() => history.push("/")}>Arcade</div>
+                                <div className="navButton" style={colorStyle}  onClick={() => history.push("/")}>Arcade</div>
                             </div>
                             <div className="inline">
-                                <div className="navButton" onClick={() => onClickLogoutHandler()}>Log Out</div>
+                                <div className="navButton" style={colorStyle}  onClick={() => onClickLogoutHandler()}>Log Out</div>
                             </div>
                         </div>
                     </nav>
