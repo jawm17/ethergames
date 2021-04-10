@@ -49,8 +49,8 @@ export default function SnakeContainer() {
   }
 
   function gameStart() {
-    TxService.potPayment(0.000152, "snake").then(data => {
-      setPot(pot + 0.000152);
+    TxService.potPayment(0.00012, "snake").then(data => {
+      setPot(pot + 0.00012);
     });
     setScore(0);
   }

@@ -42,8 +42,8 @@ export default function TetrisContainer() {
   }
 
   function gameStart() {
-    TxService.potPayment(0.000152, "tetris").then(data => {
-      setPot(pot + 0.000152);
+    TxService.potPayment(0.00012, "tetris").then(data => {
+      setPot(pot + 0.00012);
     });
   }
 

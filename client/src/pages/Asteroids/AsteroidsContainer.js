@@ -45,8 +45,8 @@ export default function AsteroidsContainer() {
     }
 
     function gameStart() {
-        TxService.potPayment(0.000152, "asteroids").then(data => {
-            setPot(pot + 0.000152);
+        TxService.potPayment(0.00012, "asteroids").then(data => {
+            setPot(pot + 0.00012);
         });
     }
 
