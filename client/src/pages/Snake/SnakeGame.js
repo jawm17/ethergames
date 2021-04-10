@@ -176,12 +176,13 @@ export default function SnakeGame(props) {
           props.start();
           setConfirmingPayment(false);
         } else {
-          alert("insufficient funds");
+          alert("Please deposit funds in your account");
         }
       }
       else if (message.msgBody === "Unauthorized") {
         authContext.setUser({ username: "" });
         authContext.setIsAuthenticated(false);
+        alert("Please deposit funds in your account");
       }
     });
   }

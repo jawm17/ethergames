@@ -72,13 +72,14 @@ const Tetris = (props) => {
                     setLevel(0);
                     props.start();
                 } else {
-                    alert("insufficient funds");
+                    alert("Please deposit funds in your account");
                 }
             }
             else if (message.msgBody === "Unauthorized") {
                 //Replace with middleware 
                 authContext.setUser({ username: "" });
                 authContext.setIsAuthenticated(false);
+                alert("Please deposit funds in your account");
             }
         });
     }
@@ -97,7 +98,6 @@ const Tetris = (props) => {
             if (player.pos.y < 1) {
                 setGameOver(true);
                 setDropTime(null);
-                console.log(score);
                 props.gameOver(score);
                 setEndDisplay("flex");
             }

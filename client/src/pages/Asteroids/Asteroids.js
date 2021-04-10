@@ -246,13 +246,14 @@ export default function Asteroids(props) {
                         newLevel();
                     } else {
                         setGameOverBool(true);
-                        alert("insufficient funds");
+                        alert("Please deposit funds in your account");
                     }
                 }
                 else if (message.msgBody === "Unauthorized") {
                     //Replace with middleware 
                     authContext.setUser({ username: "" });
                     authContext.setIsAuthenticated(false);
+                    alert("Please deposit funds in your account");
                 }
             });
         }
