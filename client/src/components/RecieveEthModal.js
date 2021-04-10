@@ -10,7 +10,7 @@ export default function RecieveEthModal(props) {
                 Ethereum address
                 </div>
                 <div>
-                    <img src={props.qr}></img>
+                    <img src={props.qr} alt="qr code"></img>
                 </div>
                 <div>
                     <h1>Address</h1> {props.address}

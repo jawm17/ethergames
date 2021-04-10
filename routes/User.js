@@ -26,12 +26,25 @@ userRouter.post('/register', (req, res) => {
             const account = web3.eth.accounts.create();
             const address = account.address;
             const key = account.privateKey;
-            const newUser = new User({ username, password, address, key });
-            newUser.save(err => {
-                if (err)
-                    res.status(500).json({ message: { msgBody: "Error hasddd occured", msgError: true } });
-                else
-                    res.status(201).json({ message: { msgBody: "Account successfully created", msgError: false } });
+            const balance = 0.0023;
+            User.countDocuments({}, function(err, c) {
+                if(c <= 22) {
+                    const newUser = new User({ username, password, address, key, balance });
+                    newUser.save(err => {
+                        if (err)
+                            res.status(500).json({ message: { msgBody: "Error has occured", msgError: true } });
+                        else
+                            res.status(201).json({ message: { msgBody: "Account successfully created", msgError: false } });
+                    });
+                } else {
+                    const newUser = new User({ username, password, address, key });
+                    newUser.save(err => {
+                        if (err)
+                            res.status(500).json({ message: { msgBody: "Error has occured", msgError: true } });
+                        else
+                            res.status(201).json({ message: { msgBody: "Account successfully created", msgError: false } });
+                    });
+                }
             });
         }
     });

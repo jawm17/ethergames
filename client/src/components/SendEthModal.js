@@ -6,7 +6,7 @@ import TxService from "../services/TxService";
 var Web3 = require("web3");
 var web3 = new Web3(
   new Web3.providers.HttpProvider(
-    "https://rinkeby.infura.io/v3/ee2cbc278b5442dfbd27dedb4806c237"
+    "https://mainnet.infura.io/v3/ee2cbc278b5442dfbd27dedb4806c237"
   )
 );
 

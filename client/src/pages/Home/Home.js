@@ -87,7 +87,7 @@ export default function Home() {
                       </div>
                     </div>
                     <div className="slogan">
-                      <p>Play the games you onced loved and win ETH!</p>
+                      <p>Play classic arcade games and win money!</p>
                     </div>
                   </div>
                 </div>

@@ -11,13 +11,13 @@ import JackPotAlert from "../../components/JackPotAlert";
 
 export default function SnakeContainer() {
   const authContext = useContext(AuthContext);
+  let user = authContext.user.username;
 
   const [score, setScore] = useState(0);
   const [pot, setPot] = useState(0);
   const [scores, setScores] = useState([]);
   const [scoreToBeat, setScoreToBeat] = useState(1000);
   const [jackPot, setJackPot] = useState(false);
-  const [user, setUser] = useState(authContext.user.username);
   const [prevPot, setPrevPot] = useState(0);
 
   useEffect(() => {

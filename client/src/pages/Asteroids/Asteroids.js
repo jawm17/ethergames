@@ -7,7 +7,7 @@ export default function Asteroids(props) {
     const authContext = useContext(AuthContext);
     const FPS = 30; // frames per second
     const FRICTION = 0.7; // friction coefficient of space (0 = no friction, 1 = lots of friction)
-    const GAME_LIVES = 1; // starting number of lives
+    const GAME_LIVES = 3; // starting number of lives
     const LASER_DIST = 0.6; // max distance laser can travel as fraction of screen width
     const LASER_EXPLODE_DUR = 0.1; // duration of the lasers' explosion in seconds
     const LASER_MAX = 10; // maximum number of lasers on screen at once
@@ -64,8 +64,8 @@ export default function Asteroids(props) {
     // set up the game variables
     var canv;
     var ctx;
-    var roidsLeft, roidsTotal;
-    var level, lives, roids, scoreHigh, ship, text, textAlpha;
+    var roidsTotal;
+    var level, lives, roids, ship, text, textAlpha;
     var interval;
 
     const [score, setScore] = useState(0);
@@ -74,7 +74,6 @@ export default function Asteroids(props) {
     function createAsteroidBelt() {
         roids = [];
         roidsTotal = (ROID_NUM + level) * 7;
-        roidsLeft = roidsTotal;
         var x, y;
         for (var i = 0; i < ROID_NUM + level; i++) {
             // random asteroid location (not touching spaceship)
@@ -109,9 +108,6 @@ export default function Asteroids(props) {
 
         // destroy the asteroid
         roids.splice(index, 1);
-
-        // calculate the ratio of remaining asteroids to determine music tempo
-        roidsLeft--;
 
         // new level when no more asteroids
         if (roids.length == 0) {

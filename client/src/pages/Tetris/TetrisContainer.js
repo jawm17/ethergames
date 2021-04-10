@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
 import Tetris from "../../components/Tetris/Tetris";
-import history from "../../history";
 import { AuthContext } from '../../context/AuthContext';
 import GameService from "../../services/GameService";
 import Leaderboard from "../../components/Leaderboard";
@@ -11,11 +10,11 @@ import "./tetrisStyle.css";
 
 export default function TetrisContainer() {
   const authContext = useContext(AuthContext);
+  let user = authContext.user.username;
 
   const [pot, setPot] = useState(0);
   const [scores, setScores] = useState([]);
   const [scoreToBeat, setScoreToBeat] = useState(1000);
-  const [user, setUser] = useState(authContext.user.username);
   const [jackPot, setJackPot] = useState(false);
   const [prevPot, setPrevPot] = useState(0);
 

@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyledTetrisWrapper = styled.div`
     width: 100vw;
     height: calc(100vh - 200px);
-
+    min-height: 605px;
     background: yellow;
     background-size: cover;
     border-bottom-right-radius: 20px;
