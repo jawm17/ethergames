@@ -9,6 +9,10 @@ const UserSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    numTx: {
+        type: Number,
+        default: 0
+    },
     scores: {
         type: Array,
         default: []

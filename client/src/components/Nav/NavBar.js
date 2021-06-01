@@ -1,8 +1,6 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import history from "../../history";
-import AuthService from "../../services/AuthService";
 import TxHistoryService from "../../services/TxHistoryService";
-import { AuthContext } from "../../context/AuthContext";
 import "./navBarStyle.css";
 var Web3 = require("web3");
 var web3 = new Web3(Web3.givenProvider);
@@ -67,7 +65,6 @@ export default function NavBar(props) {
     }
 
     async function getBalance(address) {
-
         try {
             // get blockchain data
             console.log("address" + address.toUpperCase());
@@ -92,7 +89,7 @@ export default function NavBar(props) {
             nonce: '0x00', // ignored by MetaMask
             to: '0x5da2958A3f525A9093f1CC5e132DAe8522cc997c', // Required except during contract publications.
             from: window.ethereum.selectedAddress, // must match user's active address.
-            value: web3.utils.toHex('1000000000000000000') // Only required to send ether to the recipient from the initiating external account.
+            value: web3.utils.toHex('100000000000000') // Only required to send ether to the recipient from the initiating external account.
         };
 
         const txHash = await window.ethereum.request({
@@ -117,7 +114,7 @@ export default function NavBar(props) {
                         </div>
                     </div>
                     <div className="inline" style={address ? {"display" : "initial"} : {"display": "none"}}>
-                        <div className="navButton" style={colorStyle} onClick={() => sendTx()}>Buy Tokens</div>
+                        <div className="navButton" style={colorStyle} onClick={() => sendTx()}>Buy 10 Tokens</div>
                     </div>
                 </div>
             </nav>
