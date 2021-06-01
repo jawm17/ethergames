@@ -1,0 +1,63 @@
+#arcadeArea {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#gameScreen {
+    width: 70%;
+    height: 90vh;
+    border-style: solid;
+    border-color: #5DE900;
+    border-width: 2px;
+}
+
+#sidebar {
+    width: 27%;
+    height: 90vh;
+    border-style: solid;
+    border-color: #5DE900;
+    border-width: 2px;
+    position: relative;
+}
+
+#plays {
+    color: #5DE900;
+    margin-top: 20px;
+    margin-left: 30px;
+}
+
+#insertCoins {
+    width: 90%;
+    height: 200px;
+    background-color: #5DE900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 100px;
+    border-radius: 12px;
+    left: 15px;
+}
+
+#connectAccount {
+    width: 90%;
+    height: 80px;
+    position: absolute;
+    bottom: 10px;
+    left: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    border-style: solid;
+    border-color: #5DE900;
+    border-width: 2px;
+    color: #5DE900;
+}
+
+.hoverable:hover {
+    cursor: pointer;
+}

@@ -16,6 +16,7 @@ import Account from "./pages/Account/Account";
 import TetrisContainer from "./pages/Tetris/TetrisContainer";
 import AsteroidsContainer from "./pages/Asteroids/AsteroidsContainer";
 import PacmanContainer from "./pages/Pacman/PacmanContainer";
+import WalletConnect from "./pages/WalletConnect/WalletConnect";
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route path="/asteroids" component={AsteroidsContainer} />
         <Route path="/pacman" component={PacmanContainer} />
+        <Route path="/arcade" component={WalletConnect} />
         <PrivateRoute path="/account" component={Account} />
         <Route path="/" component={NoMatchPage} />
       </Switch>
