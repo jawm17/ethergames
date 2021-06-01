@@ -11,6 +11,9 @@
     position: relative;
     text-align: center;
     border-radius: 15px;
+    -webkit-user-select: text; /* Safari */
+  -ms-user-select: text; /* IE 10 and IE 11 */
+  user-select: text; /* Standard syntax */
 }
 #modalBodyRecieving img{
     margin: 30px;

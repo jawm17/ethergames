@@ -12,8 +12,8 @@ export default function Home() {
   const [tetrisScore, setTetrisScore] = useState(0);
   const [asteroidsPot, setAsteroidsPot] = useState(0);
   const [asteroidsScore, setAsteroidsScore] = useState(0);
-  const [panmanPot, setPacmanPot] = useState(0);
-  const [pacmanScore, setPacmanScore] = useState(0);
+  // const [panmanPot, setPacmanPot] = useState(0);
+  // const [pacmanScore, setPacmanScore] = useState(0);
 
   useEffect(() => {
     getGameInfo();
@@ -87,7 +87,7 @@ export default function Home() {
                       </div>
                     </div>
                     <div className="slogan">
-                      <p>Play Classic Arcade Games and win ETH.</p>
+                      <p>Play classic arcade games and win money!</p>
                     </div>
                   </div>
                 </div>
@@ -108,7 +108,7 @@ export default function Home() {
                 <div>
                   SNAKE
                   <div className="snake-icon">
-                    <img src={require("./snake.gif")} />
+                    <img src={require("./snake.gif")} alt="snake game animation"/>
                   </div>
                   <div>
                     <h1>Jackpot: {parseFloat(snakePot.toFixed(6))} ETH</h1>
@@ -126,7 +126,7 @@ export default function Home() {
                 <div>
                   TETRIS
                   <div className="tetris-icon">
-                    <img src={require("./tetris.gif")} />
+                    <img src={require("./tetris.gif")} alt="tetris game animation"/>
                   </div>
                   <div>
                     <h1>Jackpot: {parseFloat(tetrisPot.toFixed(6))} ETH</h1>
@@ -144,7 +144,7 @@ export default function Home() {
                 <div>
                   ASTEROIDS
                   <div className="asteroids-icon">
-                    <img src={require("./asteroids.gif")} />
+                    <img src={require("./asteroids.gif")} alt="ateroids game animation"/>
                   </div>
                   <div>
                     <h1>Jackpot: {parseFloat(asteroidsPot.toFixed(6))} ETH</h1>
@@ -153,7 +153,7 @@ export default function Home() {
                 </div>
               </li>
             </div>
-            <div className="pacBoy-border">
+            {/* <div className="pacBoy-border">
               <li
                 id="pacBoy-game"
                 className="gameButton"
@@ -162,7 +162,7 @@ export default function Home() {
                 <div>
                   PAC-MAN
                   <div className="pacBoy-icon">
-                    <img src={require("./pacBoy.gif")} />
+                    <img src={require("./pacBoy.gif")} alt="pacman game animation"/>
                   </div>
                   <div>
                     <h1>COMING SOON</h1>
@@ -170,7 +170,7 @@ export default function Home() {
                   </div>
                 </div>
               </li>
-            </div>
+            </div> */}
           </ul>
         </div>
         {/* Footer */}

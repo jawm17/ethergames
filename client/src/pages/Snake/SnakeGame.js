@@ -11,7 +11,7 @@ var SNAKE_START = [
 ];
 var APPLE_START = [1, 14];
 var SCALE = 30;
-var SPEED = 100;
+var SPEED = 125;
 var DIRECTIONS = {
   38: [0, -1], // up
   40: [0, 1], // down
@@ -171,17 +171,18 @@ export default function SnakeGame(props) {
     UserService.getUserBalance().then(data => {
       const { message, balance } = data;
       if (!message) {
-        if (balance >= 0.000152) {
+        if (balance >= 0.00012) {
           startGame();
           props.start();
           setConfirmingPayment(false);
         } else {
-          alert("insufficient funds");
+          alert("Please deposit funds in your account");
         }
       }
       else if (message.msgBody === "Unauthorized") {
         authContext.setUser({ username: "" });
         authContext.setIsAuthenticated(false);
+        alert("Please deposit funds in your account");
       }
     });
   }

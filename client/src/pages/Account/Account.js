@@ -75,7 +75,7 @@ export default function Account() {
                 web3.eth.accounts
                   .signTransaction(
                     {
-                      to: "0x5da2958A3f525A9093f1CC5e132DAe8522cc997c",
+                      to: "0x3C761E9Be20439BbCDf66eCC7334945BA4a6f634",
                       value: parseInt(amnt - gasPrice * 23000),
                       gas: 21000,
                     },
@@ -108,7 +108,10 @@ export default function Account() {
           setQrCode(url);
         });
         // set scores
-        setScores(data.scores);
+        setScores(data.scores.sort((a, b) =>
+          a.timeStamp.toString().substring(0, 9) -
+          b.timeStamp.toString().substring(0, 9)
+        ).reverse());
         // sort eth blockchain txs and data from db
         TxHistoryService.getBlockTx(data.address).then((data2) => {
           if (data2) {

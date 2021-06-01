@@ -6,17 +6,19 @@ import TxService from "../../services/TxService";
 import NavBar from "../../components/Nav/NavBar";
 import Leaderboard from "../../components/Leaderboard";
 import Footer from "../../components/Footer/Footer";
-import history from "../../history";
+import JackPotAlert from "../../components/JackPotAlert";
 import "./asteroidsStyle.css";
 
 export default function AsteroidsContainer() {
 
     const authContext = useContext(AuthContext);
+    let user = authContext.user.username;
 
     const [pot, setPot] = useState(0);
     const [scores, setScores] = useState([]);
     const [scoreToBeat, setScoreToBeat] = useState(1000);
-    const [user, setUser] = useState(authContext.user.username);
+    const [prevPot, setPrevPot] = useState(0);
+    const [jackPot, setJackPot] = useState(false);
 
     useEffect(() => {
         getInfo();
@@ -28,11 +30,11 @@ export default function AsteroidsContainer() {
             GameService.getInfo("asteroids").then(data => {
                 if (!data.message) {
                     setPot(data.pot);
-                    if(data.scores.length > 0) {
+                    if (data.scores.length > 0) {
                         let scoresArray = (data.scores.sort((a, b) => (b.score - a.score))).slice(0, 10);
                         setScoreToBeat(scoresArray[0].score);
                         setScores(scoresArray);
-                    }   
+                    }
                     resolve();
                 } else {
                     console.log("error");
@@ -43,8 +45,8 @@ export default function AsteroidsContainer() {
     }
 
     function gameStart() {
-        TxService.potPayment(0.000152, "asteroids").then(data => {
-            setPot(pot + 0.000152);
+        TxService.potPayment(0.00012, "asteroids").then(data => {
+            setPot(pot + 0.00012);
         });
     }
 
@@ -56,26 +58,33 @@ export default function AsteroidsContainer() {
 
     async function gameOver(score) {
         await getInfo();
-        console.log(score);
         if (scores.length >= 1) {
             // multiple scores
-            if (score > 20) {
+            if (score > scores[0].score) {
                 // top score
                 GameService.potPayout("asteroids").then(data => {
-                    newScore();
+                    setPrevPot(pot);
+                    setJackPot(true);
+                    newScore(score);
                 });
             } else {
-                newScore();
+                newScore(score);
             }
         } else {
             // no scores set
-            newScore();
+            newScore(score);
         }
     }
 
     return (
         <div>
-            <NavBar page="asteroids"/>
+            <NavBar page="asteroids" />
+            {jackPot ? (
+                <JackPotAlert
+                    close={() => setJackPot(false)}
+                    pot={prevPot}
+                />
+            ) : null}
             <div id="container" tabIndex="0" style={{ outline: "none" }} onKeyDown={e => e.preventDefault()}>
                 <Asteroids start={() => gameStart()} gameOver={(score) => gameOver(score)} />
                 <div id="info">
@@ -111,13 +120,13 @@ export default function AsteroidsContainer() {
                                 Start game - each play costs $0.25.
                             </li>
                             <li className="liSnake">
-                                Use the arrow keys (desktop) or the arrow buttons (mobile) to play.
+                                Use the arrow keys (desktop) or the arrow buttons (mobile) to move.
                             </li>
                             <li className="liSnake">
-                                Clear rows by filling them completely and increase your score.
+                                Use the spacebar (desktop) or the shoot button (mobile) to fire at asteroids.
                             </li>
                             <li className="liSnake">
-                                The speed increases as you progress.
+                                Shoot all the asteroids to level up.
                             </li>
                             <li className="liSnake">
                                 Beat the top score and win the pot!

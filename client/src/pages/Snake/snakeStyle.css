@@ -207,7 +207,7 @@ body {
 
 #snakeControls {
     width: 200px;
-    display: flex;
+    display: none;
     justify-content: space-between;
 }
 
@@ -243,4 +243,12 @@ body {
     .dot {
         display: none;
     }    
+}
+
+@media only screen and (max-width: 450px) {  
+    #snakeControls {
+        width: 200px;
+        display: flex;
+        justify-content: space-between;
+    } 
 }

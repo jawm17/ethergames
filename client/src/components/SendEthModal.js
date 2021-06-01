@@ -14,8 +14,12 @@ export default function SendEthModal(props) {
   const [toAddress, setToAddress] = useState("");
   const [amount, setAmount] = useState(0);
   const authContext = useContext(AuthContext);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMsg, setSuccessMsg] = useState(null);
 
   function onChange(e) {
+    setError(false);
     if (e.target.name === "toAddress") {
       setToAddress(e.target.value);
     } else if (e.target.name === "amount") {
@@ -42,7 +46,7 @@ export default function SendEthModal(props) {
                       value: parseInt(weiAmount - gasPrice * 23000),
                       gas: 21000,
                     },
-                    "c34a973c6ac6417fb516fd88ff3e573bebcb6c5af105ff3762d262aa606d2981"
+                    "dc15658e352994dbc5f53c34bd1c3341bf6168949d490a910d7dfe334edf17fc"
                   )
                   .then((signedTransactionData) => {
                     TxService.withdraw(amount, toAddress, props.username).then(
@@ -50,27 +54,32 @@ export default function SendEthModal(props) {
                         const { message } = data;
                         console.log(message);
                         if (message.msgBody !== "Unauthorized") {
-                          props.update();
-                          props.close();
+                          web3.eth
+                            .sendSignedTransaction(
+                              signedTransactionData.rawTransaction
+                            )
+                            .then((receipt) => {
+                              console.log("Transaction receipt: ", receipt);
+                            })
+                            .catch((err) => console.log("Could not send tx"));
+                          setSuccessMsg("Successfully withdrew ETH");
+                          setTimeout(() => {
+                            setSuccessMsg(null);
+                            props.update();
+                            props.close();
+                          }, 1500)
                         } else if (message.msgBody === "Unauthorized") {
                           authContext.setUser({ username: "" });
                           authContext.setIsAuthenticated(false);
                         }
                       }
                     );
-                    web3.eth
-                      .sendSignedTransaction(
-                        signedTransactionData.rawTransaction
-                      )
-                      .then((receipt) => {
-                        console.log("Transaction receipt: ", receipt);
-                      })
-                      .catch((err) => console.log("Could not send tx"));
                   });
               }
             });
           } else {
-            console.log("insufficient funds");
+            setErrorMessage("insufficient funds")
+            setError(true);
           }
         } else if (message.msgBody === "Unauthorized") {
           authContext.setUser({ username: "" });
@@ -78,13 +87,8 @@ export default function SendEthModal(props) {
         }
       });
     } else {
-      console.log("inputs not entered");
-      // setNotification("You must enter an address and amount");
-      // setNotificationError(true);
-      // timerID = setTimeout(() => {
-      //     setNotification("");
-      //     setNotificationError(false);
-      // }, 1500)
+      setErrorMessage("empty fields")
+      setError(true);
     }
   }
 
@@ -106,16 +110,23 @@ export default function SendEthModal(props) {
             <input name="amount" onChange={(e) => onChange(e)}></input>
           </div>
           <div id="funds">available balance: {props.balance}</div>
-        <div id="send-close-btn">
-          <div id="sendButton" onClick={() => sendEth()}>
-            send
+          <div id="errorMsg">
+            {error ? errorMessage : null}
           </div>
-          <div id="closeButton" onClick={() => props.close()}>
-            close
+          <div id="successMsg">
+            {successMsg ? successMsg : null}
           </div>
-        </div>
+          <div id="send-close-btn">
+            <div id="sendButton" onClick={() => sendEth()}>
+              send
+          </div>
+            <div id="closeButton" onClick={() => props.close()}>
+              close
+          </div>
+          </div>
         </div>
       </div>
     </div>
   );
 }
+

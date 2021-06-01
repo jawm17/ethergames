@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="icons-container">
         <div className="icons">
           <a href="https://www.facebook.com/">
-            <i class="fab fa-reddit"></i>
+            <i className="fab fa-reddit"></i>
           </a>
         </div>
         <div className="icons">
@@ -40,15 +40,6 @@ const Footer = () => {
           <li className="footer-page">token</li>
         </ul>
       </div>
-      {/* <div className="support-title">
-                <h1>More Supporters</h1>
-            </div>
-            <div className="support-container">
-                <div className="icons"><i className="fab fa-apple"></i></div>
-                <div className="icons"><i className="fab fa-google"></i></div>
-                <div className="icons"><i className="fab fa-js"></i></div>
-                <div className="icons"><i className="fab fa-github"></i></div>
-            </div> */}
       <div className="copy-write">
         <p>©2021 ethergames.io</p>
       </div>
