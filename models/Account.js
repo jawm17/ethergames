@@ -1,18 +1,22 @@
 const mongoose = require('mongoose');
 
-const UserSchema = new mongoose.Schema({
-    address: {
+const AccountSchema = new mongoose.Schema({
+    address:{
         type: String,
         required: true
     },
-    balance: {
+    plays: {
         type: Number,
         default: 0
     },
     scores: {
         type: Array,
         default: []
+    },
+    pot: {
+        type: Number,
+        default: 0
     }
 });
 
-module.exports = mongoose.model('User',UserSchema);
+module.exports = mongoose.model('Account',AccountSchema);
