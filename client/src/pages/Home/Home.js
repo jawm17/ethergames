@@ -87,7 +87,7 @@ export default function Home() {
                       </div>
                     </div>
                     <div className="slogan">
-                      <p>Play the games you onced loved and win ETH!</p>
+                      <p>Play Classic Arcade Games and win ETH.</p>
                     </div>
                   </div>
                 </div>
@@ -165,8 +165,8 @@ export default function Home() {
                     <img src={require("./pacBoy.gif")} />
                   </div>
                   <div>
-                    <h1>Jackpot: 0.8 ETH</h1>
-                    <p>High Score: 14000</p>
+                    <h1>COMING SOON</h1>
+                    <p>=============</p>
                   </div>
                 </div>
               </li>
