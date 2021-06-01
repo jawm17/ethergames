@@ -9,10 +9,19 @@ var web3 = new Web3(Web3.givenProvider);
 web3.eth.defaultChain = 'rinkeby';
 
 
+
 export default function NavBar(props) {
     const [address, setAddress] = useState("");
     const [balance, setBalance] = useState(0);
     const [colorStyle, setColorStyle] = useState({ borderColor: "rgb(72, 254, 12)", color: "rgb(72, 254, 12)" });
+
+    // var account = web3.eth.accounts[0];
+    // var accountInterval = setInterval(function() {
+    //   if (web3.eth.accounts[0] !== account) {
+    //     account = web3.eth.accounts[0];
+    //     updateInterface();
+    //   }
+    // }, 100);
 
     const style = {
         tetrisColor: {
@@ -80,10 +89,10 @@ export default function NavBar(props) {
 
     async function sendTx() {
         const transactionParameters = {
-
+            nonce: '0x00', // ignored by MetaMask
             to: '0x5da2958A3f525A9093f1CC5e132DAe8522cc997c', // Required except during contract publications.
             from: window.ethereum.selectedAddress, // must match user's active address.
-            value: '100000000000000', // Only required to send ether to the recipient from the initiating external account.
+            value: web3.utils.toHex('1000000000000000000') // Only required to send ether to the recipient from the initiating external account.
         };
 
         const txHash = await window.ethereum.request({
