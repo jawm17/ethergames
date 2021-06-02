@@ -43,15 +43,6 @@ export default function NavBar(props) {
         } else if (props.page === "pacman") {
             setColorStyle(style.pacmanColor)
         }
-        console.log("outside");
-        // if (window.ethereum.selectedAddress) {
-        //     console.log("inside");
-        //     setAddress(window.ethereum.selectedAddress);
-        //     getBalance(window.ethereum.selectedAddress);
-        //     if (isNaN(accountInterval)) {
-        //         monitorConnection();
-        //     }
-        // }
         requestAccount();
     }, []);
 
