@@ -1,25 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 import history from "../../history";
 import TxHistoryService from "../../services/TxHistoryService";
+import axios from "axios";
 import "./navBarStyle.css";
 var Web3 = require("web3");
 var web3 = new Web3(Web3.givenProvider);
 web3.eth.defaultChain = 'rinkeby';
 
-
-
 export default function NavBar(props) {
-    const [address, setAddress] = useState("");
-    const [balance, setBalance] = useState(0);
+    const { address, setAddress } = useContext(AuthContext);
+    const [balance, setBalance] = useState("...");
     const [colorStyle, setColorStyle] = useState({ borderColor: "rgb(72, 254, 12)", color: "rgb(72, 254, 12)" });
-
-    // var account = web3.eth.accounts[0];
-    // var accountInterval = setInterval(function() {
-    //   if (web3.eth.accounts[0] !== account) {
-    //     account = web3.eth.accounts[0];
-    //     updateInterface();
-    //   }
-    // }, 100);
+    var accountInterval;
 
     const style = {
         tetrisColor: {
@@ -50,24 +43,53 @@ export default function NavBar(props) {
         } else if (props.page === "pacman") {
             setColorStyle(style.pacmanColor)
         }
-        if (window.ethereum.selectedAddress) {
-            setAddress(window.ethereum.selectedAddress);
-            getBalance(window.ethereum.selectedAddress);
-        }
+        console.log("outside");
+        // if (window.ethereum.selectedAddress) {
+        //     console.log("inside");
+        //     setAddress(window.ethereum.selectedAddress);
+        //     getBalance(window.ethereum.selectedAddress);
+        //     if (isNaN(accountInterval)) {
+        //         monitorConnection();
+        //     }
+        // }
+        requestAccount();
     }, []);
+
+    async function createAccount(address) {
+        try {
+            const res = await axios.post("/user/register", { "address" : address });
+            console.log(res.data);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    function monitorConnection() {
+        accountInterval = setInterval(function () {
+            if (!window.ethereum.selectedAddress) {
+                setAddress("");
+                clearInterval(accountInterval);
+            }
+        }, 100);
+    }
 
     async function requestAccount() {
         window.ethereum.request({ method: 'eth_requestAccounts' }).then((accounts) => {
-            // sendTx();
-            console.log(accounts[0]);
             setAddress(accounts[0]);
+            getBalance(accounts[0]);
+            createAccount(accounts[0]);
+            if (isNaN(accountInterval)) {
+                monitorConnection();
+            }
         })
     }
 
     async function getBalance(address) {
         try {
+            const res = await axios.post("/user/info", {"address": address});
+            console.log(res.data);
+
             // get blockchain data
-            console.log("address" + address.toUpperCase());
             let newBalance = 0;
             await TxHistoryService.getBlockTx("0x5da2958A3f525A9093f1CC5e132DAe8522cc997c").then((blockData) => {
                 if (blockData) {
@@ -78,7 +100,7 @@ export default function NavBar(props) {
                     }
                 }
             });
-            setBalance(newBalance);
+            setBalance(Math.floor(newBalance / 0.0001));
         } catch (err) {
             console.log(err);
         }
@@ -86,17 +108,15 @@ export default function NavBar(props) {
 
     async function sendTx() {
         const transactionParameters = {
-            nonce: '0x00', // ignored by MetaMask
-            to: '0x5da2958A3f525A9093f1CC5e132DAe8522cc997c', // Required except during contract publications.
-            from: window.ethereum.selectedAddress, // must match user's active address.
-            value: web3.utils.toHex('100000000000000') // Only required to send ether to the recipient from the initiating external account.
+            nonce: '0x00',
+            to: '0x5da2958A3f525A9093f1CC5e132DAe8522cc997c', // ether games central address
+            from: window.ethereum.selectedAddress, // user's address
+            value: web3.utils.toHex('1000000000000000') // 0.001 ETH = 10 plays
         };
-
         const txHash = await window.ethereum.request({
             method: 'eth_sendTransaction',
             params: [transactionParameters],
         });
-
         console.log(txHash);
     }
 
@@ -113,76 +133,16 @@ export default function NavBar(props) {
                             {address ? address.slice(0, 13) + "..." : "Connect Wallet"}
                         </div>
                     </div>
-                    <div className="inline" style={address ? {"display" : "initial"} : {"display": "none"}}>
+                    <div className="inline" style={address ? { "display": "initial" } : { "display": "none" }}>
+                        <div className="balanceDisplay" style={colorStyle}>
+                            balance: {balance} token{balance > 1 || balance === 0 ? "s" : ""}
+                        </div>
+                    </div>
+                    <div className="inline" style={address ? { "display": "initial" } : { "display": "none" }}>
                         <div className="navButton" style={colorStyle} onClick={() => sendTx()}>Buy 10 Tokens</div>
                     </div>
                 </div>
             </nav>
         </>
     );
-
-    // const unauthenticatedNavBar = () => {
-    //     return (
-    //         <>
-    //             <nav id="nav">
-    //                 <h1 id="logoMain" style={colorStyle}  onClick={() => history.push("/")}>ethergames.io</h1>
-    //                 <div className="nav-links">
-    //                     <div className="inline">
-    //                         <div className="navButton" style={colorStyle}  onClick={() => history.push("/")}>Arcade</div>
-    //                     </div>
-    //                     <div className="inline">
-    //                         <div className="navButton" style={colorStyle}  onClick={() => history.push("/login")}>Log In</div>
-    //                     </div>
-    //                 </div>
-    //             </nav>
-    //         </>
-    //     )
-    // }
-
-    // const authenticatedNavBar = () => {
-    //     if (props.page === "account") {
-    //         return (
-    //             <>
-    //                 <nav id="nav">
-    //                     <h1 id="logoMain" style={colorStyle}  onClick={() => history.push("/")}>ethergames.io</h1>
-    //                     <div className="nav-links">
-    //                         <div className="inline">
-    //                             <div className="navButton" style={colorStyle}  onClick={() => history.push("/")}>Arcade</div>
-    //                         </div>
-    //                         <div className="inline">
-    //                             <div className="navButton" style={colorStyle}  onClick={() => onClickLogoutHandler()}>Log Out</div>
-    //                         </div>
-    //                     </div>
-    //                 </nav>
-    //             </>
-    //         )
-    //     } else {
-    //         return (
-    //             <>
-    //                 <nav id="nav">
-    //                     <h1 id="logoMain" style={colorStyle} onClick={() => history.push("/")}>ethergames.io</h1>
-    //                     <div className="nav-links">
-    //                         <div className="inline">
-    //                             <div className="navButton" style={colorStyle} onClick={() => history.push("/")}>Arcade</div>
-    //                         </div>
-    //                         <div className="inline">
-    //                             <div className="navButton" style={colorStyle} onClick={() => history.push("/account")}>Account</div>
-    //                         </div>
-    //                         {/* <label className="switch">
-    //                             <input type="checkbox" checked={staked} onClick={() => setStaked(!staked)} />
-    //                             <span className="slider round"></span>
-    //                             <div className="sliderTitle">{staked ? "paid" : "free"}</div>
-    //                         </label> */}
-    //                     </div>
-    //                 </nav>
-    //             </>
-    //         )
-    //     }
-    // }
-
-    // return (
-    //     <>
-    //         {!isAuthenticated ? unauthenticatedNavBar() : authenticatedNavBar()}
-    //     </>
-    // )
 }

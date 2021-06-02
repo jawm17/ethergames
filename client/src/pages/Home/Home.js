@@ -16,52 +16,52 @@ export default function Home() {
   // const [pacmanScore, setPacmanScore] = useState(0);
 
   useEffect(() => {
-    // getGameInfo();
+    getGameInfo();
   });
 
-  // function getGameInfo() {
-  //   GameService.getInfo("snake").then((data) => {
-  //     if (!data.message) {
-  //       if (data.scores.length > 0) {
-  //         let scoresArray = data.scores
-  //           .sort((a, b) => b.score - a.score)
-  //           .slice(0, 10);
-  //         setSnakeScore(scoresArray[0].score);
-  //       } else {
-  //         setSnakeScore(100);
-  //       }
-  //       setSnakePot(data.pot);
-  //     }
-  //   });
-  //   GameService.getInfo("tetris").then((data) => {
-  //     if (!data.message) {
-  //       if (data.scores.length > 0) {
-  //         let scoresArray = data.scores
-  //           .sort((a, b) => b.score - a.score)
-  //           .slice(0, 10);
-  //         setTetrisScore(scoresArray[0].score);
-  //       } else {
-  //         setTetrisScore(100);
-  //       }
-  //       setTetrisPot(data.pot);
-  //     }
-  //   });
-  //   GameService.getInfo("asteroids").then((data) => {
-  //     if (!data.message) {
-  //       if (data.scores.length > 0) {
-  //         let scoresArray = data.scores
-  //           .sort((a, b) => b.score - a.score)
-  //           .slice(0, 10);
-  //         setAsteroidsScore(scoresArray[0].score);
-  //       } else {
-  //         setAsteroidsScore(100);
-  //       }
-  //       setAsteroidsPot(data.pot);
-  //     } else {
-  //       console.log("error");
-  //     }
-  //   });
-  // }
+  function getGameInfo() {
+    GameService.getInfo("snake").then((data) => {
+      if (!data.message) {
+        if (data.scores.length > 0) {
+          let scoresArray = data.scores
+            .sort((a, b) => b.score - a.score)
+            .slice(0, 10);
+          setSnakeScore(scoresArray[0].score);
+        } else {
+          setSnakeScore(100);
+        }
+        setSnakePot(data.pot);
+      }
+    });
+    // GameService.getInfo("tetris").then((data) => {
+    //   if (!data.message) {
+    //     if (data.scores.length > 0) {
+    //       let scoresArray = data.scores
+    //         .sort((a, b) => b.score - a.score)
+    //         .slice(0, 10);
+    //       setTetrisScore(scoresArray[0].score);
+    //     } else {
+    //       setTetrisScore(100);
+    //     }
+    //     setTetrisPot(data.pot);
+    //   }
+    // });
+    // GameService.getInfo("asteroids").then((data) => {
+    //   if (!data.message) {
+    //     if (data.scores.length > 0) {
+    //       let scoresArray = data.scores
+    //         .sort((a, b) => b.score - a.score)
+    //         .slice(0, 10);
+    //       setAsteroidsScore(scoresArray[0].score);
+    //     } else {
+    //       setAsteroidsScore(100);
+    //     }
+    //     setAsteroidsPot(data.pot);
+    //   } else {
+    //     console.log("error");
+    //   }
+    // });
+  }
 
   return (
     <div>

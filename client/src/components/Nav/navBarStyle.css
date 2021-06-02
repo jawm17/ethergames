@@ -47,6 +47,22 @@ a:-webkit-any-link {
   cursor: pointer;
 }
 
+.balanceDisplay {
+  height: 40px;
+  padding: 20px;
+  margin-right: 20px;
+  border-radius: 8px;
+  border-color: black;
+  border-style: solid;
+  border-width: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(72, 254, 12);
+  letter-spacing: 0.05em;
+  cursor: pointer;
+}
+
 .inline {
   display: inline-block;
 }

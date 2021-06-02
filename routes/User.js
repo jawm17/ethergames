@@ -8,9 +8,9 @@ userRouter.post('/register', (req, res) => {
         if (err)
             res.status(500).json({ message: { msgBody: "Error has occured", msgError: true } });
         if (user)
-            res.status(400).json({ message: { msgBody: "Account already exists", msgError: true } });
+            res.status(200).json({ message: { msgBody: "Account already exists", msgError: true } });
         else {
-            const newUser = new User({ address});
+            const newUser = new User({ address });
             newUser.save(err => {
                 if (err)
                     res.status(500).json({ message: { msgBody: "Error has occured", msgError: true } });
@@ -22,7 +22,26 @@ userRouter.post('/register', (req, res) => {
 });
 
 //gets user info
-userRouter.get('/info', (req, res) => {
+userRouter.post('/info', (req, res) => {
+    const message = { msgBody: "Error has occured", msgError: true };
+    const { address } = req.body;
+    User.findOne({ address }).exec((err, document) => {
+        if (err) {
+            res.status(500).json({ message });
+        }
+        else {
+            res.status(201).json({
+                id: document._id,
+                balance: document.balance,
+                numTx: document.numTx,
+                scores: document.scores
+            });
+        }
+    });
+});
+
+//gets user info
+userRouter.get('/numTx', (req, res) => {
     const message = { msgBody: "Error has occured", msgError: true };
     User.findById({ _id: req.user._id }).exec((err, document) => {
         if (err) {
@@ -30,11 +49,7 @@ userRouter.get('/info', (req, res) => {
         }
         else {
             res.status(200).json({
-                id: document._id,
-                address: document.address,
-                balance: document.balance,
-                numTx: document.numTx,
-                scores: document.scores
+                numTx: document.numTx
             });
         }
     });
