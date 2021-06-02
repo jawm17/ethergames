@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import history from "../../history";
-import TxHistoryService from "../../services/TxHistoryService";
 import axios from "axios";
 import "./navBarStyle.css";
 var Web3 = require("web3");
@@ -12,6 +11,7 @@ export default function NavBar(props) {
     const { address, setAddress } = useContext(AuthContext);
     const [balance, setBalance] = useState("...");
     const [colorStyle, setColorStyle] = useState({ borderColor: "rgb(72, 254, 12)", color: "rgb(72, 254, 12)" });
+    const centralAddress = "0x5da2958A3f525A9093f1CC5e132DAe8522cc997c";
     var accountInterval;
 
     const style = {
@@ -48,8 +48,9 @@ export default function NavBar(props) {
 
     async function createAccount(address) {
         try {
-            const res = await axios.post("/user/register", { "address" : address });
-            console.log(res.data);
+            await axios.post("/user/register", { "address": address });
+            setAddress(address);
+            getBalance(address);
         } catch (err) {
             console.log(err);
         }
@@ -66,8 +67,6 @@ export default function NavBar(props) {
 
     async function requestAccount() {
         window.ethereum.request({ method: 'eth_requestAccounts' }).then((accounts) => {
-            setAddress(accounts[0]);
-            getBalance(accounts[0]);
             createAccount(accounts[0]);
             if (isNaN(accountInterval)) {
                 monitorConnection();
@@ -77,21 +76,35 @@ export default function NavBar(props) {
 
     async function getBalance(address) {
         try {
-            const res = await axios.post("/user/info", {"address": address});
-            console.log(res.data);
+            // get user info from db
+            const res = await axios.post("/user/info", { "address": address });
+            let { numTx, balance } = res.data;
 
-            // get blockchain data
-            let newBalance = 0;
-            await TxHistoryService.getBlockTx("0x5da2958A3f525A9093f1CC5e132DAe8522cc997c").then((blockData) => {
-                if (blockData) {
-                    for (var i = 0; i < blockData.result.length; i++) {
-                        if (blockData.result[i].from.toUpperCase() === address.toUpperCase()) {
-                            newBalance += blockData.result[i].value / 1000000000000000000;
-                        }
+            // get blockchain data from etherscan
+            const etherscanData = await axios.get(`https://api-rinkeby.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=8AAGX8PGJWQ9WDHYQ5N28SYKZ27ENKJ3VS`);
+            let blockData = etherscanData.data;
+
+            // check if new txs occurred 
+            if (blockData?.result.length > numTx) {
+                let incomingBalance = 0;
+
+                // update txCount in db
+                await axios.post("/user/update-numTx", { "address": address, "numTx": blockData.result.length });
+
+                // loop through new txs and record new ether
+                for (var i = blockData.result.length - 1; i >= numTx; i--) {
+                    if (blockData.result[i].to.toUpperCase() === centralAddress.toUpperCase()) {
+                        incomingBalance += blockData.result[i].value / 1000000000000000000;
                     }
                 }
-            });
-            setBalance(Math.floor(newBalance / 0.0001));
+
+                // update db balance with new ether
+                const res = await axios.post("/user/update-balance", { "address": address, "funds": incomingBalance });
+                setBalance(Math.floor(res.data.balance / 0.0001));
+            } else {
+                // no new txs occurred display balance
+                setBalance(Math.floor(balance / 0.0001));
+            }
         } catch (err) {
             console.log(err);
         }
@@ -112,7 +125,7 @@ export default function NavBar(props) {
     }
 
     return (
-        <>
+        <div>
             <nav id="nav">
                 <h1 id="logoMain" style={colorStyle} onClick={() => history.push("/")}>ethergames.io</h1>
                 <div className="nav-links">
@@ -134,6 +147,6 @@ export default function NavBar(props) {
                     </div>
                 </div>
             </nav>
-        </>
+        </div>
     );
 }
