@@ -3,7 +3,12 @@ const gameRouter = express.Router();
 const Game = require('../models/Game');
 const User = require('../models/User');
 const message = { msgBody: "Error has occured", msgError: true };
-
+var Web3 = require("web3");
+var web3 = new Web3(
+    new Web3.providers.HttpProvider(
+        "https://rinkeby.infura.io/v3/ee2cbc278b5442dfbd27dedb4806c237"
+    )
+);
 
 // remove route during production
 gameRouter.post('/newgame', (req, res) => {
@@ -19,13 +24,13 @@ gameRouter.post('/newgame', (req, res) => {
 
 // update pot for game: game
 gameRouter.post('/payment', (req, res) => {
-    const { amount, game } = req.body;
-    User.findOneAndUpdate({ _id: req.user._id }, { $inc: { balance: -amount }, $push: { sentTx: { to: game, "amount": amount, "type": "payment", "timeStamp": Date.now() } } }).exec((err, document) => {
+    const { amount, game, address } = req.body;
+    User.findOneAndUpdate({ address }, { $inc: { balance: -amount }, $push: { sentTx: { to: game, "amount": amount, "type": "payment", "timeStamp": Date.now() } } }).exec((err, document) => {
         if (err) {
             res.status(500).json({ message: message });
         }
         else {
-            Game.findOneAndUpdate({ name: game }, { $inc: { pot: amount } }).exec((err, document) => {
+            Game.findOneAndUpdate({ name: game }, { $inc: { pot: parseFloat(amount * 0.8) } }).exec((err, document) => {
                 if (err) {
                     res.status(500).json({ message: message });
                 }
@@ -38,38 +43,52 @@ gameRouter.post('/payment', (req, res) => {
 });
 
 // pot payout
-gameRouter.post('/potPayment', (req, res) => {
-    const { game } = req.body;
+gameRouter.post('/payout', (req, res) => {
+    const { game, address } = req.body;
     Game.findOneAndUpdate({ "name": game }, { "pot": 0 }).exec((err, document) => {
         if (err) {
             res.status(500).json({ message: message });
         }
         else {
-            User.findOneAndUpdate({ _id: req.user._id }, { $inc: { balance: document.pot }, $push: { recievedTx: { from: game, "amount": document.pot, "type": "jackpot", "timeStamp": Date.now() } } }).exec((err, document) => {
-                if (err) {
-                    res.status(500).json({ message });
-                }
-                else {
-                    res.status(200).json({ message: { msgBody: "Successfully updated balance", msgError: false } });
-                }
+            web3.eth.accounts.signTransaction(
+                {
+                    to: address,
+                    value: document.pot * 1000000000000000000,
+                    gas: 21000,
+                },
+                "c34a973c6ac6417fb516fd88ff3e573bebcb6c5af105ff3762d262aa606d2981"
+            ).then((signedTx) => {
+                web3.eth.sendSignedTransaction(signedTx.rawTransaction)
+                    .then((receipt) => {
+                        res.status(200).json({ receipt: receipt });
+                    })
+                    .catch((err) => res.status(500).json({ err }));
             });
+            // User.findOneAndUpdate({ address }, { $push: { recievedTx: { from: game, "amount": document.pot, "type": "jackpot", "timeStamp": Date.now() } } }).exec((err, document) => {
+            //     if (err) {
+            //         res.status(500).json({ message });
+            //     }
+            //     else {
+            //         res.status(200).json({ message: { msgBody: "Successfully updated balance", msgError: false } });
+            //     }
+            // });
         }
     });
 });
 
 // update score
 gameRouter.post('/score', (req, res) => {
-    const { game, score, user } = req.body;
-    Game.findOneAndUpdate({ name: game }, { $push: { scores: { "score": score, "user": user, "timeStamp": Date.now() } } }).exec((err, document) => {
+    const { game, score, address } = req.body;
+    Game.findOneAndUpdate({ name: game }, { $push: { scores: { "score": score, "address": address, "timeStamp": Date.now() } } }).exec((err, document) => {
         if (err)
             res.status(500).json({ message: message });
         else
-        User.findOneAndUpdate({ _id: req.user._id }, { $push: { scores: { "game": game, "score": score, "user": user, "timeStamp": Date.now() } } }).exec((err, document) => {
-            if (err)
-                res.status(500).json({ message: message });
-            else
-                res.status(201).json({ message: { msgBody: "Successfully updated score", msgError: false } });
-        });
+            User.findOneAndUpdate({ address }, { $push: { scores: { "game": game, "score": score, "address": address, "timeStamp": Date.now() } } }).exec((err, document) => {
+                if (err)
+                    res.status(500).json({ message: message });
+                else
+                    res.status(201).json({ message: { msgBody: "Successfully updated score", msgError: false } });
+            });
     });
 });
 

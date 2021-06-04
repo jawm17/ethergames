@@ -4,13 +4,14 @@ import { AuthContext } from '../../context/AuthContext';
 import GameService from "../../services/GameService";
 import Leaderboard from "../../components/Leaderboard";
 import TxService from "../../services/TxService";
+import axios from "axios"
 import NavBar from "../../components/Nav/NavBar";
 import JackPotAlert from "../../components/JackPotAlert";
 import "./tetrisStyle.css";
 
 export default function TetrisContainer() {
   const authContext = useContext(AuthContext);
-  let user = authContext.user.username;
+  let address = authContext.user.username;
 
   const [pot, setPot] = useState(0);
   const [scores, setScores] = useState([]);
@@ -41,10 +42,16 @@ export default function TetrisContainer() {
     });
   }
 
-  function gameStart() {
-    TxService.potPayment(0.00012, "tetris").then(data => {
-      setPot(pot + 0.00012);
-    });
+  async function gameStart() {
+    try {
+      await axios.post("/game/payment", { "amount": 0.0001, "game": "tetris", "address": address });
+      setPot(pot + 0.0001);
+    } catch (err) {
+      console.log(err);
+    }
+    // TxService.potPayment(0.00012, "tetris").then(data => {
+    //   setPot(pot + 0.00012);
+    // });
   }
 
   async function gameOver(score) {
@@ -68,7 +75,7 @@ export default function TetrisContainer() {
   }
 
   function newScore(score) {
-    GameService.newScore("tetris", user, score).then(data => {
+    GameService.newScore("tetris", address, score).then(data => {
       getInfo();
     });
   }
@@ -107,7 +114,7 @@ export default function TetrisContainer() {
         </div>
         <div id="boardAndInstruct">
           <div id="leaderBoardArea">
-            <Leaderboard scores={scores} page="tetris"/>
+            <Leaderboard scores={scores} page="tetris" />
           </div>
           <div id="instructionsTetris">
             <div>

@@ -13,6 +13,14 @@ const UserSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    sentTx: {
+        type: Array,
+        default: []
+    },
+    recievedTx: {
+        type: Array,
+        default: []
+    },
     scores: {
         type: Array,
         default: []

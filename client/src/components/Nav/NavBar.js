@@ -79,32 +79,31 @@ export default function NavBar(props) {
             // get user info from db
             const res = await axios.post("/user/info", { "address": address });
             let { numTx, balance } = res.data;
+            // set user's balance on display
+            setBalance(Math.floor(balance / 0.0001));
 
-            // get blockchain data from etherscan
-            const etherscanData = await axios.get(`https://api-rinkeby.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=8AAGX8PGJWQ9WDHYQ5N28SYKZ27ENKJ3VS`);
-            let blockData = etherscanData.data;
+            // // get blockchain data from etherscan
+            // const etherscanData = await axios.get(`https://api-rinkeby.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=8AAGX8PGJWQ9WDHYQ5N28SYKZ27ENKJ3VS`);
+            // let blockData = etherscanData.data;
 
-            // check if new txs occurred 
-            if (blockData?.result.length > numTx) {
-                let incomingBalance = 0;
+            // // check if new txs occurred 
+            // if (blockData?.result.length > numTx) {
+            //     let incomingBalance = 0;
 
-                // update txCount in db
-                await axios.post("/user/update-numTx", { "address": address, "numTx": blockData.result.length });
+            //     // update txCount in db
+            //     await axios.post("/user/update-numTx", { "address": address, "numTx": blockData.result.length });
 
-                // loop through new txs and record new ether
-                for (var i = blockData.result.length - 1; i >= numTx; i--) {
-                    if (blockData.result[i].to.toUpperCase() === centralAddress.toUpperCase()) {
-                        incomingBalance += blockData.result[i].value / 1000000000000000000;
-                    }
-                }
+            //     // loop through new txs and record new ether
+            //     for (var i = blockData.result.length - 1; i >= numTx; i--) {
+            //         if (blockData.result[i].to.toUpperCase() === centralAddress.toUpperCase()) {
+            //             incomingBalance += blockData.result[i].value / 1000000000000000000;
+            //         }
+            //     }
 
-                // update db balance with new ether
-                const res = await axios.post("/user/update-balance", { "address": address, "funds": incomingBalance });
-                setBalance(Math.floor(res.data.balance / 0.0001));
-            } else {
-                // no new txs occurred display balance
-                setBalance(Math.floor(balance / 0.0001));
-            }
+            //     // update db balance with new ether
+            //     const res = await axios.post("/user/update-balance", { "address": address, "funds": incomingBalance });
+            //     setBalance(Math.floor(res.data.balance / 0.0001));
+            // }
         } catch (err) {
             console.log(err);
         }
