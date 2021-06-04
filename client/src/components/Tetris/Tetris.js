@@ -7,12 +7,14 @@ import { useInterval } from "../../hooks/useInterval";
 import { useGameStatus } from "../../hooks/useGameStatus";
 import { AuthContext } from '../../context/AuthContext';
 import UserService from "../../services/UserService";
+import axios from "axios";
 import Stage from './Stage';
 import Display from './Display';
 import StartButton from "./StartButton";
 
 const Tetris = (props) => {
     const authContext = useContext(AuthContext);
+    let address = authContext.address;
     const [dropTime, setDropTime] = useState(null);
     const [gameOver, setGameOver] = useState(false);
     const [startDisplay, setStartDisplay] = useState("flex");
@@ -55,11 +57,12 @@ const Tetris = (props) => {
         }
     }
 
-    const startGame = () => {
-        UserService.getUserBalance().then(data => {
-            const { message, balance } = data;
-            if (!message) {
-                if (balance >= 0.00012) {
+    async function startGame() {
+        if (address) {
+            try {
+                const data = await axios.post("/user/balance", { "address": address });
+                const { balance } = data.data;
+                if (Math.floor(balance / 0.0001) >= 1) {
                     //reset everything
                     setStage(createStage());
                     setDropTime(1000);
@@ -74,14 +77,10 @@ const Tetris = (props) => {
                 } else {
                     alert("Please deposit funds in your account");
                 }
+            } catch (err) {
+                console.log(err);
             }
-            else if (message.msgBody === "Unauthorized") {
-                //Replace with middleware 
-                authContext.setUser({ username: "" });
-                authContext.setIsAuthenticated(false);
-                alert("Please deposit funds in your account");
-            }
-        });
+        }
     }
 
     const drop = () => {

@@ -10,12 +10,10 @@ import JackPotAlert from "../../components/JackPotAlert";
 import "./tetrisStyle.css";
 
 export default function TetrisContainer() {
-  const authContext = useContext(AuthContext);
-  let address = authContext.user.username;
+  const { address, balance, setBalance } = useContext(AuthContext);
 
   const [pot, setPot] = useState(0);
   const [scores, setScores] = useState([]);
-  const [scoreToBeat, setScoreToBeat] = useState(1000);
   const [jackPot, setJackPot] = useState(false);
   const [prevPot, setPrevPot] = useState(0);
 
@@ -23,61 +21,51 @@ export default function TetrisContainer() {
     getInfo();
   }, []);
 
-  function getInfo() {
-    return new Promise(resolve => {
-      GameService.getInfo("tetris").then(data => {
-        if (!data.message) {
-          setPot(data.pot);
-          let scoresArray = (data.scores.sort((a, b) => (b.score - a.score))).slice(0, 10);
-          if (scoresArray.length > 0) {
-            setScoreToBeat(scoresArray[0].score);
-            setScores(scoresArray);
-          }
-          resolve();
-        } else {
-          console.log("error");
-          resolve();
-        }
-      });
-    });
+  async function getInfo() {
+    try {
+      const res = await axios.get("/game/info/tetris");
+      const { data } = res;
+      let scoresArray = (data.scores.sort((a, b) => (b.score - a.score))).slice(0, 10);
+      setPot(data.pot);
+      setScores(scoresArray);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   async function gameStart() {
     try {
       await axios.post("/game/payment", { "amount": 0.0001, "game": "tetris", "address": address });
       setPot(pot + 0.0001);
+      setBalance(balance - 1);
     } catch (err) {
       console.log(err);
     }
-    // TxService.potPayment(0.00012, "tetris").then(data => {
-    //   setPot(pot + 0.00012);
-    // });
   }
 
   async function gameOver(score) {
     await getInfo();
-    // multiple scores
-    if (scores.length >= 1) {
-      // top score
-      if (score > scores[0].score) {
-        GameService.potPayout("tetris").then(data => {
-          setPrevPot(pot);
-          setJackPot(true);
-          newScore(score);
-        });
-      } else {
+    if (scores.length < 1 || score > scores[0].score) {
+      try {
+        setPrevPot(pot);
+        setJackPot(true);
         newScore(score);
+        await axios.post("/game/payout", { "game": "tetris", "address": address });
+      } catch (err) {
+        console.log(err);
       }
     } else {
-      // no scores set
       newScore(score);
     }
   }
 
-  function newScore(score) {
-    GameService.newScore("tetris", address, score).then(data => {
+  async function newScore(score) {
+    try {
+      await axios.post("/game/score", { "game": "tetris", "address": address, "score": score });
       getInfo();
-    });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
 
@@ -108,7 +96,7 @@ export default function TetrisContainer() {
             <div className="dotTetris">
             </div>
             <div id="highScore">
-              Score to beat: {scoreToBeat}
+              Score to beat: {scores[0]?.score || 1000}
             </div>
           </div>
         </div>

@@ -159,7 +159,7 @@ export default function SnakeGame(props) {
   }
 
   const initGame = () => {
-    if (gameOver) {
+    if (gameOver && address) {
       confirmPayment();
     }
   }

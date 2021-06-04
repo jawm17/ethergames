@@ -219,7 +219,7 @@ export default function Asteroids(props) {
     }
 
     async function newGame() {
-        if (gameOverBool === true) {
+        if (gameOverBool === true && address) {
             setGameOverBool(false);
             try {
                 const data = await axios.post("/user/balance", { "address": address });
