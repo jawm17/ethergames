@@ -1,0 +1,41 @@
+#userInfoArea{
+    height:98%;
+    width: 98%;
+    border: red solid 3px;
+}
+#userInfo-container{
+    height:98%;
+    width: 98%;
+    border: rgb(225, 184, 184) solid 3px;
+}
+#userInfoInner-container{
+    height:98%;
+    width: 98%;
+    border: rgb(106, 255, 0) solid 3px;
+
+}
+#userInfo-container{
+    height:98%;
+    width: 98%;
+    border: rgb(64, 0, 255) solid 3px;
+
+}
+#userTokenBalence,#userAdress{
+    display: flex;
+    align-items: center;
+    height: 40%;
+}
+#userTokenBalence h1,#userAdress h1{
+    padding-right: 20px;
+    font-size: 1.5rem;
+  }
+#userTokenBalence p,#userAdress p{
+  font-size: 1.2rem;
+}
+/* Token Balence */
+#userTokenBalence{
+    display: flex;
+}
+/* User Adress */
+#userAdress{
+}
