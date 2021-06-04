@@ -22,9 +22,9 @@ app.use(router);
 
 // Connect to the Mongo DB
 if (process.env.NODE_ENV === "production") {
-  mongoose.connect("mongodb+srv://koikoi5:koikoi5@cluster0.4ywri.mongodb.net/Cluster0?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
+  mongoose.connect("mongodb://localhost:27017/ethGames", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 } else {
-  mongoose.connect("mongodb+srv://koikoi5:koikoi5@cluster0.4ywri.mongodb.net/Cluster0?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
+  mongoose.connect("mongodb://localhost:27017/ethGames", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 }
 
 // Start the API server

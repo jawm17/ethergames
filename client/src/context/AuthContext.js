@@ -1,24 +1,28 @@
-import React, {createContext,useState,useEffect} from 'react';
-
+import React, { createContext, useState, useEffect } from 'react';
+import axios from "axios";
 export const AuthContext = createContext();
 
-export default ({ children })=>{
-    const [user,setUser] = useState(null);
-    const [isAuthenticated,setIsAuthenticated] = useState(false);
-    const [isLoaded,setIsLoaded] = useState(false);
+export default ({ children }) => {
+    const [address, setAddress] = useState("");
 
-    useEffect(()=>{
-            setUser("a");
-            setIsAuthenticated(true);
-            setIsLoaded(true);
-    },[]);
+    // useEffect(() => {
+    //     if(address) {
+    //         createAccount();
+    //     }
+    // }, [address]);
+
+    // async function createAccount() {
+    //     try {
+    //         const res = await axios.post("/user/register", { "address" : address });
+    //         console.log(res.data);
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // }
 
     return (
-        <div>
-            {!isLoaded ? <h1> </h1> : 
-            <AuthContext.Provider value={{user,setUser,isAuthenticated,setIsAuthenticated}}>
-                { children }
-            </AuthContext.Provider>}
-        </div>
-    )
+        <AuthContext.Provider value={{ address, setAddress}}>
+            { children}
+        </AuthContext.Provider>
+    );
 }

@@ -1,6 +1,5 @@
 const express = require('express');
 const gameRouter = express.Router();
-const passport = require('passport');
 const Game = require('../models/Game');
 const User = require('../models/User');
 const message = { msgBody: "Error has occured", msgError: true };
@@ -19,7 +18,7 @@ gameRouter.post('/newgame', (req, res) => {
 });
 
 // update pot for game: game
-gameRouter.post('/payment', passport.authenticate('jwt', { session: false }), (req, res) => {
+gameRouter.post('/payment', (req, res) => {
     const { amount, game } = req.body;
     User.findOneAndUpdate({ _id: req.user._id }, { $inc: { balance: -amount }, $push: { sentTx: { to: game, "amount": amount, "type": "payment", "timeStamp": Date.now() } } }).exec((err, document) => {
         if (err) {
@@ -39,7 +38,7 @@ gameRouter.post('/payment', passport.authenticate('jwt', { session: false }), (r
 });
 
 // pot payout
-gameRouter.post('/potPayment', passport.authenticate('jwt', { session: false }), (req, res) => {
+gameRouter.post('/potPayment', (req, res) => {
     const { game } = req.body;
     Game.findOneAndUpdate({ "name": game }, { "pot": 0 }).exec((err, document) => {
         if (err) {
@@ -59,7 +58,7 @@ gameRouter.post('/potPayment', passport.authenticate('jwt', { session: false }),
 });
 
 // update score
-gameRouter.post('/score', passport.authenticate('jwt', { session: false }), (req, res) => {
+gameRouter.post('/score', (req, res) => {
     const { game, score, user } = req.body;
     Game.findOneAndUpdate({ name: game }, { $push: { scores: { "score": score, "user": user, "timeStamp": Date.now() } } }).exec((err, document) => {
         if (err)
