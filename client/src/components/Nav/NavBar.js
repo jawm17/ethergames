@@ -8,8 +8,7 @@ var web3 = new Web3(Web3.givenProvider);
 web3.eth.defaultChain = 'rinkeby';
 
 export default function NavBar(props) {
-    const { address, setAddress } = useContext(AuthContext);
-    const [balance, setBalance] = useState("...");
+    const { address, setAddress, balance, setBalance } = useContext(AuthContext);
     const [colorStyle, setColorStyle] = useState({ borderColor: "rgb(72, 254, 12)", color: "rgb(72, 254, 12)" });
     const centralAddress = "0x5da2958A3f525A9093f1CC5e132DAe8522cc997c";
     var accountInterval;

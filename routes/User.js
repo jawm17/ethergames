@@ -5,6 +5,7 @@ const message = { msgBody: "Error has occured", msgError: true };
 const axios = require("axios");
 const centralAddress = "0x5da2958A3f525A9093f1CC5e132DAe8522cc997c";
 
+// CHECK FOR TXS SENT TO ADDRESS THAT ARE NOT REGISTERED!!!! ----------------------------------------------------------------
 setInterval(async function () {
     try {
         const etherscanData = await axios.get(`https://api-rinkeby.etherscan.io/api?module=account&action=txlist&address=${centralAddress}&startblock=0&endblock=99999999&sort=asc&apikey=8AAGX8PGJWQ9WDHYQ5N28SYKZ27ENKJ3VS`);

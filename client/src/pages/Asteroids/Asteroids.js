@@ -1,10 +1,12 @@
 import React, { useState, useContext } from "react";
 import UserService from '../../services/UserService';
 import { AuthContext } from '../../context/AuthContext';
+import axios from "axios";
 import "./asteroidsStyle.css";
 
 export default function Asteroids(props) {
     const authContext = useContext(AuthContext);
+    let address = authContext.address;
     const FPS = 30; // frames per second
     const FRICTION = 0.7; // friction coefficient of space (0 = no friction, 1 = lots of friction)
     const GAME_LIVES = 3; // starting number of lives
@@ -216,42 +218,35 @@ export default function Asteroids(props) {
         return roid;
     }
 
-    function newGame() {
+    async function newGame() {
         if (gameOverBool === true) {
             setGameOverBool(false);
-            UserService.getUserBalance().then(data => {
-                const { message, balance } = data;
-                if (!message) {
-                    if (balance >= 0.00012) {
-                        props.start();
-                        clearInterval(interval);
-                        setStartDisplay("none");
-                        setEndDisplay("none");
-                        canv = document.getElementById("asteroidsCanvas");
-                        ctx = canv.getContext("2d");
-                        level = 0;
-                        setDisplayLevel(0);
-                        lives = GAME_LIVES;
-                        setScore(0);
-                        gameScore = 0;
-                        ship = newShip();
-                        interval = setInterval(update, 1000 / FPS);
-                        document.addEventListener("keydown", keyDown);
-                        document.addEventListener("keyup", keyUp);
-
-                        newLevel();
-                    } else {
-                        setGameOverBool(true);
-                        alert("Please deposit funds in your account");
-                    }
-                }
-                else if (message.msgBody === "Unauthorized") {
-                    //Replace with middleware 
-                    authContext.setUser({ username: "" });
-                    authContext.setIsAuthenticated(false);
+            try {
+                const data = await axios.post("/user/balance", { "address": address });
+                const { balance } = data.data;
+                if (Math.floor(balance / 0.0001) >= 1) {
+                    props.start();
+                    clearInterval(interval);
+                    setStartDisplay("none");
+                    setEndDisplay("none");
+                    canv = document.getElementById("asteroidsCanvas");
+                    ctx = canv.getContext("2d");
+                    level = 0;
+                    setDisplayLevel(0);
+                    lives = GAME_LIVES;
+                    setScore(0);
+                    gameScore = 0;
+                    ship = newShip();
+                    interval = setInterval(update, 1000 / FPS);
+                    document.addEventListener("keydown", keyDown);
+                    document.addEventListener("keyup", keyUp);
+                    newLevel();
+                } else {
                     alert("Please deposit funds in your account");
                 }
-            });
+            } catch (err) {
+                    console.log(err)
+            }
         }
     }
 
@@ -458,7 +453,7 @@ export default function Asteroids(props) {
                 ctx.arc(ship.lasers[i].x, ship.lasers[i].y, ship.r * 0.25, 0, Math.PI * 2, false);
                 ctx.fill();
             }
-        }   
+        }
 
         if (ship.dead) {
             // after the ship has gotten destroyed, start a new game
@@ -625,25 +620,25 @@ export default function Asteroids(props) {
     return (
         <div id="asteroidsGameArea" tabIndex="0" style={{ outline: "none" }}>
             <div id="startScreen" style={style.startScreen}>
-                    <div id="startInfo">
-                        <div id="snakeStartTitle">
-                            ASTEROIDS
+                <div id="startInfo">
+                    <div id="snakeStartTitle">
+                        ASTEROIDS
                         </div>
-                        <div id="snakeStartSub">
-                            Press play to start
+                    <div id="snakeStartSub">
+                        Press play to start
                         </div>
-                    </div>
                 </div>
-                <div id="startScreen" style={style.endScreen}>
-                    <div id="startInfo">
-                        <div id="snakeEndTitle">
-                            Game Over
+            </div>
+            <div id="startScreen" style={style.endScreen}>
+                <div id="startInfo">
+                    <div id="snakeEndTitle">
+                        Game Over
                         </div>
-                        <div id="snakeStartSub">
-                            Press play to start
+                    <div id="snakeStartSub">
+                        Press play to start
                         </div>
-                    </div>
                 </div>
+            </div>
             <canvas id="asteroidsCanvas" width="760" height="570"></canvas>
             <div id="asteroidsScore">score: {score}</div>
             <div id="asteroidsPlayBtn" onClick={() => newGame()}>

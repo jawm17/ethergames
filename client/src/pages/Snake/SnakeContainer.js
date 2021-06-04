@@ -9,8 +9,7 @@ import JackPotAlert from "../../components/JackPotAlert";
 import "./snakeStyle.css";
 
 export default function SnakeContainer() {
-  const authContext = useContext(AuthContext);
-  let address = authContext.address;
+  const { address, balance, setBalance } = useContext(AuthContext);
 
   const [score, setScore] = useState(0);
   const [pot, setPot] = useState(0);
@@ -42,6 +41,7 @@ export default function SnakeContainer() {
     try {
       await axios.post("/game/payment", { "amount": 0.0001, "game": "snake", "address": address });
       setPot(pot + 0.0001);
+      setBalance(balance - 1);
       setScore(0);
     } catch (err) {
       console.log(err);
@@ -97,7 +97,7 @@ export default function SnakeContainer() {
             <div className="dot">
             </div>
             <div id="highScore">
-              Score to beat: {scores[0]?.score || 0}
+              Score to beat: {scores[0]?.score || 1000}
             </div>
             <div id="scoreSnake">
               Score: {score}

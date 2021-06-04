@@ -4,6 +4,7 @@ export const AuthContext = createContext();
 
 export default ({ children }) => {
     const [address, setAddress] = useState("");
+    const [balance, setBalance] = useState("");
 
     // useEffect(() => {
     //     if(address) {
@@ -11,17 +12,19 @@ export default ({ children }) => {
     //     }
     // }, [address]);
 
-    // async function createAccount() {
+    // async function getBalance() {
     //     try {
-    //         const res = await axios.post("/user/register", { "address" : address });
-    //         console.log(res.data);
+    //         const res = await axios.post("/user/balance", { "address": address });
+    //         let { balance } = res.data;
+    //         // set user's balance on display
+    //         setBalance(Math.floor(balance / 0.0001));
     //     } catch (err) {
     //         console.log(err);
     //     }
     // }
 
     return (
-        <AuthContext.Provider value={{ address, setAddress}}>
+        <AuthContext.Provider value={{ address, setAddress, balance, setBalance }}>
             { children}
         </AuthContext.Provider>
     );
