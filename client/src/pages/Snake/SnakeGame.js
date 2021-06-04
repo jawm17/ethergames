@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import UserService from '../../services/UserService';
+import axios from "axios";
 import { AuthContext } from '../../context/AuthContext';
 import "./snakeStyle.css";
 import { useInterval } from "./useInterval";
-import ConfirmPaymentModal from "../../components/ConfirmPaymentModal";
 var CANVAS_SIZE = [1250, 670];
 var SNAKE_START = [
   [1, 10],
@@ -22,7 +22,7 @@ var DIRECTIONS = {
 
 export default function SnakeGame(props) {
   const authContext = useContext(AuthContext);
-
+  let address = authContext.address;
   const canvasRef = useRef();
   const [confirmingPayment, setConfirmingPayment] = useState(false);
   const [snake, setSnake] = useState(SNAKE_START);
@@ -57,7 +57,6 @@ export default function SnakeGame(props) {
       borderBottomLeftRadius: 20,
       justifyContent: "center",
       alignItems: "center",
-
     }
   }
 
@@ -160,31 +159,42 @@ export default function SnakeGame(props) {
   }
 
   const initGame = () => {
-    if (gameOver) {
-      
-       confirmPayment();
-   
+    if (gameOver && address) {
+      confirmPayment();
+    }
   }
-}
 
-  function confirmPayment() {
-    UserService.getUserBalance().then(data => {
-      const { message, balance } = data;
-      if (!message) {
-        if (balance >= 0.00012) {
-          startGame();
-          props.start();
-          setConfirmingPayment(false);
-        } else {
-          alert("Please deposit funds in your account");
-        }
-      }
-      else if (message.msgBody === "Unauthorized") {
-        authContext.setUser({ username: "" });
-        authContext.setIsAuthenticated(false);
+  async function confirmPayment() {
+    try {
+      const data = await axios.post("/user/balance", { "address": address });
+      const { balance } = data.data;
+      if (Math.floor(balance / 0.0001) >= 1) {
+        startGame();
+        props.start();
+        setConfirmingPayment(false);
+      } else {
         alert("Please deposit funds in your account");
       }
-    });
+    } catch (err) {
+      console.log(err);
+    }
+    // UserService.getUserBalance().then(data => {
+    //   const { message, balance } = data;
+    //   if (!message) {
+    //     if (balance >= 0.00012) {
+    //       startGame();
+    //       props.start();
+    //       setConfirmingPayment(false);
+    //     } else {
+    //       alert("Please deposit funds in your account");
+    //     }
+    //   }
+    //   else if (message.msgBody === "Unauthorized") {
+    //     authContext.setUser({ username: "" });
+    //     authContext.setIsAuthenticated(false);
+    //     alert("Please deposit funds in your account");
+    //   }
+    // });
   }
 
   useEffect(() => {

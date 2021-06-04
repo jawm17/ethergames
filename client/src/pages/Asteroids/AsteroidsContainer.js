@@ -7,16 +7,14 @@ import NavBar from "../../components/Nav/NavBar";
 import Leaderboard from "../../components/Leaderboard";
 import Footer from "../../components/Footer/Footer";
 import JackPotAlert from "../../components/JackPotAlert";
+import axios from "axios";
 import "./asteroidsStyle.css";
 
 export default function AsteroidsContainer() {
-
-    const authContext = useContext(AuthContext);
-    let user = authContext.user.username;
+    const { address, balance, setBalance } = useContext(AuthContext);
 
     const [pot, setPot] = useState(0);
     const [scores, setScores] = useState([]);
-    const [scoreToBeat, setScoreToBeat] = useState(1000);
     const [prevPot, setPrevPot] = useState(0);
     const [jackPot, setJackPot] = useState(false);
 
@@ -25,53 +23,49 @@ export default function AsteroidsContainer() {
     }, []);
 
 
-    function getInfo() {
-        return new Promise(resolve => {
-            GameService.getInfo("asteroids").then(data => {
-                if (!data.message) {
-                    setPot(data.pot);
-                    if (data.scores.length > 0) {
-                        let scoresArray = (data.scores.sort((a, b) => (b.score - a.score))).slice(0, 10);
-                        setScoreToBeat(scoresArray[0].score);
-                        setScores(scoresArray);
-                    }
-                    resolve();
-                } else {
-                    console.log("error");
-                    resolve();
-                }
-            });
-        });
+    async function getInfo() {
+        try {
+            const res = await axios.get("/game/info/asteroids");
+            const { data } = res;
+            let scoresArray = (data.scores.sort((a, b) => (b.score - a.score))).slice(0, 10);
+            setPot(data.pot);
+            setScores(scoresArray);
+        } catch (err) {
+            console.log(err);
+        }
     }
 
-    function gameStart() {
-        TxService.potPayment(0.00012, "asteroids").then(data => {
-            setPot(pot + 0.00012);
-        });
+    async function gameStart() {
+        try {
+            await axios.post("/game/payment", { "amount": 0.0001, "game": "asteroids", "address": address });
+            setPot(pot + 0.0001);
+            setBalance(balance - 1);
+        } catch (err) {
+            console.log(err);
+        }
     }
 
-    function newScore(score) {
-        GameService.newScore("asteroids", user, score).then(data => {
+    async function newScore(score) {
+        try {
+            await axios.post("/game/score", { "game": "asteroids", "address": address, "score": score });
             getInfo();
-        });
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     async function gameOver(score) {
         await getInfo();
-        if (scores.length >= 1) {
-            // multiple scores
-            if (score > scores[0].score) {
-                // top score
-                GameService.potPayout("asteroids").then(data => {
-                    setPrevPot(pot);
-                    setJackPot(true);
-                    newScore(score);
-                });
-            } else {
+        if (scores.length < 1 || score > scores[0].score) {
+            try {
+                setPrevPot(pot);
+                setJackPot(true);
                 newScore(score);
+                await axios.post("/game/payout", { "game": "asteroids", "address": address });
+            } catch (err) {
+                console.log(err);
             }
         } else {
-            // no scores set
             newScore(score);
         }
     }
@@ -100,7 +94,7 @@ export default function AsteroidsContainer() {
                         <div className="dotAsteroids">
                         </div>
                         <div id="highScore">
-                            Score to beat: {scoreToBeat}
+                            Score to beat: {scores[0]?.score || 1000}
                         </div>
                     </div>
                 </div>

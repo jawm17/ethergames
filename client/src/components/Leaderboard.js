@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import ScoreBoardScore from "./ScoreBoardScore";
 import "./styles/leaderboardStyle.css";
 
 export default function Leaderboard(props) {
-    const [colorStyle, setColorStyle] = useState({color: "white" });
+    const [colorStyle, setColorStyle] = useState({ color: "white" });
 
     const style = {
         tetrisColor: {
@@ -40,7 +40,7 @@ export default function Leaderboard(props) {
             <div id="leaderBoard">
                 {props.scores.map(score => {
                     return <ScoreBoardScore
-                        user={score.user}
+                        user={score.address}
                         score={score.score}
                         key={score.timeStamp}
                     />

@@ -1,22 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
+import { AuthContext } from '../../context/AuthContext';
 import NavBar from "../../components/Nav/NavBar";
 import SnakeGame from "./SnakeGame";
-import TxService from "../../services/TxService";
-import GameService from "../../services/GameService";
-import { AuthContext } from '../../context/AuthContext';
-import "./snakeStyle.css";
+import axios from "axios";
 import Footer from "../../components/Footer/Footer"
 import Leaderboard from "../../components/Leaderboard";
 import JackPotAlert from "../../components/JackPotAlert";
+import "./snakeStyle.css";
 
 export default function SnakeContainer() {
-  const authContext = useContext(AuthContext);
-  let user = authContext.user.username;
+  const { address, balance, setBalance } = useContext(AuthContext);
 
   const [score, setScore] = useState(0);
   const [pot, setPot] = useState(0);
   const [scores, setScores] = useState([]);
-  const [scoreToBeat, setScoreToBeat] = useState(1000);
   const [jackPot, setJackPot] = useState(false);
   const [prevPot, setPrevPot] = useState(0);
 
@@ -24,66 +21,61 @@ export default function SnakeContainer() {
     getInfo();
   }, []);
 
-
-  function getInfo() {
-    return new Promise(resolve => {
-      GameService.getInfo("snake").then(data => {
-        if (!data.message) {
-          let scoresArray = (data.scores.sort((a, b) => (b.score - a.score))).slice(0, 10);
-          setPot(data.pot);
-          setScores(scoresArray);
-          if (scoresArray.length > 0) {
-            setScoreToBeat(scoresArray[0].score);
-          }
-          resolve();
-        } else {
-          console.log("game info error");
-          resolve();
-        }
-      });
-    });
+  async function getInfo() {
+    try {
+      const res = await axios.get("/game/info/snake");
+      const { data } = res;
+      let scoresArray = (data.scores.sort((a, b) => (b.score - a.score))).slice(0, 10);
+      setPot(data.pot);
+      setScores(scoresArray);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   function incrementScore() {
     setScore(score + 5);
   }
 
-  function gameStart() {
-    TxService.potPayment(0.00012, "snake").then(data => {
-      setPot(pot + 0.00012);
-    });
-    setScore(0);
+  async function gameStart() {
+    try {
+      await axios.post("/game/payment", { "amount": 0.0001, "game": "snake", "address": address });
+      setPot(pot + 0.0001);
+      setBalance(balance - 1);
+      setScore(0);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
-  function newScore() {
-    GameService.newScore("snake", user, score).then(data => {
+  async function newScore() {
+    try {
+      await axios.post("/game/score", { "game": "snake", "address": address, "score": score });
       getInfo();
-    });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   async function gameOver() {
     await getInfo();
-    if (scores.length >= 1) {
-      // multiple scores
-      if (score > scores[0].score) {
-        // top score
-        GameService.potPayout("snake").then(data => {
-          setPrevPot(pot);
-          setJackPot(true);
-          newScore();
-        });
-      } else {
+    if (scores.length < 1 || score > scores[0].score) {
+      try {
+        setPrevPot(pot);
+        setJackPot(true);
         newScore();
+        await axios.post("/game/payout", { "game": "snake", "address": address });
+      } catch (err) {
+        console.log(err);
       }
     } else {
-      // no scores set
       newScore();
     }
   }
 
   return (
     <div>
-      <NavBar page="snake"/>
+      <NavBar page="snake" />
       {jackPot ? (
         <JackPotAlert
           close={() => setJackPot(false)}
@@ -91,9 +83,6 @@ export default function SnakeContainer() {
         />
       ) : null}
       <div id="container" tabIndex="0" style={{ outline: "none" }}>
-        {/* <div id="closeGameButton" onClick={() => history.push("/")}>
-          <img id="closeX" src="https://firebasestorage.googleapis.com/v0/b/gamesresources-28440.appspot.com/o/x.png?alt=media&token=fc3b3baa-be28-4071-a4e1-271b96c5995f" alt="close button"></img>
-        </div> */}
         <SnakeGame inc={() => incrementScore()} start={() => gameStart()} gameOver={() => gameOver()} />
         <div id="info">
           <div id="top">
@@ -108,7 +97,7 @@ export default function SnakeContainer() {
             <div className="dot">
             </div>
             <div id="highScore">
-              Score to beat: {scoreToBeat}
+              Score to beat: {scores[0]?.score || 1000}
             </div>
             <div id="scoreSnake">
               Score: {score}
@@ -119,7 +108,7 @@ export default function SnakeContainer() {
         <div id="boardAndInstruct">
 
           <div id="leaderBoardArea">
-            <Leaderboard scores={scores} page="snake"/>
+            <Leaderboard scores={scores} page="snake" />
           </div>
 
           <div id="instructions">

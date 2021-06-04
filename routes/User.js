@@ -2,6 +2,37 @@ const express = require('express');
 const userRouter = express.Router();
 const User = require('../models/User');
 const message = { msgBody: "Error has occured", msgError: true };
+const axios = require("axios");
+const centralAddress = "0x5da2958A3f525A9093f1CC5e132DAe8522cc997c";
+
+// CHECK FOR TXS SENT TO ADDRESS THAT ARE NOT REGISTERED!!!! ----------------------------------------------------------------
+setInterval(async function () {
+    try {
+        const etherscanData = await axios.get(`https://api-rinkeby.etherscan.io/api?module=account&action=txlist&address=${centralAddress}&startblock=0&endblock=99999999&sort=asc&apikey=8AAGX8PGJWQ9WDHYQ5N28SYKZ27ENKJ3VS`);
+        let blockData = etherscanData.data;
+        if (blockData.result.length > 0) {
+            User.findOne({ "address": centralAddress }).exec((err, document) => {
+                if (blockData.result.length > document.numTx) {
+                    let incomingTxs = [];
+                    // loop through new txs and push them to array
+                    for (var i = blockData.result.length - 1; i >= document.numTx; i--) {
+                        if (blockData.result[i].to.toUpperCase() === centralAddress.toUpperCase()) {
+                            incomingTxs.push(blockData.result[i]);
+                        }
+                    }
+                    // update each user balance 
+                    incomingTxs.forEach(tx => {
+                        User.findOneAndUpdate({ "address": tx.from }, { $inc: { balance: parseFloat(tx.value / 1000000000000000000) } }).exec();
+                    });
+                    // update txCount in db
+                    User.findOneAndUpdate({ "address": centralAddress }, { numTx: blockData.result.length }).exec();
+                }
+            });
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}, 10000);
 
 userRouter.post('/register', (req, res) => {
     const { address } = req.body;
@@ -43,7 +74,7 @@ userRouter.post('/info', (req, res) => {
 //gets user info
 userRouter.post('/numTx', (req, res) => {
     const { address } = req.body;
-    User.findOne({address}).exec((err, document) => {
+    User.findOne({ address }).exec((err, document) => {
         if (err) {
             res.status(500).json({ message });
         }
