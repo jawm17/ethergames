@@ -165,8 +165,8 @@ export default function Home() {
                     <img src={require("./pacBoy.gif")} alt="pacman game animation"/>
                   </div>
                   <div>
-                    <h1>Jackpot: 0.8 ETH</h1>
-                    <p>High Score: 14000</p>
+                    <h1>COMING SOON</h1>
+                    <p>=============</p>
                   </div>
                 </div>
               </li>
