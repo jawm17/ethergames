@@ -9,6 +9,8 @@ web3.eth.defaultChain = 'rinkeby';
 
 export default function NavBar(props) {
     const { address, setAddress, balance, setBalance } = useContext(AuthContext);
+    // const [address, setAddress] = useState("");
+    // const [balance, setBalance] = useState("");
     const [colorStyle, setColorStyle] = useState({ borderColor: "rgb(72, 254, 12)", color: "rgb(72, 254, 12)" });
     const centralAddress = "0x5da2958A3f525A9093f1CC5e132DAe8522cc997c";
     var accountInterval;
@@ -42,8 +44,20 @@ export default function NavBar(props) {
         } else if (props.page === "pacman") {
             setColorStyle(style.pacmanColor)
         }
-        requestAccount();
     }, []);
+
+    useEffect(() => {
+        if(window.ethereum.selectedAddress) {
+            console.log("-------------------------------------------------------------------------")
+            setAddress(window.ethereum.selectedAddress);
+            getBalance(window.ethereum.selectedAddress);
+            if (isNaN(accountInterval)) {
+                monitorConnection();
+            }
+        } else {
+            requestAccount();
+        }
+    }, [window.ethereum.selectedAddress]);
 
     async function createAccount(address) {
         try {
@@ -77,7 +91,7 @@ export default function NavBar(props) {
         try {
             // get user info from db
             const res = await axios.post("/user/info", { "address": address });
-            let { numTx, balance } = res.data;
+            let { numTx, balance } = res.data.document;
             // set user's balance on display
             setBalance(Math.floor(balance / 0.0001));
 
@@ -120,6 +134,13 @@ export default function NavBar(props) {
             params: [transactionParameters],
         });
         console.log(txHash);
+
+        // updates display balance automatically
+        setInterval(function () {
+            if(window.ethereum.selectedAddress) {
+                getBalance(window.ethereum.selectedAddress);
+            }
+        }, 10000);
     }
 
     return (

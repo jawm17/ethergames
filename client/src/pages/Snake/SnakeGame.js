@@ -36,7 +36,7 @@ export default function SnakeGame(props) {
 
   const style = {
     startScreen: {
-      display: startDisplay,
+      display: "none",
       position: "absolute",
       width: "100%",
       height: "100%",
@@ -198,7 +198,6 @@ export default function SnakeGame(props) {
   }
 
   useEffect(() => {
-    window.onresize = windowResize;
     const context = canvasRef.current.getContext("2d");
     context.setTransform(SCALE, 0, 0, SCALE, 0, 0);
     context.clearRect(0, 0, window.innerWidth, window.innerHeight);
@@ -217,6 +216,22 @@ export default function SnakeGame(props) {
     context.fillStyle = "black";
     context.fillRect(apple[0], apple[1], 1, 1);
   }, [snake, apple, gameOver]);
+
+  useEffect(() => {
+    window.onresize = windowResize;
+    if(window.ethereum.selectedAddress) {
+      getUserScores();
+    }
+  }, []);
+
+  async function getUserScores() {
+    try {
+      const data = await axios.post("/user/info", { "address": window.ethereum.selectedAddress });
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <div>
@@ -260,6 +275,9 @@ export default function SnakeGame(props) {
           </div>
           <div id="playBtnSnake" onClick={() => initGame()}>
             play
+          </div>
+          <div id="snakeScore">
+            score: 200
           </div>
         </div>
       </div>

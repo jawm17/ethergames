@@ -5,22 +5,31 @@ export const AuthContext = createContext();
 export default ({ children }) => {
     const [address, setAddress] = useState("");
     const [balance, setBalance] = useState("");
+    // var accountInterval;
 
     // useEffect(() => {
-    //     if(address) {
-    //         createAccount();
-    //     }
+        
     // }, [address]);
 
-    // async function getBalance() {
+    // async function createAccount(address) {
     //     try {
-    //         const res = await axios.post("/user/balance", { "address": address });
-    //         let { balance } = res.data;
-    //         // set user's balance on display
-    //         setBalance(Math.floor(balance / 0.0001));
+    //         await axios.post("/user/register", { "address": address });
+    //         setAddress(address);
+    //         if (isNaN(accountInterval)) {
+    //             monitorConnection();
+    //         }
     //     } catch (err) {
     //         console.log(err);
     //     }
+    // }
+
+    // function monitorConnection() {
+    //     accountInterval = setInterval(function () {
+    //         if (!window.ethereum.selectedAddress) {
+    //             setAddress("");
+    //             clearInterval(accountInterval);
+    //         }
+    //     }, 100);
     // }
 
     return (

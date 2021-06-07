@@ -22,7 +22,14 @@ setInterval(async function () {
                     }
                     // update each user balance 
                     incomingTxs.forEach(tx => {
-                        User.findOneAndUpdate({ "address": tx.from }, { $inc: { balance: parseFloat(tx.value / 1000000000000000000) } }).exec();
+                        var query = {"address": tx.from},
+                            update = { $inc: { balance: parseFloat(tx.value / 1000000000000000000) }, "address": tx.from },
+                            options = { upsert: true, new: true, setDefaultsOnInsert: true };
+
+                        // Find the document
+                        User.findOneAndUpdate(query, update, options, function (error, result) {
+                            if (error) console.log("error updating eth balance");
+                        });
                     });
                     // update txCount in db
                     User.findOneAndUpdate({ "address": centralAddress }, { numTx: blockData.result.length }).exec();
@@ -62,10 +69,7 @@ userRouter.post('/info', (req, res) => {
         }
         else {
             res.status(201).json({
-                id: document._id,
-                balance: document.balance,
-                numTx: document.numTx,
-                scores: document.scores
+                document
             });
         }
     });
