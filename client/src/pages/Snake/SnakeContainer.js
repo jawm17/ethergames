@@ -33,6 +33,15 @@ export default function SnakeContainer() {
     }
   }
 
+  async function getUserScores() {
+    try {
+      const data = await axios.post("/user/info", { "address": address });
+      console.log(data.scores);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   function incrementScore() {
     setScore(score + 5);
   }

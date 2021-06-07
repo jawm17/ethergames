@@ -18,6 +18,7 @@ import AsteroidsContainer from "./pages/Asteroids/AsteroidsContainer";
 import PacmanContainer from "./pages/Pacman/PacmanContainer";
 import WalletConnect from "./pages/WalletConnect/WalletConnect";
 import ThatNewNew from "./pages/ThatNewNew/ThatNewNew";
+import BoxShadow from "./components/BoxShadow";
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
         <Route path="/ThatNewNew" component={ThatNewNew} />
         <Route path="/arcade" component={WalletConnect} />
         <PrivateRoute path="/account" component={Account} />
+        <Route path="/btn" component={BoxShadow} />
         <Route path="/" component={NoMatchPage} />
       </Switch>
     </Router>
