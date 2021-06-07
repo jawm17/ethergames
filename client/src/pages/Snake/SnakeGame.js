@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
-import UserService from '../../services/UserService';
 import axios from "axios";
 import { AuthContext } from '../../context/AuthContext';
 import "./snakeStyle.css";
@@ -36,7 +35,7 @@ export default function SnakeGame(props) {
 
   const style = {
     startScreen: {
-      display: "none",
+      display: startDisplay,
       position: "absolute",
       width: "100%",
       height: "100%",
@@ -202,14 +201,14 @@ export default function SnakeGame(props) {
 
   useEffect(() => {
     window.onresize = windowResize;
-    if(window.ethereum.selectedAddress) {
+    if(address) {
       getUserScores();
     }
-  }, []);
+  }, [address]);
 
   async function getUserScores() {
     try {
-      const data = await axios.post("/user/info", { "address": window.ethereum.selectedAddress });
+      const data = await axios.post("/user/info", { "address": address });
       console.log(data);
     } catch (err) {
       console.log(err);
