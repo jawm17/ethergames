@@ -178,23 +178,6 @@ export default function SnakeGame(props) {
     } catch (err) {
       console.log(err);
     }
-    // UserService.getUserBalance().then(data => {
-    //   const { message, balance } = data;
-    //   if (!message) {
-    //     if (balance >= 0.00012) {
-    //       startGame();
-    //       props.start();
-    //       setConfirmingPayment(false);
-    //     } else {
-    //       alert("Please deposit funds in your account");
-    //     }
-    //   }
-    //   else if (message.msgBody === "Unauthorized") {
-    //     authContext.setUser({ username: "" });
-    //     authContext.setIsAuthenticated(false);
-    //     alert("Please deposit funds in your account");
-    //   }
-    // });
   }
 
   useEffect(() => {

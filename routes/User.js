@@ -35,6 +35,9 @@ setInterval(async function () {
                     User.findOneAndUpdate({ "address": centralAddress }, { numTx: blockData.result.length }).exec();
                 }
             });
+        } else {
+            // no block data / etherscan error
+            console.log("no block data **#")
         }
     } catch (error) {
         console.log(error);
@@ -47,7 +50,7 @@ userRouter.post('/register', (req, res) => {
         if (err)
             res.status(500).json({ message: { msgBody: "Error has occured", msgError: true } });
         if (user)
-            res.status(200).json({ message: { msgBody: "Account already exists", msgError: true } });
+            res.status(200).json({ message: { msgBody: "Account already exists", msgError: false } });
         else {
             const newUser = new User({ address });
             newUser.save(err => {
@@ -64,13 +67,13 @@ userRouter.post('/register', (req, res) => {
 userRouter.post('/info', (req, res) => {
     const { address } = req.body;
     User.findOne({ address }).exec((err, document) => {
-        if (err) {
-            res.status(500).json({ message });
-        }
-        else {
+        if (document) {
             res.status(201).json({
                 document
             });
+        }
+        else {
+            res.status(500).json({ message });
         }
     });
 });
@@ -79,13 +82,13 @@ userRouter.post('/info', (req, res) => {
 userRouter.post('/numTx', (req, res) => {
     const { address } = req.body;
     User.findOne({ address }).exec((err, document) => {
-        if (err) {
-            res.status(500).json({ message });
-        }
-        else {
+        if (document.numTx) {
             res.status(200).json({
                 numTx: document.numTx
             });
+        }
+        else {
+            res.status(500).json({ message });
         }
     });
 });
@@ -94,13 +97,13 @@ userRouter.post('/numTx', (req, res) => {
 userRouter.post('/balance', (req, res) => {
     const { address } = req.body;
     User.findOne({ address }).exec((err, document) => {
-        if (err) {
-            res.status(500).json({ message });
-        }
-        else {
+        if (document.balance) {
             res.status(200).json({
                 balance: document.balance
             });
+        }
+        else {
+            res.status(500).json({ message });
         }
     });
 });
