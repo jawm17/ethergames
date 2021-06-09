@@ -17,6 +17,28 @@
   align-items: center;
   border-radius: 10px;
 }
+/* Tabs */
+#gameTabs-container{
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+#transactionsTab{
+  /* background-color: white; */
+  text-align: center;
+  font-size: 1.5rem;
+  color: white;
+  width: 50%;
+  border-bottom-right-radius: 10px;
+}
+#gamesTab{
+  background-color: white;
+  text-align: center;
+  font-size: 1.5rem;
+  color: black;
+  width: 50%;
+  border-bottom-left-radius: 10px;
+}
 /* Games */
 .games {
   font-size: 3rem;

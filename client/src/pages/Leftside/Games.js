@@ -4,6 +4,10 @@ import "./games.css";
 export default function GamesDiv() {
   return (
     <div id="gamesArea">
+      <div id="gameTabs-container">
+        <div  id="gamesTab">Games</div>
+        <div id="transactionsTab">transactions</div>
+      </div>
           <div id="games-container">
             <div id="snakeGame" className="games">
               <h1>Snake</h1>
