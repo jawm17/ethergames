@@ -1,4 +1,4 @@
-// import React from "react";
+// import React, {useEffect, useState, useContext} from "react";
 // import NavBar from "../../components/Nav/NavBar";
 // import Pacman from "./Pacman";
 // // import TxService from "../../services/TxService";
@@ -9,42 +9,42 @@
 // import Leaderboard from "../../components/Leaderboard";
 
 // export default function SnakeContainer() {
-//     // const authContext = useContext(AuthContext);
-//     // let user = authContext.user.username;
+//     const authContext = useContext(AuthContext);
+//     let user = authContext.user.username;
 
-//     // const [score, setScore] = useState(0);
-//     // const [pot, setPot] = useState(0);
-//     // const [scores, setScores] = useState([]);
-//     // const [scoreToBeat, setScoreToBeat] = useState(1000);
+//     const [score, setScore] = useState(0);
+//     const [pot, setPot] = useState(0);
+//     const [scores, setScores] = useState([]);
+//     const [scoreToBeat, setScoreToBeat] = useState(1000);
 
-//     // useEffect(() => {
-//     //     getInfo();
-//     // }, []);
+//     useEffect(() => {
+//         getInfo();
+//     }, []);
 
-//     // function getInfo() {
-//     //     return new Promise(resolve => {
-//     //         GameService.getInfo("pacman").then(data => {
-//     //             if (!data.message) {
-//     //                 let scoresArray = (data.scores.sort((a, b) => (b.score - a.score))).slice(0, 10);
-//     //                 setPot(data.pot);
-//     //                 setScores(scoresArray);
-//     //                 if (scoresArray.length > 0) {
-//     //                     setScoreToBeat(scoresArray[0].score);
-//     //                 }
-//     //                 resolve();
-//     //             } else {
-//     //                 console.log("game info error");
-//     //                 resolve();
-//     //             }
-//     //         });
-//     //     });
-//     // }
+//     function getInfo() {
+//         return new Promise(resolve => {
+//             GameService.getInfo("pacman").then(data => {
+//                 if (!data.message) {
+//                     let scoresArray = (data.scores.sort((a, b) => (b.score - a.score))).slice(0, 10);
+//                     setPot(data.pot);
+//                     setScores(scoresArray);
+//                     if (scoresArray.length > 0) {
+//                         setScoreToBeat(scoresArray[0].score);
+//                     }
+//                     resolve();
+//                 } else {
+//                     console.log("game info error");
+//                     resolve();
+//                 }
+//             });
+//         });
+//     }
 
 //     return (
 //         <div>
 //             <NavBar page="pacman"/>
 //             <div id="container" tabIndex="0" style={{ outline: "none" }}>
-//                 <Pacman />
+//                 <Pacman />ss
 //                 <div id="info">
 //                     <div id="top">
 //                         <div id="title">

@@ -41,24 +41,15 @@ export default function CurrentGameDiv() {
           </div>
         </div>
         <div id="gameControls-container">
-            <div id="playBtn-container">
-              <div id="innerPlayBtn-container">
-                <button id="playBtn2">Play</button>
-              </div>
-              <div className="playBtn2ShadowDiv"></div>
+          <div id="playBtn-container">
+            <div id="innerPlayBtn-container">
+              <button id="playBtn2">Play</button>
+            </div>
+            <div className="playBtn2ShadowDiv"></div>
           </div>
           <div id="gameArrows">
-            <div id="upArrow" className="controlIcons">
-              <i className="fas fa-arrow-up"></i>
-            </div>
-            <div id="downArrow" className="controlIcons">
-              <i className="fas fa-arrow-down"></i>
-            </div>
-            <div id="leftArrow" className="controlIcons">
-              <i className="fas fa-arrow-left"></i>
-            </div>
-            <div id="rightArrow" className="controlIcons">
-              <i className="fas fa-arrow-right"></i>
+            <div className="button">
+
             </div>
           </div>
         </div>

@@ -7,25 +7,26 @@
     align-items: center;
 }
 
-.button {
+.buttonT {
     display: inline-block;
     text-decoration: none;
     color: #fff;
     font-weight: bold;
-    background-color: #538fbe;
-    padding: 20px 70px;
+    background-color: #53be5c;
     font-size: 24px;
-    border: 1px solid #2d6898;
-    -webkit-border-radius: 5px;
+    border: 1px solid black;
+    /* -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
-    border-radius: 5px; 
+    border-radius: 5px;  */
     cursor: pointer;
+    border-radius: 50%;
+    width: 100px;
+    height: 80px;
 
 
-
-    -webkit-box-shadow: 0px 6px 0px #2b638f;
-    -moz-box-shadow: 0px 6px 0px #2b638f;
-    box-shadow: 0px 6px 0px #2b638f;
+    -webkit-box-shadow: 0px 12px 0px #2b8f49;
+    -moz-box-shadow: 0px 12px 0px #2b8f49;
+    box-shadow: 0px 12px 2px #2b8f49;
     /* background-image: linear-gradient(bottom, rgb(73,132,180) 0%, rgb(97,155,203) 100%);
     background-image: -o-linear-gradient(bottom, rgb(73,132,180) 0%, rgb(97,155,203) 100%);
     background-image: -moz-linear-gradient(bottom, rgb(73,132,180) 0%, rgb(97,155,203) 100%);
@@ -41,10 +42,10 @@
     ); */
 }
 
-.button:active {
-    -webkit-box-shadow: 0px 2px 0px #2b638f, 0px 1px 6px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
-    -moz-box-shadow: 0px 2px 0px #2b638f, 0px 1px 6px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
-    box-shadow: 0px 2px 0px #2b638f, 0px 1px 6px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+.buttonT:active {
+    -webkit-box-shadow: 0px 2px 0px #2b8f49, 0px 1px 6px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+    -moz-box-shadow: 0px 2px 0px #2b8f49, 0px 1px 6px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+    box-shadow: 0px 2px 0px #2b8f49, 0px 1px 6px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
       
         -webkit-transform: translate(0, 4px) rotateX(20deg);  
         -moz-transform: translate(0, 4px);  

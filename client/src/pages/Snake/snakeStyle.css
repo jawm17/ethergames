@@ -14,9 +14,12 @@ body {
     z-index: 2;
 }
 
-#snakeScore {
+#personalBest {
     position: absolute;
-    top: 0;
+    top: 35px;
+    right: 280px;
+    font-family: 'Mina', sans-serif;
+    font-size: 20px;
 }
 
 #snakeCanvas {

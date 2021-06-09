@@ -199,21 +199,24 @@ export default function SnakeGame(props) {
     context.fillRect(apple[0], apple[1], 1, 1);
   }, [snake, apple, gameOver]);
 
+  // useEffect(() => {
+  //   if(address) {
+  //     getUserScores();
+  //   }
+  // }, [address]);
+
   useEffect(() => {
     window.onresize = windowResize;
-    if(address) {
-      getUserScores();
-    }
-  }, [address]);
+  }, []);
 
-  async function getUserScores() {
-    try {
-      const data = await axios.post("/user/info", { "address": address });
-      console.log(data);
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  // async function getUserScores() {
+  //   try {
+  //     const data = await axios.post("/user/info", { "address": address });
+  //     console.log(data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
 
   return (
     <div>

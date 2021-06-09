@@ -5,12 +5,16 @@ const message = { msgBody: "Error has occured", msgError: true };
 const axios = require("axios");
 const centralAddress = "0x5da2958A3f525A9093f1CC5e132DAe8522cc997c";
 
-// CHECK FOR TXS SENT TO ADDRESS THAT ARE NOT REGISTERED!!!! ----------------------------------------------------------------
+// Records new txs sent to central address each 10 seconds ----------------------------------------------------------------
 setInterval(async function () {
     try {
-        const etherscanData = await axios.get(`https://api-rinkeby.etherscan.io/api?module=account&action=txlist&address=${centralAddress}&startblock=0&endblock=99999999&sort=asc&apikey=8AAGX8PGJWQ9WDHYQ5N28SYKZ27ENKJ3VS`);
+        const etherscanData = await axios.get(`https://api-rinkeby.etherscan.io/api?module=account&action=txlist&address=${centralAddress}&startblock=0&endblock=99999999&sort=asc&apikey=8AAGX8PGJWQ9WDHYQ5N28SYKZ27ENKJ3VS`, {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36'
+            }
+        });
         let blockData = etherscanData.data;
-        if (blockData.result.length > 0) {
+        if (blockData && blockData.status == 1) {
             User.findOne({ "address": centralAddress }).exec((err, document) => {
                 if (blockData.result.length > document.numTx) {
                     let incomingTxs = [];
@@ -22,7 +26,7 @@ setInterval(async function () {
                     }
                     // update each user balance 
                     incomingTxs.forEach(tx => {
-                        var query = {"address": tx.from},
+                        var query = { "address": tx.from },
                             update = { $inc: { balance: parseFloat(tx.value / 1000000000000000000) }, "address": tx.from },
                             options = { upsert: true, new: true, setDefaultsOnInsert: true };
 
@@ -37,7 +41,8 @@ setInterval(async function () {
             });
         } else {
             // no block data / etherscan error
-            console.log("no block data **#")
+            console.log("no block data / etherscan error STATUS: " + blockData.status)
+            console.log(blockData);
         }
     } catch (error) {
         console.log(error);
