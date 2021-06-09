@@ -1,4 +1,11 @@
-/* Fonts */
+:root{
+    --mainColor: rgb(9,0,142) ;
+    --shadow: rgba(129, 156, 219, 0.281);
+    --topShadow:rgba(246, 0, 234, 0.712);
+    --topBackground: rgba(143, 1, 245, 0.726);
+    --middleBackground: rgb(0, 0, 0);
+    --divBackground: rgb(2,0,63);
+}
 @font-face {
     font-family: "MainFont";
     src: url("MainFont.ttf") format("truetype");
@@ -20,41 +27,76 @@
     width: 100vw;
     height: 100vh;
     display: flex;
-    color: black;
-    background-color: rgb(104,57,255);
+    color: white;
+    background-color: var(--mainColor) ;
 }
-/* Left Side */
-#leftsideDiv{
+/* ============================================================== */
+/* Left and Right Side */
+#leftsideDiv,#rightsideDiv{
     border: solid transparent 10px;
-    margin-right: 20px;
-    width: 32%;
-    height: 99%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
+}  
+/* Left Side */
+
+#leftsideDiv{
+    margin-right: 20px;
+    width: 32%;
+}   
+/* Right Side */
+#rightsideDiv{
+    border-left: none;
+    width: 68%;
 }   
 /* ============================================================== */
-/* Games Div*/
-#theGamesDiv{
-    width: 100%;
-    height:  75%;
+/* Shadows */
+/* Main Div Shadows */
+#theGamesDiv,#theUserInfoDiv,#CurrentGameDiv,#GameControlsDiv{
     border-radius: 5px;
     border: black solid 2px;
-    -webkit-box-shadow: 0px 10px 0px rgb(68,29,191);
-        -moz-box-shadow: 0px 8px 0px rgb(68,29,191);
-        box-shadow: 0px 8px 0px rgb(68,29,191);
-    position: relative;
+    -webkit-box-shadow: 0px 8.5px 0px var(--shadow);
+        -moz-box-shadow: 0px  8.5px  0px var(--shadow);
+        box-shadow: 0px 8px  8.5px  var(--shadow);
 }
-#inner-theGamesDiv{
+/* Top And Bottom Shaddow Divs */
+.gameShadowDivTop,.userInfoShadowDivTop,.currentGameShadowDivTop,.gameControlsShadowDivTop{
     width: 100%;
-    height:  98%;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    border-bottom-left-radius:4px;
+    border-bottom-right-radius:4px;
+    background-color: var(--topShadow);
+}
+.gameShadowDiv,.userInfoShadowDiv,.currentGameShadowDiv,.gameControlsShadowDiv{
+    height:30%;
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    border-bottom-left-radius:4px;
+    border-bottom-right-radius:4px;
+    background-color:  var(--shadow);
+}
+/* ============================================================== */
+/* Divs */
+#theGamesDiv,#theUserInfoDiv,#CurrentGameDiv,#GameControlsDiv{
+    position: relative;
+    width: 100%;
+}
+#inner-theGamesDiv,#inner-theUserInfoDiv,#inner-CurrentGameDiv,#inner-GameControlsDiv{
+    width: 100%;
     border-radius: 5px;
     border-bottom: rgb(0, 0, 0) solid 2px;
     position: absolute;
     z-index: 2;
 }
-#theGamesDiv-background1{
-    border: rgb(104,57,255) solid 25px;
+/* ============================================================== */
+/* Backgrounds */
+.background1{
+    border: var(--mainColor) solid 25px;
     border-radius: 5px;
     width: 100%;
     height:  100%;
@@ -62,7 +104,7 @@
     align-items: flex-end;
     justify-content: center;
 }
-#theGamesDiv-background2{
+.background2{
     border-radius: 5px;
     width: 100%;
     height: 100%;
@@ -70,187 +112,124 @@
     align-items: center;
     justify-content: center;
 }
-#theGamesDiv-background3{
+.background3{
     height: 102%;
     width: 100%;
     border-radius: 10px;
     border: black  solid 2px;
-    background-color: rgb(15,0,185);
+    background-color: var(--topBackground);
     display: flex;
     align-items: flex-end;
     justify-content: center;
 }
-#theGamesDiv-background4{
+.background4{
     border-radius: 5px;
     width: 100%;
-    height: 99%;
-    background-color: black;
+    background-color: var(--middleBackground);
     display: flex;
     align-items: flex-end;
     justify-content: center;
+}
+.background5{
+    border-radius: 5px;
+    width: 100%;
+}
+/* ============================================================== */
+/* Games Div*/
+#theGamesDiv{
+    height:  75%;
+}
+#inner-theGamesDiv{
+    height:  98%;
+}
+#theGamesDiv-background4{
+    height: 99%;
     
 }
 #theGamesDiv-background5{
-    border-radius: 5px;
-    width: 100%;
     height: 98.9%;
-    background-color: rgb(11,56,46);
-    
-}
-.gameShadowDiv{
-    position: absolute;
-    bottom: 0;
-    z-index: 1;
-    height:10%;
-    width: 100%;
-    border-bottom-left-radius:4px;
-    border-bottom-right-radius:4px;
-    background-color: rgb(68,29,191);
+    background-color: black;
 }
 .gameShadowDivTop{
-    position: absolute;
-    top: 0;
-    z-index: 1;
     height:.5%;
-    width: 100%;
-    border-bottom-left-radius:4px;
-    border-bottom-right-radius:4px;
-    background-color: rgb(43,120,248);
 }
 /* ============================================================== */
 /* User Info Div */
 #theUserInfoDiv{
-    width: 100%;
     height: 22%;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-    border: black solid 2px;
-    -webkit-box-shadow: 0px 10px 0px rgb(68,29,191);
-        -moz-box-shadow: 0px 8px 0px rgb(68,29,191);
-        box-shadow: 0px 8px 0px rgb(68,29,191);
 }
 #inner-theUserInfoDiv{
-    width: 100%;
-    height:  87%;
-    border-radius: 5px;
-    background-color: rgb(104,57,255);
-    border-bottom: black solid 2px;
-    position: absolute;
-    z-index: 2;
+    height:  94%;
     color: white;
 }
 .userInfoShadowDivTop{
-    position: absolute;
-    top: -7%;
-    z-index: 1;
     height:2%;
-    width: 100%;
-    border-bottom-left-radius:4px;
-    border-bottom-right-radius:4px;
-    background-color: rgb(43,120,248);
-}
-#userInfo-background1{
-    border: rgb(104,57,255) solid 15px;
-    border-radius: 5px;
-    width: 100%;
-    height:  100%;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-}
-#userInfo-background2{
-    border-radius: 5px;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-#userInfo-background3{
-    height: 103%;
-    width: 100%;
-    border-radius: 10px;
-    border: black  solid 2px;
-    background-color: rgb(15,0,185);
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
 }
 #userInfo-background4{
-    border-radius: 5px;
-    width: 100%;
     height: 97%;
-    background-color: black;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
 }
 #userInfo-background5{
-    border-radius: 5px;
-    width: 100%;
     height: 95%;
-    background-color: rgb(11,56,46);
-}
-.userInfoShadowDiv{
-    position: absolute;
-    bottom: 0;
-    z-index: 1;
-    height:20%;
-    width: 100%;
-    border-bottom-left-radius:4px;
-    border-bottom-right-radius:4px;
-    background-color: rgb(68,29,191);
+    background-color: black;
 }
 /* ============================================================== */
-/* Rightside */
-#rightsideDiv{
-    border: solid transparent 10px;
-    border-left: none;
-    width: 68%;
-    height: 99.7%;
-}   
 /* Current Game Div*/
 #CurrentGameDiv{
-    position: relative;
-    height: 99%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-    border: black solid 2px;
-    -webkit-box-shadow: 0px 11px 0px rgb(68,29,191);
-        -moz-box-shadow: 0px 8px 0px rgb(68,29,191);
-        box-shadow: 0px 8px 0px rgb(68,29,191);
+    height: 82%;
 }
 #inner-CurrentGameDiv{
-    background-color: rgb(104,57,255);
-    position: absolute;
-    z-index: 2;
-    width: 100%;
-    height:  97.4%;
-    border-radius: 5px;
-    border-bottom: black solid 2px;
+    height:  98%;
 }
 .currentGameShadowDivTop{
-    position: absolute;
-    top: -1.3%;
-    z-index: 1;
-    height:.5%;
-    width: 100%;
-    border-bottom-left-radius:4px;
-    border-bottom-right-radius:4px;
-    background-color: rgb(43,120,248);
+    height:.35%;
 }
-.currentGameShadowDiv{
-    position: absolute;
-    bottom: 0;
-    z-index: 1;
-    height:20%;
-    width: 100%;
-    border-bottom-left-radius:4px;
-    border-bottom-right-radius:4px;
-    background-color: rgb(68,29,191);
+#currentGame-background4{
+    height: 99.3%;
+}
+#currentGame-background5{
+    height: 99%;
+    background-color: var(--divBackground);
+}
+/* ============================================================== */
+/* Game Controls Div */
+#GameControlsDiv{
+    height: 14%;
+}
+#inner-GameControlsDiv{
+    height:  90%;
+    color: white;
+}
+.gameControlsShadowDivTop{
+    height:2%;
+}
+#gameControls-background4{
+    height: 95%;
+}
+#gameControls-background5{
+    height: 90%;
+}
+#playBtn2{
+    width: 60%;
+    border: solid black 2px;
+    border-radius: 5px;
+    font-size: 2.5rem;
+    font-family: "MainFont";
+    cursor: pointer;
+    transition: ease-in-out .5s;
+    background-color: var(--topShadow);
+    color: rgb(255, 255, 255);
+
+}
+.controlIcons{
+    background-color: var(--topShadow);
+    margin: 10px;
+    padding: 5px;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 3rem;
+}
+.controlIcons:active {
+    background-color: black;
+    color: black;
 }

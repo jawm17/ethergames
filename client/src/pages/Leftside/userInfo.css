@@ -1,24 +1,10 @@
 #userInfoArea{
     height:98%;
     width: 98%;
-    /* border: rgb(236, 218, 218) solid 3px; */
 }
 #userInfo-container{
     height:98%;
     width: 98%;
-    /* border: rgb(225, 184, 184) solid 3px; */
-}
-#userInfoInner-container{
-    height:98%;
-    width: 98%;
-    /* border: rgb(106, 255, 0) solid 3px; */
-
-}
-#userInfo-container{
-    height:98%;
-    width: 98%;
-    /* border: rgb(64, 0, 255) solid 3px; */
-
 }
 #userTokenBalence,#userAdress{
     display: flex;

@@ -1,0 +1,41 @@
+
+/* Game Contols */
+#gameControlsArea{
+    height: 100%;
+    width: 100%;
+}
+#gameControls-container{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+/* Play Button */
+#playBtn-container{
+    position: relative;
+    height: 100%;
+    width: 50%;
+    display: flex;
+    border-radius: 5px;
+    padding: 5px;
+}
+/* Game Arrows */
+#gameArrows{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+#upArrow{
+    
+}
+#downArrow{
+
+}
+#leftArrow{
+
+}
+#rightArrow{
+
+}
