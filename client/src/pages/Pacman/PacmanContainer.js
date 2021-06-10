@@ -2,9 +2,6 @@ import React, { useEffect, useState, useContext } from "react";
 import NavBar from "../../components/Nav/NavBar";
 import { AuthContext } from '../../context/AuthContext';
 import Pacman from "./Pacman";
-// import TxService from "../../services/TxService";
-// import GameService from "../../services/GameService";
-// import { AuthContext } from '../../context/AuthContext';
 import axios from "axios";
 import "./pacmanStyle.css";
 import Footer from "../../components/Footer/Footer"

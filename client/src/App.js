@@ -15,7 +15,7 @@ import Account from "./pages/Account/Account";
 // import GamePage from "./pages/Games/GamePage";
 import TetrisContainer from "./pages/Tetris/TetrisContainer";
 import AsteroidsContainer from "./pages/Asteroids/AsteroidsContainer";
-import PacmanContainer from "./pages/Pacman/PacmanContainer";
+import Pacman from "./pages/Pacman/Pacman";
 import WalletConnect from "./pages/WalletConnect/WalletConnect";
 import ThatNewNew from "./pages/ThatNewNew/ThatNewNew";
 import BoxShadow from "./components/BoxShadow";
@@ -33,7 +33,7 @@ function App() {
         {/* <Route path="/gamePage" component={GamePage} /> */}
         <Route exact path="/" component={Home} />
         <Route path="/asteroids" component={AsteroidsContainer} />
-        <Route path="/pacman" component={PacmanContainer} />
+        <Route path="/pacman" component={Pacman} />
         <Route path="/ThatNewNew" component={ThatNewNew} />
         <Route path="/arcade" component={WalletConnect} />
         <PrivateRoute path="/account" component={Account} />
