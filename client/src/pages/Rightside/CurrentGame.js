@@ -1,24 +1,29 @@
 import React, { useEffect, useState } from "react";
-import NavBar from "../../components/Nav/NavBar";
-import Footer from "../../components/Footer/Footer";
+import HomeScreen from "./HomeScreen"
+import SnakeGameScreen from "./SnakeGameScreen"
+import PacboyScreen from "./PacboyScreen"
+import TetrisScreen from "./TetrisScreen"
+import AsteroidsScreen from "./AsteroidsScreen"
 import "./currentGame.css";
 
 export default function CurrentGameDiv() {
   return (
-    <div id="currentGameArea">
-      <div id="currentGame-container">
-        <div id="currentGameInfo">
-          <h1>ETHER GAMES</h1>
-          {/* <div id="currentGameHighscore">
-            <h4>High Score To Beat</h4>
-            <p>20345</p>
+    <div className="background1" id="currentGame-background1">
+      <div className="background2" id="currentGame-background2">
+        <div className="background3" id="currentGame-background3">
+          <div className="background4" id="currentGame-background4">
+            <div className="background5" id="currentGame-background5">
+              <div id="currentGameArea">
+                <div id="currentGame-container">
+                    <HomeScreen/>
+                    {/* <SnakeGameScreen/> */}
+                    {/* <TetrisScreen/> */}
+                    {/* <AsteroidsScreen/> */}
+                    {/* <PacboyScreen/> */}
+                </div>
+              </div>
+            </div>
           </div>
-          <div id="currentGameJackpot">
-            <h4>Jackpot</h4>
-            <p>20 ETH</p>
-          </div> */}
-          <p>Play Game You Love and Win Money
-          </p>
         </div>
       </div>
     </div>

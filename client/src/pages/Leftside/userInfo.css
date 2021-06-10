@@ -1,152 +1,79 @@
 #userInfoArea{
     height:100%;
     width: 100%;
-    padding: 10px;
 }
 #userInfo-container{
     height:100%;
     width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-#userTokenBalence,#userAdress,#buyTokensBtn{
-    text-align: center;
-}
-#userTokenBalence h1,#userAdress h1{
-    font-size: 1.5rem;
-    padding-bottom: 5px;
-  }
-#userTokenBalence p,#userAdress p{
-  font-size: 1.2rem;
+    justify-content: space-evenly;
 }
 /* Token Balence */
-#userTokenBalence{
-    width: 100%;
-    font-size: 1.5rem;
+#tokenBalence-container{
+    height:95%;
+    width: 60%;
     display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    border-radius: 5px;
-    border: solid 2px rgb(125, 44, 255);
-    margin-bottom: 10px;
-}
-/* User Adress and Buy Tokens*/
-#adress-buyTokenBtns{
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-}
-#userAdress{
-    height: 50px;
-    width:100%;
-    border: solid 2px rgb(125, 44, 255);
-    border-radius: 5px;
-    margin-right: 5px;
-}
-#adress-buyTokenBtns button{
-    border: none;
-    background-color: transparent;
-    border-radius: 5px;
-    font-family: "MainFont";
-    cursor: pointer;
-}
-#buyTokensBtn{
-    height: 50px;
-    width:250px;
-    border: solid 2px rgb(125, 44, 255);
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-}
-#buyTokensBtn button{
-  color: white;
-}
-#walletDropdown{
-    padding-top: 10px;
-    display: flex;
-    justify-content: center;
     flex-direction: column;
-}
-#walletDropdown h1{
-    color: white;
-}
-#dropdownTabs{
-    height: 50px;
-    margin-top: 15px;
-    display: flex;
+    align-items: center;
     justify-content: center;
-    border: solid 2px rgb(125, 44, 255);
-    border-radius: 5px;
-    background-color: var(--controlsBackground);
+    color: rgb(255, 251, 0);
+    font-size: 3rem;
 }
-#dropdownBtn1 h4{
+#tokenBalence-container h1,p{
     width: 100%;
-    font-size: 1.3rem;
-    color: white;
-    background-color: rgba(255, 255, 255, 0.239);
-    border-radius: 5px;
-    padding: 4px;
+    text-align: center;
 }
-#dropdownBtn2 h4{
-    width: 100%;
-    font-size: 1.3rem;
-    color: white;
-    background-color: rgba(255, 255, 255, 0.239);
-    border-radius: 5px;
-    padding: 4px;
-}
-/* fix this */
-/* ============================================== */
 /* Coin Slot */
 #coinSlot-container{
-    width: 100%;
-    height: 100%;
-}#coinSlot-innerDiv{
-    width: 20%;
-    height: 100%;
-    border:red solid 6px;
+    height:95%;
+    width: 25%;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
+    background: rgb(255, 251, 0);
+    border: black solid 4px;
+    border-radius: 6px;
+}
+#coinSlot-innercontainer{
+    height:98%;
+    width: 98%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(255, 251, 0);
+    border: black solid 4px;
+    border-radius: 4px;
 }
 #coinSlot{
-    width: 12px;
-    height: 100%;
-    border:red solid 6px;
-    border-left: none;
+    border-radius: 5px;
+    background: black;
+    width: 10%;
+    margin-right: 3px;
+    height: 98%;
 }
-#coinSlotLines-container{
-    width:90%;
-    height: 15%;
+#coinSlotWords-container{
+    border-radius: 4px;
+    background: black;
+    width: 80%;
+    height: 98%;
+    padding: 5px;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
     align-items: center;
+    justify-content: space-evenly;
 }
-#coinSlotLines{
-    width: 100%;
-    background-color: red;
-    height: 2px;
-}
-#coinSlotWords{
-    width: 75%;
-    height:150%;
-    height: 50px;
+.coinSlotWords{
+    height: 30%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    align-items: center;
+    justify-content: space-evenly;
 }
-#coinSlotWords h2{
-    text-align: center;
+#coinSlotWords h1{
     width: 100%;
-    height: 20px;
-    font-size: 15px;
-    letter-spacing: 2px;
-    transform: scale(1, 1.3);
-  -webkit-transform: scale(1, 4); 
 }
-#coinSlotWords p{
-    font-size: 10px;
+.coinSlotLines{
     width: 100%;
-    text-align: center;
+    height: 2px;
+    background: rgb(255, 251, 0);
 }
