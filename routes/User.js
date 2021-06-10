@@ -10,7 +10,15 @@ setInterval(async function () {
     try {
         const etherscanData = await axios.get(`https://api-rinkeby.etherscan.io/api?module=account&action=txlist&address=${centralAddress}&startblock=0&endblock=99999999&sort=asc&apikey=8AAGX8PGJWQ9WDHYQ5N28SYKZ27ENKJ3VS`, {
             headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36'
+                "User-Agent": "PostmanRuntime/7.17.1",
+                "Accept": "/",
+                "Cache-Control": "no-cache",
+                "Postman-Token": "267dd7be-7f3f-4d67-a51c-05152aa8e8fc,8f8b84b0-3df1-4656-9480-c31e99d270d2",
+                "Host": "api-rinkeby.etherscan.io",
+                "Accept-Encoding": "gzip, deflate",
+                "Cookie": "__cfduid=d33064099a72a08ae6f9197c790da62d21569724532",
+                "Connection": "keep-alive",
+                "cache-control": "no-cache"
             }
         });
         let blockData = etherscanData.data;
