@@ -16,12 +16,19 @@ export default function SnakeContainer() {
   const [scores, setScores] = useState([]);
   const [jackPot, setJackPot] = useState(false);
   const [prevPot, setPrevPot] = useState(0);
+  const [personalBest, setPersonalBest] = useState(0);
 
   useEffect(() => {
-    getInfo();
+    getGameInfo();
   }, []);
 
-  async function getInfo() {
+  useEffect(() => {
+    if (address) {
+      getUserScores();
+    }
+  }, [address]);
+
+  async function getGameInfo() {
     try {
       const res = await axios.get("/game/info/snake");
       const { data } = res;
@@ -36,7 +43,17 @@ export default function SnakeContainer() {
   async function getUserScores() {
     try {
       const data = await axios.post("/user/info", { "address": address });
-      console.log(data.scores);
+      const { scores } = data.data.document;
+      console.log(scores);
+
+      let topScore = 0;
+      for (let i = 0; i < scores.length; i++) {
+        if(scores[i].game=== "snake" && scores[i].score > topScore) {
+          topScore = scores[i].score;
+        }
+      }
+
+      setPersonalBest(topScore);
     } catch (err) {
       console.log(err);
     }
@@ -60,14 +77,14 @@ export default function SnakeContainer() {
   async function newScore() {
     try {
       await axios.post("/game/score", { "game": "snake", "address": address, "score": score });
-      getInfo();
+      getGameInfo();
     } catch (err) {
       console.log(err);
     }
   }
 
   async function gameOver() {
-    await getInfo();
+    await getGameInfo();
     if (scores.length < 1 || score > scores[0].score) {
       try {
         setPrevPot(pot);
@@ -110,6 +127,9 @@ export default function SnakeContainer() {
             </div>
             <div id="scoreSnake">
               Score: {score}
+            </div>
+            <div id="personalBest">
+              Personal Best: {personalBest}
             </div>
           </div>
         </div>

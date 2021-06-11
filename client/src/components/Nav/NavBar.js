@@ -47,15 +47,12 @@ export default function NavBar(props) {
     }, []);
 
     useEffect(() => {
-        if(window.ethereum.selectedAddress) {
-            console.log("-------------------------------------------------------------------------")
+        if (window.ethereum.selectedAddress) {
             setAddress(window.ethereum.selectedAddress);
             getBalance(window.ethereum.selectedAddress);
             if (isNaN(accountInterval)) {
                 monitorConnection();
             }
-        } else {
-            requestAccount();
         }
     }, [window.ethereum.selectedAddress]);
 
@@ -81,9 +78,6 @@ export default function NavBar(props) {
     async function requestAccount() {
         window.ethereum.request({ method: 'eth_requestAccounts' }).then((accounts) => {
             createAccount(accounts[0]);
-            if (isNaN(accountInterval)) {
-                monitorConnection();
-            }
         })
     }
 
@@ -91,32 +85,9 @@ export default function NavBar(props) {
         try {
             // get user info from db
             const res = await axios.post("/user/info", { "address": address });
-            let { numTx, balance } = res.data.document;
+            let { balance } = res.data.document;
             // set user's balance on display
             setBalance(Math.floor(balance / 0.0001));
-
-            // // get blockchain data from etherscan
-            // const etherscanData = await axios.get(`https://api-rinkeby.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=8AAGX8PGJWQ9WDHYQ5N28SYKZ27ENKJ3VS`);
-            // let blockData = etherscanData.data;
-
-            // // check if new txs occurred 
-            // if (blockData?.result.length > numTx) {
-            //     let incomingBalance = 0;
-
-            //     // update txCount in db
-            //     await axios.post("/user/update-numTx", { "address": address, "numTx": blockData.result.length });
-
-            //     // loop through new txs and record new ether
-            //     for (var i = blockData.result.length - 1; i >= numTx; i--) {
-            //         if (blockData.result[i].to.toUpperCase() === centralAddress.toUpperCase()) {
-            //             incomingBalance += blockData.result[i].value / 1000000000000000000;
-            //         }
-            //     }
-
-            //     // update db balance with new ether
-            //     const res = await axios.post("/user/update-balance", { "address": address, "funds": incomingBalance });
-            //     setBalance(Math.floor(res.data.balance / 0.0001));
-            // }
         } catch (err) {
             console.log(err);
         }
@@ -125,7 +96,7 @@ export default function NavBar(props) {
     async function sendTx() {
         const transactionParameters = {
             nonce: '0x00',
-            to: '0x5da2958A3f525A9093f1CC5e132DAe8522cc997c', // ether games central address
+            to: centralAddress, // ether games central address
             from: window.ethereum.selectedAddress, // user's address
             value: web3.utils.toHex('1000000000000000') // 0.001 ETH = 10 plays
         };
@@ -136,11 +107,11 @@ export default function NavBar(props) {
         console.log(txHash);
 
         // updates display balance automatically
-        setInterval(function () {
-            if(window.ethereum.selectedAddress) {
-                getBalance(window.ethereum.selectedAddress);
-            }
-        }, 10000);
+        // setInterval(function () {
+        //     if (window.ethereum.selectedAddress) {
+        //         getBalance(window.ethereum.selectedAddress);
+        //     }
+        // }, 10000);
     }
 
     return (

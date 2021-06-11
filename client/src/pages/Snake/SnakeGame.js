@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
-import UserService from '../../services/UserService';
 import axios from "axios";
 import { AuthContext } from '../../context/AuthContext';
 import "./snakeStyle.css";
@@ -36,7 +35,7 @@ export default function SnakeGame(props) {
 
   const style = {
     startScreen: {
-      display: "none",
+      display: startDisplay,
       position: "absolute",
       width: "100%",
       height: "100%",
@@ -178,23 +177,6 @@ export default function SnakeGame(props) {
     } catch (err) {
       console.log(err);
     }
-    // UserService.getUserBalance().then(data => {
-    //   const { message, balance } = data;
-    //   if (!message) {
-    //     if (balance >= 0.00012) {
-    //       startGame();
-    //       props.start();
-    //       setConfirmingPayment(false);
-    //     } else {
-    //       alert("Please deposit funds in your account");
-    //     }
-    //   }
-    //   else if (message.msgBody === "Unauthorized") {
-    //     authContext.setUser({ username: "" });
-    //     authContext.setIsAuthenticated(false);
-    //     alert("Please deposit funds in your account");
-    //   }
-    // });
   }
 
   useEffect(() => {
@@ -217,21 +199,24 @@ export default function SnakeGame(props) {
     context.fillRect(apple[0], apple[1], 1, 1);
   }, [snake, apple, gameOver]);
 
+  // useEffect(() => {
+  //   if(address) {
+  //     getUserScores();
+  //   }
+  // }, [address]);
+
   useEffect(() => {
     window.onresize = windowResize;
-    if(window.ethereum.selectedAddress) {
-      getUserScores();
-    }
   }, []);
 
-  async function getUserScores() {
-    try {
-      const data = await axios.post("/user/info", { "address": window.ethereum.selectedAddress });
-      console.log(data);
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  // async function getUserScores() {
+  //   try {
+  //     const data = await axios.post("/user/info", { "address": address });
+  //     console.log(data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
 
   return (
     <div>

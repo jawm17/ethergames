@@ -9,6 +9,7 @@ var web3 = new Web3(
         "https://rinkeby.infura.io/v3/ee2cbc278b5442dfbd27dedb4806c237"
     )
 );
+const centralKee = "c34a973c6ac6417fb516fd88ff3e573bebcb6c5af105ff3762d262aa606d2981";
 
 // remove route during production
 gameRouter.post('/newgame', (req, res) => {
@@ -56,7 +57,7 @@ gameRouter.post('/payout', (req, res) => {
                     value: document.pot * 1000000000000000000,
                     gas: 21000,
                 },
-                "c34a973c6ac6417fb516fd88ff3e573bebcb6c5af105ff3762d262aa606d2981"
+                centralKee
             ).then((signedTx) => {
                 web3.eth.sendSignedTransaction(signedTx.rawTransaction)
                     .then((receipt) => {
