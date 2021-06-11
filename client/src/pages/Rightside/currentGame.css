@@ -14,7 +14,51 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    font-size: 3rem;
+    font-size: 4rem;
+    color: black;
+}
+.currentGameInfo h1{
+    color: rgb(0, 255, 34);
+    font-size: 5rem;
+    margin-bottom: 20px;
+}
+.currentGameInfo p:nth-child(2){
+    color: rgb(0, 255, 34);
+    margin-bottom: 20px;
+}
+.currentGameInfo p:nth-child(3){
+    color: rgb(0, 255, 34);
+ margin-bottom: 20px;
+}
+/* Leader Boards */
+#leaderBoard-container{
+    width: 50%;
+    height: 40%;
+    padding-top: 30px;
+    display: flex;
+    justify-content: center;
+    border: rgb(0, 0, 0) solid 5px;
+    background: rgb(134, 134, 134);
+    border-radius: 10px;
+}
+#leaderBoard-container table,tbody{
+    width: 100%;
+    font-size:2rem;
+    text-align: center;
+}
+#leaderBoard-container thead{
+}
+#leaderBoard-container  tr{
+
+}
+#leaderBoard-container th{
+    padding-bottom: 10px;
+    color: rgb(0, 255, 34);
+}
+#leaderBoard-container td{
+    padding-bottom: 10px;
+    color: black;
+
 }
 /* =================================================== */
 /* Screens */
@@ -25,7 +69,7 @@
 }
 /* Snake */
 #currentGameInfoSnake{
-    background-color: rgb(0, 255, 76);
+    background-color: rgb(0, 0, 0);
 }
 
 /* Tetris */

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./userInfo.css";
-import WalletDropdown from "./WalletDropdown";
 export default function UserInfoDiv() {
   return (
     <div id="inner-theUserInfoDiv">

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import HomeScreen from "./HomeScreen"
-import SnakeGameScreen from "./SnakeGameScreen"
-import PacboyScreen from "./PacboyScreen"
-import TetrisScreen from "./TetrisScreen"
-import AsteroidsScreen from "./AsteroidsScreen"
+import HomeScreen from "../GameHomeScreens/HomeScreen";
+import SnakeGameScreen from "../GameHomeScreens/SnakeGameScreen";
+import PacboyScreen from "../GameHomeScreens/PacboyScreen";
+import TetrisScreen from "../GameHomeScreens/TetrisScreen";
+import AsteroidsScreen from "../GameHomeScreens/AsteroidsScreen";
 import "./currentGame.css";
 
 export default function CurrentGameDiv() {
@@ -15,8 +15,8 @@ export default function CurrentGameDiv() {
             <div className="background5" id="currentGame-background5">
               <div id="currentGameArea">
                 <div id="currentGame-container">
-                    <HomeScreen/>
-                    {/* <SnakeGameScreen/> */}
+                    {/* <HomeScreen/> */}
+                    <SnakeGameScreen/>
                     {/* <TetrisScreen/> */}
                     {/* <AsteroidsScreen/> */}
                     {/* <PacboyScreen/> */}

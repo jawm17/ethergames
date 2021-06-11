@@ -19,8 +19,8 @@ export default function SnakeGameScreen() {
           <tbody>
             <tr>
               <td>1</td>
-              <td>2190</td>
               <td>Jones</td>
+              <td>2190</td>
             </tr>
             <tr>
               <td>2</td>
@@ -31,6 +31,11 @@ export default function SnakeGameScreen() {
               <td>3</td>
               <td>Carter</td>
               <td>122</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Owen</td>
+              <td>100</td>
             </tr>
             <tr></tr>
           </tbody>
