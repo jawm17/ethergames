@@ -164,23 +164,30 @@ export default function SnakeGame() {
     setGameOver(false);
   }
 
-  const initGame = () => {
+  async function initGame() {
     if (gameOver && address) {
-      confirmPayment();
+      try {
+        const data = await axios.post("/user/balance", { "address": address });
+        const { balance } = data.data;
+        if (Math.floor(balance / 0.0001) >= 1) {
+          startGame();
+          gamePayment();
+          setConfirmingPayment(false);
+        } else {
+          alert("Please deposit funds in your account");
+        }
+      } catch (err) {
+        console.log(err);
+      }
     }
   }
 
-  async function confirmPayment() {
+  async function gamePayment() {
     try {
-      const data = await axios.post("/user/balance", { "address": address });
-      const { balance } = data.data;
-      if (Math.floor(balance / 0.0001) >= 1) {
-        startGame();
-        gameStart();
-        setConfirmingPayment(false);
-      } else {
-        alert("Please deposit funds in your account");
-      }
+      await axios.post("/game/payment", { "amount": 0.0001, "game": "snake", "address": address });
+      setPot(pot + 0.0001);
+      setBalance(balance - 1);
+      setScore(0);
     } catch (err) {
       console.log(err);
     }
@@ -250,17 +257,6 @@ export default function SnakeGame() {
 
   function incrementScore() {
     setScore(score + 5);
-  }
-
-  async function gameStart() {
-    try {
-      await axios.post("/game/payment", { "amount": 0.0001, "game": "snake", "address": address });
-      setPot(pot + 0.0001);
-      setBalance(balance - 1);
-      setScore(0);
-    } catch (err) {
-      console.log(err);
-    }
   }
 
   async function newScore() {
