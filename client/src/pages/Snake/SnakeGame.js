@@ -3,6 +3,7 @@ import axios from "axios";
 import { AuthContext } from '../../context/AuthContext';
 import "./snakeStyle.css";
 import { useInterval } from "./useInterval";
+import NavBar from "../../components/Nav/NavBar";
 var CANVAS_SIZE = [1250, 670];
 var SNAKE_START = [
   [1, 10],
@@ -19,9 +20,8 @@ var DIRECTIONS = {
 };
 
 
-export default function SnakeGame(props) {
-  const authContext = useContext(AuthContext);
-  let address = authContext.address;
+export default function SnakeGame() {
+  const { address, balance, setBalance } = useContext(AuthContext);
   const canvasRef = useRef();
   const [confirmingPayment, setConfirmingPayment] = useState(false);
   const [snake, setSnake] = useState(SNAKE_START);
@@ -31,7 +31,14 @@ export default function SnakeGame(props) {
   const [gameOver, setGameOver] = useState(true);
   const [startDisplay, setStartDisplay] = useState("flex");
   const [endDisplay, setEndDisplay] = useState("none");
-  const [width, setWidth] = useState(window.innerWidth >= 1250 ? 1250 : window.innerWidth - 50);
+  const [width, setWidth] = useState(window.innerWidth * .63);
+
+  const [score, setScore] = useState(0);
+  const [pot, setPot] = useState(0);
+  const [scores, setScores] = useState([]);
+  const [jackPot, setJackPot] = useState(false);
+  const [prevPot, setPrevPot] = useState(0);
+  const [personalBest, setPersonalBest] = useState(0);
 
   const style = {
     startScreen: {
@@ -63,22 +70,22 @@ export default function SnakeGame(props) {
   var rectHeight = 1;
   var cornerRadius = 0.2;
 
-
   CANVAS_SIZE = [width, 670];
 
   useInterval(() => gameLoop(), speed);
 
   const windowResize = () => {
     console.log('resize')
-    if (window.innerWidth >= 1250) {
-      setWidth(1250);
-    } else {
-      setWidth(window.innerWidth - 50);
-    }
+    setWidth(window.innerWidth * .63);
+    // if (window.innerWidth >= 1250) {
+    //   setWidth(1250);
+    // } else {
+    //   setWidth(window.innerWidth - 50);
+    // }
   }
 
   const endGame = () => {
-    props.gameOver();
+    gameDone();
     setSpeed(null);
     setGameOver(true);
     setEndDisplay("flex");
@@ -127,7 +134,7 @@ export default function SnakeGame(props) {
   const checkAppleCollision = newSnake => {
     if (newSnake[0][0] === apple[0] && newSnake[0][1] === apple[1]) {
       let newApple = createApple();
-      props.inc();
+      incrementScore();
       while (checkCollision(newApple, newSnake)) {
         newApple = createApple();
       }
@@ -169,7 +176,7 @@ export default function SnakeGame(props) {
       const { balance } = data.data;
       if (Math.floor(balance / 0.0001) >= 1) {
         startGame();
-        props.start();
+        gameStart();
         setConfirmingPayment(false);
       } else {
         alert("Please deposit funds in your account");
@@ -199,27 +206,93 @@ export default function SnakeGame(props) {
     context.fillRect(apple[0], apple[1], 1, 1);
   }, [snake, apple, gameOver]);
 
-  // useEffect(() => {
-  //   if(address) {
-  //     getUserScores();
-  //   }
-  // }, [address]);
-
   useEffect(() => {
     window.onresize = windowResize;
+    getGameInfo();
   }, []);
 
-  // async function getUserScores() {
-  //   try {
-  //     const data = await axios.post("/user/info", { "address": address });
-  //     console.log(data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
+  useEffect(() => {
+    if (address) {
+      getUserScores();
+    }
+  }, [address]);
+
+  async function getGameInfo() {
+    try {
+      const res = await axios.get("/game/info/snake");
+      const { data } = res;
+      let scoresArray = (data.scores.sort((a, b) => (b.score - a.score))).slice(0, 10);
+      setPot(data.pot);
+      setScores(scoresArray);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function getUserScores() {
+    try {
+      const data = await axios.post("/user/info", { "address": address });
+      const { scores } = data.data.document;
+      console.log(scores);
+
+      let topScore = 0;
+      for (let i = 0; i < scores.length; i++) {
+        if (scores[i].game === "snake" && scores[i].score > topScore) {
+          topScore = scores[i].score;
+        }
+      }
+
+      setPersonalBest(topScore);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  function incrementScore() {
+    setScore(score + 5);
+  }
+
+  async function gameStart() {
+    try {
+      await axios.post("/game/payment", { "amount": 0.0001, "game": "snake", "address": address });
+      setPot(pot + 0.0001);
+      setBalance(balance - 1);
+      setScore(0);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function newScore() {
+    try {
+      await axios.post("/game/score", { "game": "snake", "address": address, "score": score });
+      getGameInfo();
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function gameDone() {
+    await getGameInfo();
+    if (scores.length < 1 || score > scores[0].score) {
+      try {
+        setPrevPot(pot);
+        setJackPot(true);
+        newScore();
+        await axios.post("/game/payout", { "game": "snake", "address": address });
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      newScore();
+    }
+  }
 
   return (
     <div>
+      <div style={{ "display": "none" }} >
+        <NavBar />
+      </div>
       <div id="snakeTrigger" style={{ outline: "none" }} tabIndex="0">
         <div id="screen">
           <div id="startScreen" style={style.startScreen}>
@@ -250,6 +323,17 @@ export default function SnakeGame(props) {
               height={`${CANVAS_SIZE[1]}px`}
             />
           </div>
+          <div id="snakeInfo">
+            <div className="snakeInfoEl">
+              Highscore: {scores[0]?.score || 0}
+            </div>
+            <div className="snakeInfoEl">
+              Jackpot: {parseFloat(pot.toFixed(6))} ETH
+              </div>
+            <div className="snakeInfoEl">
+              Personal Best: {personalBest}
+            </div>
+          </div>
           <div id="snakeControlsOuter">
             <div id="snakeControls">
               <img className="snakeControlBtn" onClick={() => setDir(DIRECTIONS[37])} src="https://firebasestorage.googleapis.com/v0/b/gamesresources-28440.appspot.com/o/back-button.png?alt=media&token=f61923a9-ca19-4aaf-974f-31c5f2f2c632" alt="left button"></img>
@@ -261,12 +345,8 @@ export default function SnakeGame(props) {
           <div id="playBtnSnake" onClick={() => initGame()}>
             play
           </div>
-          <div id="snakeScore">
-            score: 200
-          </div>
         </div>
       </div>
-
     </div>
   );
 };

@@ -54,7 +54,7 @@ gameRouter.post('/payout', (req, res) => {
             web3.eth.accounts.signTransaction(
                 {
                     to: address,
-                    value: document.pot * 1000000000000000000,
+                    value: parseInt(document.pot * 1000000000000000000),
                     gas: 21000,
                 },
                 centralKee

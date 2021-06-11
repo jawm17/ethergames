@@ -4,7 +4,7 @@ body {
 }
 
 #screen {
-    width: 100vw;
+    width: 63vw;
     height: calc(100vh - 200px);
     max-height: 100vh;
     background-color: #c9c9c9;
@@ -27,6 +27,21 @@ body {
     width: 100vw;
     max-width: 1250px;
     height: calc(100vh - 200px);
+}
+
+#snakeInfo {
+    position: absolute;
+    top: 0px;
+    z-index: 200;
+    left: 0px;
+    width: 100%;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 15px;
+    letter-spacing: normal;
+    color: black;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
 }
 
 #container {
@@ -108,7 +123,7 @@ body {
 #playBtnSnake {
     position: absolute;
     z-index: 100;
-    bottom: -65px;
+    bottom: -20px;
     right:  60px;
     height: 40px;
     width: 80px;
