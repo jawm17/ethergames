@@ -47,8 +47,6 @@ export default function SnakeGame() {
       width: "100%",
       height: "100%",
       backgroundColor: "#63C603",
-      borderBottomRightRadius: 20,
-      borderBottomLeftRadius: 20,
       justifyContent: "center",
       alignItems: "center",
 
@@ -59,8 +57,6 @@ export default function SnakeGame() {
       width: "100%",
       height: "100%",
       backgroundColor: "#63C603",
-      borderBottomRightRadius: 20,
-      borderBottomLeftRadius: 20,
       justifyContent: "center",
       alignItems: "center",
     }
