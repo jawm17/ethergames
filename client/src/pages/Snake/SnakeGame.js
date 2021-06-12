@@ -4,6 +4,7 @@ import { AuthContext } from '../../context/AuthContext';
 import "./snakeStyle.css";
 import { useInterval } from "./useInterval";
 import NavBar from "../../components/Nav/NavBar";
+import JackPotAlert from "../../components/JackPotAlert";
 var CANVAS_SIZE = [1250, 670];
 var SNAKE_START = [
   [1, 10],
@@ -23,7 +24,6 @@ var DIRECTIONS = {
 export default function SnakeGame() {
   const { address, balance, setBalance } = useContext(AuthContext);
   const canvasRef = useRef();
-  const [confirmingPayment, setConfirmingPayment] = useState(false);
   const [snake, setSnake] = useState(SNAKE_START);
   const [apple, setApple] = useState(APPLE_START);
   const [dir, setDir] = useState([0, -1]);
@@ -97,18 +97,10 @@ export default function SnakeGame() {
     e.preventDefault();
     if (keyCode >= 37 && keyCode <= 40) {
       // don't allow player to reverse into themselves
-      if (keyCode === 39 && dir === DIRECTIONS[37]) {
-        return
-      }
-      if (keyCode === 37 && dir === DIRECTIONS[39]) {
-        return
-      }
-      if (keyCode === 40 && dir === DIRECTIONS[38]) {
-        return
-      }
-      if (keyCode === 38 && dir === DIRECTIONS[40]) {
-        return
-      }
+      if (keyCode === 39 && dir === DIRECTIONS[37]) {return}
+      if (keyCode === 37 && dir === DIRECTIONS[39]) {return}
+      if (keyCode === 40 && dir === DIRECTIONS[38]) {return}
+      if (keyCode === 38 && dir === DIRECTIONS[40]) {return}
       setDir(DIRECTIONS[keyCode]);
     }
   }
@@ -134,7 +126,7 @@ export default function SnakeGame() {
   const checkAppleCollision = newSnake => {
     if (newSnake[0][0] === apple[0] && newSnake[0][1] === apple[1]) {
       let newApple = createApple();
-      incrementScore();
+      setScore(score + 5);
       while (checkCollision(newApple, newSnake)) {
         newApple = createApple();
       }
@@ -172,7 +164,6 @@ export default function SnakeGame() {
         if (Math.floor(balance / 0.0001) >= 1) {
           startGame();
           gamePayment();
-          setConfirmingPayment(false);
         } else {
           alert("Please deposit funds in your account");
         }
@@ -240,23 +231,16 @@ export default function SnakeGame() {
     try {
       const data = await axios.post("/user/info", { "address": address });
       const { scores } = data.data.document;
-      console.log(scores);
-
       let topScore = 0;
       for (let i = 0; i < scores.length; i++) {
         if (scores[i].game === "snake" && scores[i].score > topScore) {
           topScore = scores[i].score;
         }
       }
-
       setPersonalBest(topScore);
     } catch (err) {
       console.log(err);
     }
-  }
-
-  function incrementScore() {
-    setScore(score + 5);
   }
 
   async function newScore() {
@@ -286,6 +270,12 @@ export default function SnakeGame() {
 
   return (
     <div>
+      {jackPot ? (
+        <JackPotAlert
+          close={() => setJackPot(false)}
+          pot={prevPot}
+        />
+      ) : null}
       <div style={{ "display": "none" }} >
         <NavBar />
       </div>
@@ -330,14 +320,14 @@ export default function SnakeGame() {
               Personal Best: {personalBest}
             </div>
           </div>
-          <div id="snakeControlsOuter">
+          {/* <div id="snakeControlsOuter">
             <div id="snakeControls">
               <img className="snakeControlBtn" onClick={() => setDir(DIRECTIONS[37])} src="https://firebasestorage.googleapis.com/v0/b/gamesresources-28440.appspot.com/o/back-button.png?alt=media&token=f61923a9-ca19-4aaf-974f-31c5f2f2c632" alt="left button"></img>
               <img className="snakeControlBtn" id="rightBtn" onClick={() => setDir(DIRECTIONS[39])} src="https://firebasestorage.googleapis.com/v0/b/gamesresources-28440.appspot.com/o/back-button.png?alt=media&token=f61923a9-ca19-4aaf-974f-31c5f2f2c632" alt="right button"></img>
               <img className="snakeControlBtn" id="upBtn" onClick={() => setDir(DIRECTIONS[38])} src="https://firebasestorage.googleapis.com/v0/b/gamesresources-28440.appspot.com/o/back-button.png?alt=media&token=f61923a9-ca19-4aaf-974f-31c5f2f2c632" alt="up button"></img>
               <img className="snakeControlBtn" id="downBtn" onClick={() => setDir(DIRECTIONS[40])} src="https://firebasestorage.googleapis.com/v0/b/gamesresources-28440.appspot.com/o/back-button.png?alt=media&token=f61923a9-ca19-4aaf-974f-31c5f2f2c632" alt="down button"></img>
             </div>
-          </div>
+          </div> */}
           <div id="playBtnSnake" onClick={() => initGame()}>
             play
           </div>

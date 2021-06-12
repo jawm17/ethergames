@@ -32,7 +32,6 @@ body {
 #snakeInfo {
     position: absolute;
     top: 0px;
-    z-index: 200;
     left: 0px;
     width: 100%;
     font-family: 'Press Start 2P', cursive;
