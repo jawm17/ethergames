@@ -146,7 +146,7 @@ export default function SnakeGame() {
     setSnake(SNAKE_START);
     setApple(APPLE_START);
     setDir([0, -1]);
-    setSpeed(SPEED);
+    setSpeed(90);
     setStartDisplay("none");
     setEndDisplay("none");
     setGameOver(false);
@@ -305,17 +305,17 @@ export default function SnakeGame() {
               height={`${CANVAS_SIZE[1]}px`}
             />
           </div>
-          {/* <div id="snakeInfo">
+          <div id="snakeInfo">
             <div className="snakeInfoEl">
-              Highscore: {scores[0]?.score || 0}
+            Score: {score}
             </div>
             <div className="snakeInfoEl">
               Jackpot: {parseFloat(pot.toFixed(6))} ETH
               </div>
             <div className="snakeInfoEl">
-              Personal Best: {personalBest}
+            Highscore: {scores[0]?.score || 0}
             </div>
-          </div> */}
+          </div>
           {/* <div id="snakeControlsOuter">
             <div id="snakeControls">
               <img className="snakeControlBtn" onClick={() => setDir(DIRECTIONS[37])} src="https://firebasestorage.googleapis.com/v0/b/gamesresources-28440.appspot.com/o/back-button.png?alt=media&token=f61923a9-ca19-4aaf-974f-31c5f2f2c632" alt="left button"></img>

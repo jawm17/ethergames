@@ -21,8 +21,6 @@ body {
 }
 
 #snakeCanvas {
-    border: 1px dashed black;
-    width: 100vw;
     max-width: 1250px;
     height: calc(100vh - 200px);
 }
