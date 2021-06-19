@@ -9,39 +9,41 @@ const centralAddress = "0x5da2958A3f525A9093f1CC5e132DAe8522cc997c";
 setInterval(async function () {
     try {
         const etherscanData = await axios.get(`https://api-rinkeby.etherscan.io/api?module=account&action=txlist&address=${centralAddress}&startblock=0&endblock=99999999&sort=asc&apikey=8AAGX8PGJWQ9WDHYQ5N28SYKZ27ENKJ3VS`);
-        let blockData = etherscanData.data;
-        if (blockData && blockData.status == 1) {
-            User.findOne({ "address": centralAddress }).exec((err, document) => {
-                if (blockData.result.length > document.numTx) {
-                    let incomingTxs = [];
-                    // loop through new txs and push them to array
-                    for (var i = blockData.result.length - 1; i >= document.numTx; i--) {
-                        if (blockData.result[i].to.toUpperCase() === centralAddress.toUpperCase()) {
-                            incomingTxs.push(blockData.result[i]);
+        if (etherscanData) {
+            let blockData = etherscanData.data;
+            if (blockData && blockData.status == 1) {
+                User.findOne({ "address": centralAddress }).exec((err, document) => {
+                    if (blockData.result.length > document.numTx) {
+                        let incomingTxs = [];
+                        // loop through new txs and push them to array
+                        for (var i = blockData.result.length - 1; i >= document.numTx; i--) {
+                            if (blockData.result[i].to.toUpperCase() === centralAddress.toUpperCase()) {
+                                incomingTxs.push(blockData.result[i]);
+                            }
                         }
-                    }
-                    // update each user balance 
-                    incomingTxs.forEach(tx => {
-                        var query = { "address": tx.from },
-                            update = { $inc: { balance: parseFloat(tx.value / 1000000000000000000) }, "address": tx.from },
-                            options = { upsert: true, new: true, setDefaultsOnInsert: true };
-
-                        // Find the document
-                        User.findOneAndUpdate(query, update, options, function (error, result) {
-                            if (error) console.log("error updating eth balance");
+                        // update txCount in db
+                        User.findOneAndUpdate({ "address": centralAddress }, { numTx: blockData.result.length }).exec();
+                        // update each user balance 
+                        incomingTxs.forEach(tx => {
+                            var query = { "address": tx.from },
+                                update = { $inc: { balance: parseFloat(tx.value / 1000000000000000000) }, "address": tx.from },
+                                options = { upsert: true, new: true, setDefaultsOnInsert: true };
+                            User.findOneAndUpdate(query, update, options, function (error, result) {
+                                if (error) console.log("error updating eth balance");
+                            });
                         });
-                    });
-                    // update txCount in db
-                    User.findOneAndUpdate({ "address": centralAddress }, { numTx: blockData.result.length }).exec();
-                }
-            });
+                    }
+                });
+            } else {
+                // no block data / etherscan error
+                console.log("no block data / etherscan error STATUS: " + blockData.status)
+                console.log(blockData);
+            }
         } else {
-            // no block data / etherscan error
-            console.log("no block data / etherscan error STATUS: " + blockData.status)
-            console.log(blockData);
+            console.log("no etherscan data");
         }
     } catch (error) {
-        console.log(error);
+        console.log("===================================================================" + error);
     }
 }, 60001);
 

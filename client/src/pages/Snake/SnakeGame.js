@@ -12,7 +12,7 @@ var SNAKE_START = [
 ];
 var APPLE_START = [1, 14];
 var SCALE = 30;
-var SPEED = 125;
+var snakeSpeed = 125;
 var DIRECTIONS = {
   38: [0, -1], // up
   40: [0, 1], // down
@@ -27,6 +27,7 @@ export default function SnakeGame() {
   const [snake, setSnake] = useState(SNAKE_START);
   const [apple, setApple] = useState(APPLE_START);
   const [dir, setDir] = useState([0, -1]);
+  let prevDir = [0, -1];
   const [speed, setSpeed] = useState(null);
   const [gameOver, setGameOver] = useState(true);
   const [startDisplay, setStartDisplay] = useState("flex");
@@ -88,15 +89,15 @@ export default function SnakeGame() {
   };
 
   const keyDown = (e) => {
-    console.log("yes");
     let keyCode = e.keyCode
     e.preventDefault();
     if (keyCode >= 37 && keyCode <= 40) {
       // don't allow player to reverse into themselves
-      if (keyCode === 39 && dir === DIRECTIONS[37]) {return}
-      if (keyCode === 37 && dir === DIRECTIONS[39]) {return}
-      if (keyCode === 40 && dir === DIRECTIONS[38]) {return}
-      if (keyCode === 38 && dir === DIRECTIONS[40]) {return}
+      if (keyCode === 39 && prevDir === DIRECTIONS[37]) { return }
+      if (keyCode === 37 && prevDir === DIRECTIONS[39]) { return }
+      if (keyCode === 40 && prevDir === DIRECTIONS[38]) { return }
+      if (keyCode === 38 && prevDir === DIRECTIONS[40]) { return }
+      prevDir = DIRECTIONS[keyCode];
       setDir(DIRECTIONS[keyCode]);
     }
   }
@@ -146,7 +147,7 @@ export default function SnakeGame() {
     setSnake(SNAKE_START);
     setApple(APPLE_START);
     setDir([0, -1]);
-    setSpeed(90);
+    setSpeed(snakeSpeed);
     setStartDisplay("none");
     setEndDisplay("none");
     setGameOver(false);
@@ -307,13 +308,13 @@ export default function SnakeGame() {
           </div>
           <div id="snakeInfo">
             <div className="snakeInfoEl">
-            Score: {score}
+              Score: {score}
             </div>
             <div className="snakeInfoEl">
               Jackpot: {parseFloat(pot.toFixed(6))} ETH
               </div>
             <div className="snakeInfoEl">
-            Highscore: {scores[0]?.score || 0}
+              Highscore: {scores[0]?.score || 0}
             </div>
           </div>
           {/* <div id="snakeControlsOuter">
