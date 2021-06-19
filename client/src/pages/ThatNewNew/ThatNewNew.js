@@ -5,12 +5,18 @@ import CurrentGameDiv from "../Rightside/CurrentGame";
 import GameControls from "../Rightside/GameControls";
 import "./ThatNewNew.css";
 
-export default function ThatNewNew() {
+export default function ThatNewNew(props) {
+  const [currentGame, setCurrentGame] = useState("");
+
+  useEffect(() => {
+    setCurrentGame(props.match.params.game);
+  }, [props.match.params.game]);
+  
   return (
     <div id="ThatNewNewPage">
       <div id="leftsideDiv">
         <div id="theGamesDiv">
-          <GamesDiv/>
+          <GamesDiv game={currentGame}/>
           <div className="gameShadowDiv"></div>
         </div>
         <div id="theUserInfoDiv">
@@ -22,10 +28,10 @@ export default function ThatNewNew() {
         <div id="CurrentGameDiv-GameControlsDiv">
           <div id="CurrentGameDiv">
             <div className="currentGameShadowDivTop"></div>
-            <CurrentGameDiv />
+            <CurrentGameDiv game={currentGame}/>
           </div>
           <div id="GameControlsDiv">
-            <GameControls />
+            {/* <GameControls /> */}
             <div className="gameControlsShadowDiv"></div>
           </div>
         </div>

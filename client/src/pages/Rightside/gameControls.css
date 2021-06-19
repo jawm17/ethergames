@@ -14,9 +14,10 @@
 /* Play Button */
 #playBtn-container{
     position: relative;
-    height: 100%;
-    width:30%;
+    height: 60px;
+    width: 200px;
     border-radius: 5px;
+    margin-top: 15px;
     z-index: 2;
 }
 #playBtn-outerContainer{
@@ -26,8 +27,8 @@
     border-radius: 5px;
     border: black solid 2px;
     -webkit-box-shadow: 0px 10px 2px var(--shadow);
-        -moz-box-shadow: 0px  6px  0px var(--shadow);
-        box-shadow: 0px 0px  0px  var(--shadow);
+    -moz-box-shadow: 0px 10px 2px var(--shadow);
+    box-shadow: 0px 10px 2px var(--shadow);
     z-index: 2;
 }
 #playBtn-innerContainer{
@@ -38,15 +39,18 @@
     position: absolute;
     z-index: 2;
 }
-#playBtn-innerContainer button{
+#playButton{
     width: 100%;
     height: 100%;
     background: var(--mainColorButton);
     border: none;
     color: white;
     font-family: "MainFont";
-    font-size: 2.3rem;
+    font-size: 25px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .playBtnShadowDiv{
     height:30%;

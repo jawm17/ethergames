@@ -1,12 +1,15 @@
-import React, { useState, useContext } from "react";
-import UserService from '../../services/UserService';
+import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from '../../context/AuthContext';
 import axios from "axios";
 import "./asteroidsStyle.css";
 
 export default function Asteroids(props) {
-    const authContext = useContext(AuthContext);
-    let address = authContext.address;
+    const { address, balance, setBalance } = useContext(AuthContext);
+    const [pot, setPot] = useState(0);
+    const [scores, setScores] = useState([]);
+    const [prevPot, setPrevPot] = useState(0);
+    const [jackPot, setJackPot] = useState(false);
+
     const FPS = 30; // frames per second
     const FRICTION = 0.7; // friction coefficient of space (0 = no friction, 1 = lots of friction)
     const GAME_LIVES = 3; // starting number of lives
@@ -219,13 +222,14 @@ export default function Asteroids(props) {
     }
 
     async function newGame() {
+        console.log(address)
         if (gameOverBool === true && address) {
             setGameOverBool(false);
             try {
                 const data = await axios.post("/user/balance", { "address": address });
                 const { balance } = data.data;
                 if (Math.floor(balance / 0.0001) >= 1) {
-                    props.start();
+                    gameStart();
                     clearInterval(interval);
                     setStartDisplay("none");
                     setEndDisplay("none");
@@ -459,7 +463,7 @@ export default function Asteroids(props) {
             // after the ship has gotten destroyed, start a new game
             setEndDisplay("flex");
             clearInterval(interval);
-            props.gameOver(gameScore);
+            gameOver(gameScore);
             setGameOverBool(true);
         }
 
@@ -614,6 +618,57 @@ export default function Asteroids(props) {
             } else if (roids[i].y > canv.height + roids[i].r) {
                 roids[i].y = 0 - roids[i].r
             }
+        }
+    }
+
+    useEffect(() => {
+        getInfo();
+    }, []);
+
+    async function getInfo() {
+        try {
+            const res = await axios.get("/game/info/asteroids");
+            const { data } = res;
+            let scoresArray = (data.scores.sort((a, b) => (b.score - a.score))).slice(0, 10);
+            setPot(data.pot);
+            setScores(scoresArray);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    async function gameStart() {
+        try {
+            await axios.post("/game/payment", { "amount": 0.0001, "game": "asteroids", "address": address });
+            setPot(pot + 0.0001);
+            setBalance(balance - 1);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    async function newScore(score) {
+        try {
+            await axios.post("/game/score", { "game": "asteroids", "address": address, "score": score });
+            getInfo();
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    async function gameOver(score) {
+        await getInfo();
+        if (scores.length < 1 || score > scores[0].score) {
+            try {
+                setPrevPot(pot);
+                setJackPot(true);
+                newScore(score);
+                await axios.post("/game/payout", { "game": "asteroids", "address": address });
+            } catch (err) {
+                console.log(err);
+            }
+        } else {
+            newScore(score);
         }
     }
 

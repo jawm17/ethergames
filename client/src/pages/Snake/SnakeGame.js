@@ -20,7 +20,6 @@ var DIRECTIONS = {
   39: [1, 0] // right
 };
 
-
 export default function SnakeGame() {
   const { address, balance, setBalance } = useContext(AuthContext);
   const canvasRef = useRef();
@@ -50,7 +49,7 @@ export default function SnakeGame() {
       backgroundColor: "#63C603",
       justifyContent: "center",
       alignItems: "center",
-
+      borderRadius: 10,
     },
     endScreen: {
       display: endDisplay,
@@ -60,6 +59,7 @@ export default function SnakeGame() {
       backgroundColor: "#63C603",
       justifyContent: "center",
       alignItems: "center",
+      borderRadius: 10,
     }
   }
 
@@ -266,7 +266,7 @@ export default function SnakeGame() {
   }
 
   return (
-    <div>
+    <div id="snakeGameArea">
       {jackPot ? (
         <JackPotAlert
           close={() => setJackPot(false)}
@@ -276,48 +276,47 @@ export default function SnakeGame() {
       <div style={{ "display": "none" }} >
         <NavBar />
       </div>
-      <div id="snakeTrigger" style={{ outline: "none" }} tabIndex="0">
-        <div id="screen">
-          <div id="startScreen" style={style.startScreen}>
-            <div id="startInfo">
-              <div id="snakeStartTitle">
-                SNAKE
+      <div id="screen" style={{ outline: "none" }} tabIndex="0">
+        <div id="startScreen" style={style.startScreen}>
+          <div id="startInfo">
+            <div id="snakeStartTitle">
+              SNAKE
             </div>
-              <div id="snakeStartSub">
-                Press play to start
-            </div>
+            <div id="snakeStartSub">
+              Press play to start
             </div>
           </div>
-          <div id="startScreen" style={style.endScreen}>
-            <div id="startInfo">
-              <div id="snakeEndTitle">
-                Game Over
+        </div>
+        <div id="startScreen" style={style.endScreen}>
+          <div id="startInfo">
+            <div id="snakeEndTitle">
+              Game Over
             </div>
-              <div id="snakeStartSub">
-                Press play to start
-            </div>
+            <div id="snakeStartSub">
+              Press play to start
             </div>
           </div>
-          <div style={{ outline: "none", display: "flex", justifyContent: "center" }}>
-            <canvas
-              id="snakeCanvas"
-              ref={canvasRef}
-              width={`${CANVAS_SIZE[0]}px`}
-              height={`${CANVAS_SIZE[1]}px`}
-            />
+        </div>
+
+        <canvas
+          id="snakeCanvas"
+          ref={canvasRef}
+          width={`${CANVAS_SIZE[0]}px`}
+          height={`${CANVAS_SIZE[1]}px`}
+        />
+
+        <div id="snakeInfo">
+          <div className="snakeInfoEl">
+            Score: {score}
           </div>
-          <div id="snakeInfo">
-            <div className="snakeInfoEl">
-              Score: {score}
-            </div>
-            <div className="snakeInfoEl">
-              Jackpot: {parseFloat(pot.toFixed(6))} ETH
+          <div className="snakeInfoEl">
+            Jackpot: {parseFloat(pot.toFixed(6))} ETH
               </div>
-            <div className="snakeInfoEl">
-              Highscore: {scores[0]?.score || 0}
-            </div>
+          <div className="snakeInfoEl">
+            Highscore: {scores[0]?.score || 0}
           </div>
-          {/* <div id="snakeControlsOuter">
+        </div>
+        {/* <div id="snakeControlsOuter">
             <div id="snakeControls">
               <img className="snakeControlBtn" onClick={() => setDir(DIRECTIONS[37])} src="https://firebasestorage.googleapis.com/v0/b/gamesresources-28440.appspot.com/o/back-button.png?alt=media&token=f61923a9-ca19-4aaf-974f-31c5f2f2c632" alt="left button"></img>
               <img className="snakeControlBtn" id="rightBtn" onClick={() => setDir(DIRECTIONS[39])} src="https://firebasestorage.googleapis.com/v0/b/gamesresources-28440.appspot.com/o/back-button.png?alt=media&token=f61923a9-ca19-4aaf-974f-31c5f2f2c632" alt="right button"></img>
@@ -325,8 +324,15 @@ export default function SnakeGame() {
               <img className="snakeControlBtn" id="downBtn" onClick={() => setDir(DIRECTIONS[40])} src="https://firebasestorage.googleapis.com/v0/b/gamesresources-28440.appspot.com/o/back-button.png?alt=media&token=f61923a9-ca19-4aaf-974f-31c5f2f2c632" alt="down button"></img>
             </div>
           </div> */}
-          <div id="playBtnSnake" onClick={() => initGame()}>
-            play
+        {/* <div id="playBtnSnake" onClick={() => initGame()}>
+          play
+          </div> */}
+        <div id="playBtn-container" onClick={() => initGame()}>
+          <div id="playBtn-outerContainer">
+            <div id="playBtn-innerContainer">
+              <div id="playButton">Play</div>
+            </div>
+            <div className="playBtnShadowDiv"></div>
           </div>
         </div>
       </div>

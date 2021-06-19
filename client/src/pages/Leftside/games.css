@@ -28,12 +28,14 @@
   width: 95%;
   margin-bottom: 12px;
   border-radius: 10px;
+  cursor: pointer;
+  border: solid black 2px;
 }
 #snakeGame {
   margin-top:10px;
   font-family: "Press Start 2P", cursive;
   background-color: #69ff05;
-  color: rgb(206, 206, 206);
+  color: black;
 }
 #tetrisGame {
   font-family: "TetrisFont";

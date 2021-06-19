@@ -5,8 +5,11 @@
 #userInfo-container{
     height:100%;
     width: 100%;
-    display: flex;
-    justify-content: space-evenly;
+    font-size: 20px;
+}
+.userInfoEl {
+    padding: 20px;
+    padding-bottom: 0px;
 }
 /* Token Balence */
 #tokenBalence-container{

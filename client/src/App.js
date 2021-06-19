@@ -14,7 +14,7 @@ import Home from "./pages/Home/Home";
 import Account from "./pages/Account/Account";
 // import GamePage from "./pages/Games/GamePage";
 import TetrisContainer from "./pages/Tetris/TetrisContainer";
-import AsteroidsContainer from "./pages/Asteroids/AsteroidsContainer";
+import Asteroids from "./pages/Asteroids/Asteroids";
 import Pacman from "./pages/Pacman/Pacman";
 import WalletConnect from "./pages/WalletConnect/WalletConnect";
 import ThatNewNew from "./pages/ThatNewNew/ThatNewNew";
@@ -25,18 +25,13 @@ function App() {
   return (
     <Router history={history}>
       <Switch>
-        <UnPrivateRoute path="/login" component={Login} />
-        <UnPrivateRoute path="/register" component={Register} />
-        <Route path="/snake" component={SnakeGame} />
+        {/* <Route path="/snake" component={SnakeGame} /> */}
+        <Route path="/asteroids" component={Asteroids} />
+        {/* <Route path="/pacman" component={Pacman} /> */}
         <Route path="/tetris" component={TetrisContainer} />
         <Route path="/about" component={About} />
-        {/* <Route path="/gamePage" component={GamePage} /> */}
-        <Route exact path="/" component={Home} />
-        <Route path="/asteroids" component={AsteroidsContainer} />
-        <Route path="/pacman" component={Pacman} />
-        <Route path="/ThatNewNew" component={ThatNewNew} />
-        <Route path="/arcade" component={WalletConnect} />
-        <PrivateRoute path="/account" component={Account} />
+        <Route exact path="/" component={ThatNewNew} />
+        <Route exact path="/:game" component={ThatNewNew} />
         <Route path="/btn" component={BoxShadow} />
         <Route path="/" component={NoMatchPage} />
       </Switch>
