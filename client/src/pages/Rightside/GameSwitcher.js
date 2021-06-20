@@ -2,7 +2,7 @@ import React from "react";
 import SnakeGame from "../Snake/SnakeGame";
 import PacboyScreen from "../GameHomeScreens/PacboyScreen";
 import TetrisScreen from "../GameHomeScreens/TetrisScreen";
-import AsteroidsScreen from "../GameHomeScreens/AsteroidsScreen";
+import Asteroids from "../Asteroids/Asteroids";
 import HomeScreen from "../GameHomeScreens/HomeScreen";
 
 export default function GameSwitcher(props) {
@@ -15,7 +15,7 @@ export default function GameSwitcher(props) {
     } else if (props.game === "asteroids") {
         return (
             <div id="currentGame-container">
-                <AsteroidsScreen />
+                <Asteroids />
             </div>
         );
     } else if (props.game === "tetris") {

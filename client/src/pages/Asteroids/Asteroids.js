@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from '../../context/AuthContext';
+import NavBar from "../../components/Nav/NavBar";
 import axios from "axios";
 import "./asteroidsStyle.css";
 
@@ -46,8 +47,7 @@ export default function Asteroids(props) {
             width: "100%",
             height: "100%",
             backgroundColor: "white",
-            borderBottomRightRadius: 20,
-            borderBottomLeftRadius: 20,
+            borderRadius: 10,
             justifyContent: "center",
             alignItems: "center",
 
@@ -58,8 +58,7 @@ export default function Asteroids(props) {
             width: "100%",
             height: "100%",
             backgroundColor: "white",
-            borderBottomRightRadius: 20,
-            borderBottomLeftRadius: 20,
+            borderRadius: 10,
             justifyContent: "center",
             alignItems: "center",
 
@@ -150,7 +149,7 @@ export default function Asteroids(props) {
         ship.explodeTime = Math.ceil(SHIP_EXPLODE_DUR * FPS);
     }
 
-    function gameOver() {
+    function gameFinished() {
         ship.dead = true;
         text = "Game Over";
         textAlpha = 1.0;
@@ -249,7 +248,7 @@ export default function Asteroids(props) {
                     alert("Please deposit funds in your account");
                 }
             } catch (err) {
-                    console.log(err)
+                console.log(err)
             }
         }
     }
@@ -444,6 +443,12 @@ export default function Asteroids(props) {
                 ctx.fill();
             } else {
                 // draw the eplosion
+                // let explosionGif = document.createElement("img");
+                // explosionGif.src = "https://cutewallpaper.org/21/explosion-gif-no-background/Explosion-flame-fire-GIF-on-GIFER-by-Nalmaran.gif";
+                // explosionGif.style.width = "1000px";
+                // explosionGif.style.height = "400px";
+                // explosionGif.style.position = "absolute";
+                // document.getElementById("asteroidsCanvas").appendChild(explosionGif);
                 ctx.fillStyle = "orangered";
                 ctx.beginPath();
                 ctx.arc(ship.lasers[i].x, ship.lasers[i].y, ship.r * 0.75, 0, Math.PI * 2, false);
@@ -543,7 +548,7 @@ export default function Asteroids(props) {
             if (ship.explodeTime == 0) {
                 lives--;
                 if (lives == 0) {
-                    gameOver();
+                    gameFinished();
                 } else {
                     ship = newShip();
                 }
@@ -674,6 +679,9 @@ export default function Asteroids(props) {
 
     return (
         <div id="asteroidsGameArea" tabIndex="0" style={{ outline: "none" }}>
+            <div style={{ "display": "none" }} >
+                <NavBar />
+            </div>
             <div id="startScreen" style={style.startScreen}>
                 <div id="startInfo">
                     <div id="snakeStartTitle">

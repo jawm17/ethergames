@@ -26,7 +26,7 @@ function App() {
     <Router history={history}>
       <Switch>
         {/* <Route path="/snake" component={SnakeGame} /> */}
-        <Route path="/asteroids" component={Asteroids} />
+        {/* <Route path="/asteroids" component={Asteroids} /> */}
         {/* <Route path="/pacman" component={Pacman} /> */}
         <Route path="/tetris" component={TetrisContainer} />
         <Route path="/about" component={About} />

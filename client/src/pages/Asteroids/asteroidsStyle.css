@@ -4,19 +4,18 @@
 } */
 
 #asteroidsGameArea {
-    width: 100vw;
-    height: 570px;
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
-    background-color: white;
+    background-color: black;
     position: relative;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
 }
 
 #asteroidsCanvas {
-    width: 100vw;
-    max-width: 760px;
+    width: 100%;
 }
 
 #titleAsteroids {
