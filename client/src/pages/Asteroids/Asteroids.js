@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from '../../context/AuthContext';
 import NavBar from "../../components/Nav/NavBar";
+import JackPotAlert from "../../components/JackPotAlert";
 import axios from "axios";
 import "./asteroidsStyle.css";
 
@@ -13,7 +14,7 @@ export default function Asteroids(props) {
 
     const FPS = 30; // frames per second
     const FRICTION = 0.7; // friction coefficient of space (0 = no friction, 1 = lots of friction)
-    const GAME_LIVES = 3; // starting number of lives
+    const GAME_LIVES = 1; // starting number of lives
     const LASER_DIST = 0.6; // max distance laser can travel as fraction of screen width
     const LASER_EXPLODE_DUR = 0.1; // duration of the lasers' explosion in seconds
     const LASER_MAX = 20; // maximum number of lasers on screen at once
@@ -46,11 +47,12 @@ export default function Asteroids(props) {
             position: "absolute",
             width: "100%",
             height: "100%",
-            backgroundColor: "white",
+            backgroundColor: "black",
+            color: "white",
             borderRadius: 10,
             justifyContent: "center",
             alignItems: "center",
-
+            zIndex: 10
         },
         endScreen: {
             display: endDisplay,
@@ -61,7 +63,7 @@ export default function Asteroids(props) {
             borderRadius: 10,
             justifyContent: "center",
             alignItems: "center",
-
+            zIndex: 10
         }
     }
 
@@ -636,6 +638,7 @@ export default function Asteroids(props) {
             const { data } = res;
             let scoresArray = (data.scores.sort((a, b) => (b.score - a.score))).slice(0, 10);
             setPot(data.pot);
+            console.log(data.pot)
             setScores(scoresArray);
         } catch (err) {
             console.log(err);
@@ -645,7 +648,7 @@ export default function Asteroids(props) {
     async function gameStart() {
         try {
             await axios.post("/game/payment", { "amount": 0.0001, "game": "asteroids", "address": address });
-            setPot(pot + 0.0001);
+            setPot(pot + 0.00008);
             setBalance(balance - 1);
         } catch (err) {
             console.log(err);
@@ -662,53 +665,65 @@ export default function Asteroids(props) {
     }
 
     async function gameOver(score) {
-        await getInfo();
-        if (scores.length < 1 || score > scores[0].score) {
-            try {
+        try {
+            await getInfo();
+            if (scores.length < 1 || score > scores[0].score) {
                 setPrevPot(pot);
                 setJackPot(true);
                 newScore(score);
                 await axios.post("/game/payout", { "game": "asteroids", "address": address });
-            } catch (err) {
-                console.log(err);
+            } else {
+                newScore(score);
             }
-        } else {
-            newScore(score);
+        } catch (err) {
+            console.log(err);
         }
     }
 
     return (
         <div id="asteroidsGameArea" tabIndex="0" style={{ outline: "none" }}>
+            {jackPot ? (
+                <JackPotAlert
+                    close={() => setJackPot(false)}
+                    pot={prevPot}
+                />
+            ) : null}
             <div style={{ "display": "none" }} >
                 <NavBar />
             </div>
             <div id="startScreen" style={style.startScreen}>
                 <div id="startInfo">
-                    <div id="snakeStartTitle">
+                    <div id="asteroidsStartTitle">
                         ASTEROIDS
                         </div>
-                    <div id="snakeStartSub">
+                    <div id="asteroidsStartSub">
                         Press play to start
                         </div>
                 </div>
             </div>
             <div id="startScreen" style={style.endScreen}>
                 <div id="startInfo">
-                    <div id="snakeEndTitle">
+                    <div id="asteroidsEndTitle">
                         Game Over
                         </div>
-                    <div id="snakeStartSub">
+                    <div id="asteroidsStartSub">
                         Press play to start
                         </div>
                 </div>
             </div>
-            <canvas id="asteroidsCanvas" width="760" height="570"></canvas>
+            <canvas id="asteroidsCanvas" width="1000" height="570"></canvas>
             <div id="asteroidsScore">score: {score}</div>
             <div id="asteroidsPlayBtn" onClick={() => newGame()}>
                 play
             </div>
             <div id="asteroidsLevel">
-                level: {displayLevel}
+                Highscore: {scores[0]?.score || 0}
+            </div>
+            <div>
+                Level: {displayLevel}
+            </div>
+            <div>
+                Jackpot: {pot}
             </div>
         </div>
     );

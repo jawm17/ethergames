@@ -102,8 +102,13 @@ export default function SnakeGame() {
     }
   }
 
-  const createApple = () =>
-    apple.map((_a, i) => Math.floor(Math.random() * (CANVAS_SIZE[i] / SCALE)));
+  const createApple = () => {
+    apple.map((_a, i) => {
+      console.log(CANVAS_SIZE[i] / SCALE + 1);
+      // console.log(Math.ceil(Math.random() * (CANVAS_SIZE[i] / SCALE)) - 1 );
+    })
+    return apple.map((_a, i) => (Math.floor(Math.random() * (CANVAS_SIZE[i] / (SCALE + 1)))));
+  }
 
   const checkCollision = (piece, snk = snake) => {
     if (
