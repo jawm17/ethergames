@@ -26,7 +26,7 @@ export default function SnakeGame() {
   const [snake, setSnake] = useState(SNAKE_START);
   const [apple, setApple] = useState(APPLE_START);
   const [dir, setDir] = useState([0, -1]);
-  let prevDir = [0, -1];
+  let prevDir = DIRECTIONS[38];
   const [speed, setSpeed] = useState(null);
   const [gameOver, setGameOver] = useState(true);
   const [startDisplay, setStartDisplay] = useState("flex");
@@ -152,6 +152,7 @@ export default function SnakeGame() {
     setSnake(SNAKE_START);
     setApple(APPLE_START);
     setDir([0, -1]);
+    prevDir = DIRECTIONS[38];
     setSpeed(snakeSpeed);
     setStartDisplay("none");
     setEndDisplay("none");
